@@ -1,0 +1,51 @@
+# Sprint configuration — edit tickers and thresholds here before running.
+
+sprint:
+  spike_threshold: 0.40        # ≥40% QoQ CapEx increase = Condition A
+  lookback_quarters: 8         # how many quarters to pull
+  qfg_window_days_after: 75   # days after quarter-end to search for 8-Ks
+
+# Primary biotech target
+primary:
+  ticker: SRPT
+  name: "Sarepta Therapeutics"
+  type: biotech
+  capex_tag: PaymentsToAcquirePropertyPlantAndEquipment
+
+# Two peer companies (same scraper logic applied for context)
+peers:
+  - ticker: BMRN
+    name: "BioMarin Pharmaceutical"
+    type: biotech
+    capex_tag: PaymentsToAcquirePropertyPlantAndEquipment
+  - ticker: IONS
+    name: "Ionis Pharmaceuticals"
+    type: biotech
+    capex_tag: PaymentsToAcquirePropertyPlantAndEquipment
+
+# Pivot target if no anomaly found in primary
+pivot:
+  ticker: VEEV
+  name: "Veeva Systems"
+  type: software
+  capex_tag: CapitalizedComputerSoftwareAdditions
+
+# QFG regex components (applied as AND within a single sentence)
+qfg_regex:
+  currency: '\$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b'
+  expansion_nouns:
+    - capacity
+    - facility
+    - facilities
+    - manufacturing
+    - software
+    - platform
+    - digital
+  future_tense:
+    - will
+    - plan to
+    - expect to
+    - guidance for
+    - coming online
+    - intend to
+    - anticipated
