@@ -20,12 +20,16 @@ from pathlib import Path
 
 import yaml
 
+import logger as _logger_mod
+from logger import get_logger
 from scrapers.capex_scraper import get_capex_quarterly
 from scrapers.qfg_scraper   import get_qfg_flags
 from dashboard.plot         import generate_dashboard
 
 CONFIG_PATH = Path(__file__).parent / "config.yaml"
 OUTPUT_DIR  = Path(__file__).parent / "output"
+
+log = get_logger(__name__)
 
 
 def load_config() -> dict:
@@ -45,6 +49,7 @@ def analyse_company(cfg: dict, company: dict, sprint_cfg: dict) -> dict:
     capex_df = get_capex_quarterly(ticker, tag, spike_threshold=thresh, n_quarters=n)
 
     if capex_df.empty:
+        log.warning("[%s] No quarterly CapEx data for tag '%s' — skipping QFG scan", ticker, tag)
         print(f"  [{ticker}] WARNING: No quarterly CapEx data found for tag '{tag}'")
         return {"name": name, "capex": capex_df, "qfg": {}, "anomalies": []}
 
@@ -123,6 +128,7 @@ def run_batch(cfg: dict, companies: list[dict], label: str) -> dict[str, dict]:
         try:
             results[ticker] = analyse_company(cfg, company, sprint_cfg)
         except Exception as exc:
+            log.error("[%s] Analysis failed: %s", ticker, exc, exc_info=True)
             print(f"  [{ticker}] ERROR: {exc}")
             results[ticker] = {
                 "name":      company["name"],
@@ -137,7 +143,13 @@ def run_batch(cfg: dict, companies: list[dict], label: str) -> dict[str, dict]:
 def main():
     parser = argparse.ArgumentParser(description="Sprint anomaly scanner")
     parser.add_argument("--force-pivot", action="store_true", help="Skip primary target, run pivot directly")
+    parser.add_argument("--debug", action="store_true", help="Set console log level to DEBUG")
     args = parser.parse_args()
+
+    _logger_mod.setup(
+        level_console=__import__("logging").DEBUG if args.debug else __import__("logging").INFO
+    )
+    log.info("Sprint run started")
 
     cfg        = load_config()
     sprint_cfg = cfg["sprint"]
@@ -176,6 +188,7 @@ def main():
             )
             print(f"\n  Dashboard saved → {dash_path}")
         except Exception as exc:
+            log.error("Primary dashboard generation failed", exc_info=True)
             print(f"\n  [warn] Dashboard generation failed: {exc}")
 
         print(f"\n{'='*60}")
@@ -192,6 +205,7 @@ def main():
             print("    1. ClinicalTrials.gov — confirm flat enrollment for target trials")
             print("    2. Earnings call Q&A  — scan for evasive capital allocation answers")
             print("    3. Build spectacle report narrative")
+            log.info("Sprint complete — anomaly found in %s, proceeding to secondary work", primary_ticker)
             return 0
         else:
             print(f"  VERDICT: No anomaly found in {primary_ticker}")
@@ -225,6 +239,7 @@ def main():
         )
         print(f"\n  Dashboard saved → {dash_path}")
     except Exception as exc:
+        log.error("Pivot dashboard generation failed", exc_info=True)
         print(f"\n  [warn] Dashboard generation failed: {exc}")
 
     print(f"\n{'='*60}")
