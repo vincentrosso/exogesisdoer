@@ -1,0 +1,30 @@
+[Unit]
+Description=doer Sprint Manager (FastAPI/uvicorn)
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=doer
+Group=doer
+WorkingDirectory=/opt/exogesisdoer
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/exogesisdoer/.venv/bin/uvicorn app.main:app \
+    --host 127.0.0.1 \
+    --port 8765 \
+    --workers 1 \
+    --log-level warning \
+    --access-log
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=exogesisdoer
+
+# Allow reading public SEC data but nothing sensitive
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

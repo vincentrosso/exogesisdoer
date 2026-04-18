@@ -1,5 +1,9 @@
 # Sprint configuration — edit tickers and thresholds here before running.
 
+# Web management interface
+web:
+  secret: "change-me-before-deploying"   # set by deploy/setup.sh; used as Bearer token
+
 sprint:
   spike_threshold: 0.40        # ≥40% QoQ CapEx increase = Condition A
   lookback_quarters: 8         # how many quarters to pull

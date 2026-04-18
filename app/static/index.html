@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>doer — Sprint Manager</title>
+<style>
+  :root {
+    --bg:      #0d1117;
+    --surface: #161b22;
+    --border:  #30363d;
+    --text:    #e6edf3;
+    --muted:   #8b949e;
+    --green:   #3fb950;
+    --yellow:  #d29922;
+    --red:     #f85149;
+    --blue:    #58a6ff;
+    --purple:  #bc8cff;
+    --mono:    'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 13px; min-height: 100vh; }
+
+  /* ── layout ── */
+  header { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid var(--border); background: var(--surface); }
+  header h1 { font-size: 16px; font-weight: 600; letter-spacing: .03em; color: var(--blue); }
+  header h1 span { color: var(--muted); font-weight: 400; }
+  #login-overlay { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 100; }
+  #login-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 32px; width: 320px; }
+  #login-box h2 { font-size: 15px; margin-bottom: 20px; color: var(--blue); }
+  main { display: grid; grid-template-columns: 340px 1fr; gap: 16px; padding: 16px 24px; }
+  .col-left { display: flex; flex-direction: column; gap: 16px; }
+  .col-right { display: flex; flex-direction: column; gap: 16px; }
+
+  /* ── cards ── */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .card-header { padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .card-body { padding: 16px; }
+
+  /* ── forms ── */
+  label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; margin-top: 12px; }
+  label:first-of-type { margin-top: 0; }
+  input[type=text], input[type=password] { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: var(--mono); font-size: 13px; padding: 7px 10px; outline: none; transition: border-color .15s; }
+  input:focus { border-color: var(--blue); }
+  input[type=range] { width: 100%; accent-color: var(--blue); }
+  .range-row { display: flex; align-items: center; gap: 10px; }
+  .range-row span { min-width: 40px; color: var(--blue); }
+
+  /* ── buttons ── */
+  button { font-family: var(--mono); font-size: 12px; font-weight: 600; border: none; border-radius: 5px; cursor: pointer; padding: 8px 16px; transition: opacity .15s, transform .08s; }
+  button:active { transform: scale(.97); }
+  button:disabled { opacity: .4; cursor: not-allowed; }
+  .btn-primary { background: var(--blue); color: #0d1117; }
+  .btn-run     { background: var(--green); color: #0d1117; font-size: 13px; padding: 10px 24px; width: 100%; }
+  .btn-danger  { background: var(--red); color: #fff; }
+  .btn-ghost   { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+  .btn-sm      { padding: 5px 10px; font-size: 11px; }
+
+  /* ── status badge ── */
+  .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; letter-spacing: .06em; }
+  .badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .badge-idle    { background: rgba(139,148,158,.12); color: var(--muted); }
+  .badge-idle::before { background: var(--muted); }
+  .badge-running { background: rgba(210,153,34,.15); color: var(--yellow); }
+  .badge-running::before { background: var(--yellow); animation: pulse 1s ease-in-out infinite; }
+  .badge-anomaly { background: rgba(63,185,80,.15); color: var(--green); }
+  .badge-anomaly::before { background: var(--green); }
+  .badge-null    { background: rgba(248,81,73,.12); color: var(--red); }
+  .badge-null::before { background: var(--red); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  /* ── terminal ── */
+  .terminal { background: #010409; border-radius: 6px; padding: 12px; height: 380px; overflow-y: auto; scroll-behavior: smooth; }
+  .terminal pre { white-space: pre-wrap; word-break: break-all; line-height: 1.6; font-size: 12px; color: #c9d1d9; }
+  .terminal .line-anomaly { color: var(--green); font-weight: 700; }
+  .terminal .line-error   { color: var(--red); }
+  .terminal .line-warn    { color: var(--yellow); }
+  .terminal .line-verdict { color: var(--purple); font-weight: 700; }
+  .terminal .line-section { color: var(--blue); }
+
+  /* ── log viewer ── */
+  .log-box { background: #010409; border-radius: 6px; padding: 12px; height: 260px; overflow-y: auto; }
+  .log-box pre { white-space: pre-wrap; word-break: break-all; line-height: 1.5; font-size: 11px; color: var(--muted); }
+  .log-box .log-error { color: var(--red); }
+  .log-box .log-warn  { color: var(--yellow); }
+  .log-box .log-info  { color: var(--text); }
+
+  /* ── verdict block ── */
+  .verdict-block { padding: 14px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .verdict-none    { background: rgba(139,148,158,.08); color: var(--muted); }
+  .verdict-anomaly { background: rgba(63,185,80,.1); border: 1px solid rgba(63,185,80,.3); color: var(--green); }
+  .verdict-null    { background: rgba(248,81,73,.08); border: 1px solid rgba(248,81,73,.2); color: var(--red); }
+  .verdict-pivot   { background: rgba(210,153,34,.1); border: 1px solid rgba(210,153,34,.25); color: var(--yellow); }
+
+  /* ── dashboards ── */
+  .dash-list { display: flex; flex-direction: column; gap: 8px; }
+  .dash-link { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; color: var(--blue); text-decoration: none; font-size: 12px; transition: border-color .15s; }
+  .dash-link:hover { border-color: var(--blue); }
+
+  /* ── misc ── */
+  .row { display: flex; gap: 8px; align-items: center; }
+  .flex-1 { flex: 1; }
+  .mt-8 { margin-top: 8px; }
+  .peers-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .peer-tag { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 3px 8px; font-size: 11px; }
+  .checkbox-row { display: flex; align-items: center; gap: 8px; color: var(--muted); margin-top: 10px; cursor: pointer; }
+  .checkbox-row input { accent-color: var(--yellow); width: 14px; height: 14px; cursor: pointer; }
+  #save-msg { font-size: 11px; color: var(--green); opacity: 0; transition: opacity .4s; }
+  #save-msg.show { opacity: 1; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+</style>
+</head>
+<body>
+
+<!-- ── Login overlay ─────────────────────────────────────────────────────── -->
+<div id="login-overlay">
+  <div id="login-box">
+    <h2>doer.ndex.us</h2>
+    <label for="pw-input">Access key</label>
+    <input type="password" id="pw-input" placeholder="Enter sprint key" autocomplete="current-password">
+    <div id="login-error" style="color:var(--red);font-size:11px;margin-top:8px;min-height:16px;"></div>
+    <button class="btn-primary mt-8" id="login-btn" style="width:100%;margin-top:12px;">Unlock</button>
+  </div>
+</div>
+
+<!-- ── App shell ─────────────────────────────────────────────────────────── -->
+<div id="app" style="display:none">
+  <header>
+    <h1>doer <span>/ ndex.us</span></h1>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span id="global-badge" class="badge badge-idle">IDLE</span>
+      <button class="btn-ghost btn-sm" id="logout-btn">lock</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── left column ── -->
+    <div class="col-left">
+
+      <!-- Config card -->
+      <div class="card">
+        <div class="card-header">
+          <span>Configuration</span>
+          <span id="save-msg">saved ✓</span>
+        </div>
+        <div class="card-body">
+          <label>Primary ticker</label>
+          <input type="text" id="cfg-primary-ticker" placeholder="SRPT">
+          <label>Primary name</label>
+          <input type="text" id="cfg-primary-name" placeholder="Sarepta Therapeutics">
+
+          <hr class="section-divider">
+          <label>Peer 1 ticker</label>
+          <input type="text" id="cfg-peer0-ticker" placeholder="BMRN">
+          <label>Peer 2 ticker</label>
+          <input type="text" id="cfg-peer1-ticker" placeholder="IONS">
+
+          <hr class="section-divider">
+          <label>Pivot ticker</label>
+          <input type="text" id="cfg-pivot-ticker" placeholder="VEEV">
+
+          <hr class="section-divider">
+          <label>Spike threshold — <span id="thresh-label">40</span>%</label>
+          <div class="range-row">
+            <input type="range" id="cfg-threshold" min="10" max="100" step="5" value="40">
+          </div>
+
+          <label>Lookback quarters — <span id="quarters-label">8</span></label>
+          <div class="range-row">
+            <input type="range" id="cfg-quarters" min="4" max="16" step="1" value="8">
+          </div>
+
+          <button class="btn-primary btn-sm mt-8" id="save-cfg-btn" style="width:100%;margin-top:14px;">Save config</button>
+        </div>
+      </div>
+
+      <!-- Dashboards card -->
+      <div class="card">
+        <div class="card-header">Dashboards</div>
+        <div class="card-body">
+          <div id="dash-list" class="dash-list">
+            <span style="color:var(--muted);font-size:12px;">No dashboards yet — run a sprint first.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── right column ── -->
+    <div class="col-right">
+
+      <!-- Run control card -->
+      <div class="card">
+        <div class="card-header">Sprint Control</div>
+        <div class="card-body">
+          <div class="row">
+            <button class="btn-run flex-1" id="run-btn">▶  Run Sprint</button>
+          </div>
+          <label class="checkbox-row">
+            <input type="checkbox" id="force-pivot-cb">
+            Force pivot (skip primary, run pivot target directly)
+          </label>
+          <hr class="section-divider">
+          <div id="verdict-block" class="verdict-block verdict-none">
+            No sprint has run yet this session.
+          </div>
+        </div>
+      </div>
+
+      <!-- Terminal card -->
+      <div class="card">
+        <div class="card-header">
+          <span>Live Output</span>
+          <button class="btn-ghost btn-sm" id="clear-btn" style="margin-left:auto;">clear</button>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="terminal" id="terminal">
+            <pre id="terminal-pre" style="color:var(--muted)">Waiting for sprint run…</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Log viewer card -->
+      <div class="card">
+        <div class="card-header">
+          <span>Sprint Log</span>
+          <button class="btn-ghost btn-sm" id="refresh-log-btn" style="margin-left:auto;">refresh</button>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="log-box" id="log-box">
+            <pre id="log-pre" style="color:var(--muted)">Click refresh to load log…</pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+'use strict';
+
+// ── auth ──────────────────────────────────────────────────────────────────────
+const TOKEN_KEY = 'doer_token';
+let token = localStorage.getItem(TOKEN_KEY) || '';
+
+async function tryLogin(pw) {
+  const r = await fetch('/api/config', { headers: { Authorization: `Bearer ${pw}` } });
+  return r.ok ? r.json() : null;
+}
+
+document.getElementById('login-btn').onclick = async () => {
+  const pw = document.getElementById('pw-input').value.trim();
+  if (!pw) return;
+  const cfg = await tryLogin(pw);
+  if (cfg) {
+    token = pw;
+    localStorage.setItem(TOKEN_KEY, token);
+    document.getElementById('login-overlay').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    init(cfg);
+  } else {
+    document.getElementById('login-error').textContent = 'Invalid key.';
+  }
+};
+document.getElementById('pw-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('login-btn').click();
+});
+document.getElementById('logout-btn').onclick = () => {
+  localStorage.removeItem(TOKEN_KEY);
+  location.reload();
+};
+
+// ── api helpers ───────────────────────────────────────────────────────────────
+const api = {
+  get:  (path)      => fetch(path, { headers: { Authorization: `Bearer ${token}` } }),
+  post: (path, body) => fetch(path, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  }),
+};
+
+// ── init ──────────────────────────────────────────────────────────────────────
+async function init(cfg) {
+  applyConfig(cfg);
+  await Promise.all([refreshDashboards(), refreshLog(), pollStatus()]);
+  setupConfigSave();
+  setupRunButton();
+  setupLogRefresh();
+}
+
+// ── config ────────────────────────────────────────────────────────────────────
+function applyConfig(cfg) {
+  const p = cfg.primary || {};
+  const peers = cfg.peers || [];
+  const piv = cfg.pivot || {};
+  const sprint = cfg.sprint || {};
+
+  set('cfg-primary-ticker', p.ticker || '');
+  set('cfg-primary-name',   p.name   || '');
+  set('cfg-peer0-ticker',   (peers[0] || {}).ticker || '');
+  set('cfg-peer1-ticker',   (peers[1] || {}).ticker || '');
+  set('cfg-pivot-ticker',   piv.ticker || '');
+
+  const thresh = Math.round((sprint.spike_threshold || 0.4) * 100);
+  document.getElementById('cfg-threshold').value = thresh;
+  document.getElementById('thresh-label').textContent = thresh;
+
+  const qtr = sprint.lookback_quarters || 8;
+  document.getElementById('cfg-quarters').value = qtr;
+  document.getElementById('quarters-label').textContent = qtr;
+}
+
+function set(id, val) { document.getElementById(id).value = val; }
+function get(id)       { return document.getElementById(id).value.trim(); }
+
+document.getElementById('cfg-threshold').oninput = e =>
+  document.getElementById('thresh-label').textContent = e.target.value;
+document.getElementById('cfg-quarters').oninput = e =>
+  document.getElementById('quarters-label').textContent = e.target.value;
+
+function setupConfigSave() {
+  document.getElementById('save-cfg-btn').onclick = async () => {
+    const p0ticker = get('cfg-peer0-ticker');
+    const p1ticker = get('cfg-peer1-ticker');
+    const body = {
+      primary: { ticker: get('cfg-primary-ticker'), name: get('cfg-primary-name') },
+      peers: [
+        { ticker: p0ticker },
+        { ticker: p1ticker },
+      ].filter(p => p.ticker),
+      pivot: { ticker: get('cfg-pivot-ticker') },
+      sprint: {
+        spike_threshold: parseInt(document.getElementById('cfg-threshold').value) / 100,
+        lookback_quarters: parseInt(document.getElementById('cfg-quarters').value),
+      },
+    };
+    const r = await api.post('/api/config', body);
+    if (r.ok) {
+      const msg = document.getElementById('save-msg');
+      msg.classList.add('show');
+      setTimeout(() => msg.classList.remove('show'), 2000);
+    }
+  };
+}
+
+// ── run control ───────────────────────────────────────────────────────────────
+let sseSource = null;
+
+function setupRunButton() {
+  document.getElementById('run-btn').onclick = async () => {
+    const forcePivot = document.getElementById('force-pivot-cb').checked;
+    const r = await api.post('/api/run', { force_pivot: forcePivot });
+    if (r.status === 409) { alert('Sprint already running.'); return; }
+    if (!r.ok) { alert('Failed to start sprint.'); return; }
+    clearTerminal();
+    connectSSE();
+    pollStatus();
+  };
+
+  document.getElementById('clear-btn').onclick = clearTerminal;
+}
+
+function clearTerminal() {
+  document.getElementById('terminal-pre').innerHTML = '';
+  document.getElementById('terminal-pre').style.color = 'var(--text)';
+}
+
+function connectSSE() {
+  if (sseSource) { sseSource.close(); sseSource = null; }
+
+  // SSE needs auth header — we use a query param workaround since EventSource doesn't support headers
+  // Instead, we poll /api/run/output while running via status polling, which is simpler and safe.
+  // For streaming, we use fetch + ReadableStream.
+  streamOutput();
+}
+
+async function streamOutput() {
+  clearTerminal();
+  const pre = document.getElementById('terminal-pre');
+  pre.style.color = 'var(--text)';
+
+  try {
+    const resp = await api.get('/api/run/stream');
+    if (!resp.ok) return;
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder();
+    let buf = '';
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const parts = buf.split('\n\n');
+      buf = parts.pop();
+      for (const part of parts) {
+        if (!part.startsWith('data: ')) continue;
+        const raw = part.slice(6).trim();
+        if (raw === '[DONE]' || raw === '') continue;
+        try {
+          const line = JSON.parse(raw);
+          appendTerminalLine(line);
+        } catch { appendTerminalLine(raw); }
+      }
+    }
+  } catch (e) {
+    appendTerminalLine(`[stream error] ${e.message}`);
+  }
+}
+
+function appendTerminalLine(line) {
+  const pre = document.getElementById('terminal-pre');
+  const span = document.createElement('span');
+  span.textContent = line + '\n';
+  if (line.includes('ANOMALY'))           span.className = 'line-anomaly';
+  else if (line.includes('VERDICT'))      span.className = 'line-verdict';
+  else if (line.includes('==='))          span.className = 'line-section';
+  else if (/error|ERROR/.test(line))      span.className = 'line-error';
+  else if (/warn|WARN|WARNING/.test(line)) span.className = 'line-warn';
+  pre.appendChild(span);
+  const t = document.getElementById('terminal');
+  t.scrollTop = t.scrollHeight;
+}
+
+// ── status polling ────────────────────────────────────────────────────────────
+let _pollTimer = null;
+
+async function pollStatus() {
+  clearTimeout(_pollTimer);
+  const r = await api.get('/api/run/status');
+  if (!r.ok) return;
+  const s = await r.json();
+  updateBadge(s);
+  updateVerdict(s);
+  if (s.running) {
+    _pollTimer = setTimeout(pollStatus, 2000);
+  } else {
+    await refreshDashboards();
+  }
+}
+
+function updateBadge(s) {
+  const badge = document.getElementById('global-badge');
+  const runBtn = document.getElementById('run-btn');
+  if (s.running) {
+    badge.className = 'badge badge-running'; badge.textContent = 'RUNNING';
+    runBtn.disabled = true; runBtn.textContent = '⏳  Running…';
+  } else {
+    runBtn.disabled = false; runBtn.textContent = '▶  Run Sprint';
+    if (s.verdict === 'ANOMALY') {
+      badge.className = 'badge badge-anomaly'; badge.textContent = 'ANOMALY FOUND';
+    } else if (s.verdict === 'NULL') {
+      badge.className = 'badge badge-null'; badge.textContent = 'NO ANOMALY';
+    } else if (s.verdict === 'PIVOT_RUNNING') {
+      badge.className = 'badge badge-running'; badge.textContent = 'PIVOT';
+    } else {
+      badge.className = 'badge badge-idle'; badge.textContent = 'IDLE';
+    }
+  }
+}
+
+function updateVerdict(s) {
+  const el = document.getElementById('verdict-block');
+  if (s.running) {
+    el.className = 'verdict-block verdict-pivot';
+    el.innerHTML = '⏳ Sprint in progress…';
+    return;
+  }
+  if (!s.verdict && s.exit_code === null) {
+    el.className = 'verdict-block verdict-none';
+    el.innerHTML = 'No sprint has run yet this session.';
+    return;
+  }
+  const started = s.started_at ? new Date(s.started_at).toLocaleString() : '—';
+  if (s.verdict === 'ANOMALY') {
+    el.className = 'verdict-block verdict-anomaly';
+    el.innerHTML = `<strong>★ ANOMALY FOUND</strong><br>Started: ${started}<br>Proceed to secondary work.`;
+  } else if (s.verdict === 'NULL') {
+    el.className = 'verdict-block verdict-null';
+    el.innerHTML = `<strong>No anomaly found in either target.</strong><br>Started: ${started}`;
+  } else if (s.exit_code !== null) {
+    el.className = 'verdict-block verdict-pivot';
+    el.innerHTML = `Exit code: ${s.exit_code} — Started: ${started}`;
+  }
+}
+
+// ── dashboards ────────────────────────────────────────────────────────────────
+async function refreshDashboards() {
+  const r = await api.get('/api/dashboards');
+  if (!r.ok) return;
+  const { files } = await r.json();
+  const el = document.getElementById('dash-list');
+  if (!files.length) {
+    el.innerHTML = '<span style="color:var(--muted);font-size:12px;">No dashboards yet — run a sprint first.</span>';
+    return;
+  }
+  el.innerHTML = files.map(f => {
+    const label = f.replace('dashboard_', '').replace('.html', '');
+    return `<a class="dash-link" href="/output/${f}?token=${encodeURIComponent(token)}" target="_blank">📊 ${label}</a>`;
+  }).join('');
+}
+
+// ── log viewer ────────────────────────────────────────────────────────────────
+async function refreshLog() {
+  const r = await api.get('/api/logs?n=150');
+  if (!r.ok) return;
+  const { lines } = await r.json();
+  const pre = document.getElementById('log-pre');
+  if (!lines.length) { pre.textContent = '(log is empty)'; return; }
+  pre.innerHTML = lines.map(l => {
+    const cls = /ERROR/.test(l) ? 'log-error' : /WARN/.test(l) ? 'log-warn' : 'log-info';
+    const safe = l.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    return `<span class="${cls}">${safe}</span>`;
+  }).join('\n');
+  const box = document.getElementById('log-box');
+  box.scrollTop = box.scrollHeight;
+}
+
+function setupLogRefresh() {
+  document.getElementById('refresh-log-btn').onclick = refreshLog;
+}
+
+// ── boot ──────────────────────────────────────────────────────────────────────
+(async () => {
+  if (token) {
+    const cfg = await tryLogin(token);
+    if (cfg) {
+      document.getElementById('login-overlay').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      init(cfg);
+      return;
+    }
+    localStorage.removeItem(TOKEN_KEY);
+    token = '';
+  }
+  document.getElementById('pw-input').focus();
+})();
+</script>
+</body>
+</html>
