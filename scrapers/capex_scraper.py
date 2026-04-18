@@ -21,11 +21,13 @@ def get_capex_quarterly(
     xbrl_tag: str,
     spike_threshold: float = 0.40,
     n_quarters: int = 8,
+    min_date: datetime | None = None,
 ) -> pd.DataFrame:
     """
     Return DataFrame with columns:
       period_end, period_start, value_usd, qoq_pct, spike
     Sorted ascending by period_end, limited to n_quarters most recent rows.
+    If min_date is set, only quarters ending on or after that date are kept.
     Returns empty DataFrame if the tag is not found or has insufficient data.
     """
     log.info("[%s] Fetching CapEx via XBRL tag '%s'", ticker, xbrl_tag)
@@ -98,6 +100,9 @@ def get_capex_quarterly(
                         ticker, end_str, new_filed,
                     )
                     rows[existing_idx] = _row(e, start_dt, end_dt)
+            continue
+
+        if min_date and end_dt < min_date:
             continue
 
         seen_ends.add(end_dt)

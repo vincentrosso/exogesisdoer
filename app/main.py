@@ -99,6 +99,67 @@ async def run_sprint(body: RunRequest, _: Auth):
     return {"started": True}
 
 
+class SweepRequest(BaseModel):
+    limit: int = 0
+    ticker: str = ""
+
+
+@app.post("/api/sweep")
+async def run_sweep(body: SweepRequest, _: Auth):
+    if runner.state["running"]:
+        raise HTTPException(status_code=409, detail="A run is already in progress")
+
+    args = []
+    if body.limit:
+        args += ["--limit", str(body.limit)]
+    if body.ticker:
+        args += ["--ticker", body.ticker]
+
+    import sys
+    python = str(BASE_DIR / ".venv" / "bin" / "python")
+    if not Path(python).exists():
+        python = sys.executable
+
+    cmd = [python, str(BASE_DIR / "sweep.py")] + args
+    runner.state["running"]      = True
+    runner.state["started_at"]   = __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat()
+    runner.state["exit_code"]    = None
+    runner.state["verdict"]      = None
+    runner.state["output_lines"] = []
+
+    import asyncio
+    asyncio.create_task(_run_sweep_process(cmd))
+    log.info("Sweep triggered via management page (args=%s)", args)
+    return {"started": True}
+
+
+async def _run_sweep_process(cmd: list):
+    q = runner._q()
+    while not q.empty():
+        try: q.get_nowait()
+        except Exception: break
+    try:
+        proc = await __import__("asyncio").create_subprocess_exec(
+            *cmd,
+            stdout=__import__("asyncio").subprocess.PIPE,
+            stderr=__import__("asyncio").subprocess.STDOUT,
+            cwd=str(BASE_DIR),
+        )
+        async for raw in proc.stdout:
+            line = raw.decode("utf-8", errors="replace").rstrip()
+            runner.state["output_lines"].append(line)
+            await q.put(line)
+        await proc.wait()
+        runner.state["exit_code"] = proc.returncode
+        runner.state["verdict"] = "SWEEP_DONE"
+    except Exception:
+        log.error("Sweep process crashed", exc_info=True)
+        runner.state["exit_code"] = -1
+    finally:
+        runner.state["running"] = False
+        await q.put(None)
+
+
 @app.get("/api/run/status")
 async def run_status(_: Auth):
     return {
@@ -140,7 +201,11 @@ async def get_logs(n: int = 200, _: Auth = None):
 
 @app.get("/api/dashboards")
 async def list_dashboards(_: Auth):
-    files = sorted(OUTPUT_DIR.glob("dashboard_*.html"), key=lambda p: p.stat().st_mtime, reverse=True)
+    files = sorted(
+        list(OUTPUT_DIR.glob("dashboard_*.html")) + list(OUTPUT_DIR.glob("report_*.html")),
+        key=lambda p: p.stat().st_mtime,
+        reverse=True,
+    )
     return {"files": [f.name for f in files]}
 
 

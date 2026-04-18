@@ -2,12 +2,13 @@
 
 # Web management interface
 web:
-  secret: "change-me-before-deploying"   # set by deploy/setup.sh; used as Bearer token
+  secret: "localdev"   # set by deploy/setup.sh on server; change before deploying
 
 sprint:
   spike_threshold: 0.40        # ≥40% QoQ CapEx increase = Condition A
   lookback_quarters: 8         # how many quarters to pull
   qfg_window_days_after: 75   # days after quarter-end to search for 8-Ks
+  min_date: "2023-01-01"       # ignore quarters before this date (keeps results recent)
 
 # Primary biotech target
 primary:

@@ -1,0 +1,169 @@
+# Mid-cap biotech universe for sprint scanning.
+# Market cap roughly $1B–$20B as of early 2026.
+# All use PaymentsToAcquirePropertyPlantAndEquipment for CapEx unless noted.
+#
+# Run a sweep across all of these with:
+#   python sweep.py
+#
+# Companies are grouped by sub-sector to aid narrative construction.
+
+capex_tag_default: PaymentsToAcquirePropertyPlantAndEquipment
+
+companies:
+
+  # ── Gene / Cell Therapy (manufacturing-intensive, high CapEx signal potential) ──
+  - ticker: SRPT
+    name: "Sarepta Therapeutics"
+    notes: "Gene therapy manufacturing scale-up ongoing"
+
+  - ticker: BLUE
+    name: "bluebird bio"
+    notes: "Cell therapy; manufacturing facility investments"
+
+  - ticker: CRSP
+    name: "CRISPR Therapeutics"
+    notes: "Cell therapy manufacturing"
+
+  - ticker: EDIT
+    name: "Editas Medicine"
+    notes: "Gene editing; early-stage manufacturing build"
+
+  - ticker: NTLA
+    name: "Intellia Therapeutics"
+    notes: "In vivo gene editing; manufacturing scale"
+
+  - ticker: BEAM
+    name: "Beam Therapeutics"
+    notes: "Base editing; GMP manufacturing investment"
+
+  - ticker: VERV
+    name: "Verve Therapeutics"
+    notes: "In vivo base editing"
+
+  - ticker: FATE
+    name: "Fate Therapeutics"
+    notes: "iPSC cell therapy manufacturing"
+
+  # ── Rare Disease / Enzyme Replacement (established manufacturing, CapEx spikes notable) ──
+  - ticker: BMRN
+    name: "BioMarin Pharmaceutical"
+    notes: "Large manufacturing footprint; facility expansions"
+
+  - ticker: ALNY
+    name: "Alnylam Pharmaceuticals"
+    notes: "RNAi; manufacturing partnerships + own facilities"
+
+  - ticker: IONS
+    name: "Ionis Pharmaceuticals"
+    notes: "Antisense; Carlsbad manufacturing"
+
+  - ticker: FOLD
+    name: "Amicus Therapeutics"
+    notes: "Pompe/Fabry; gene therapy manufacturing transition"
+
+  - ticker: RARE
+    name: "Ultragenyx Pharmaceutical"
+    notes: "Rare disease; gene therapy capacity investments"
+
+  - ticker: ARVN
+    name: "Arvinas"
+    notes: "Protein degradation (PROTAC); manufacturing build"
+
+  # ── Oncology (targeted, ADC, cell therapy) ──
+  - ticker: RCKT
+    name: "Rocket Pharmaceuticals"
+    notes: "Gene therapy; lentiviral + AAV manufacturing"
+
+  - ticker: KYMR
+    name: "Kymera Therapeutics"
+    notes: "Targeted protein degradation"
+
+  - ticker: MRUS
+    name: "Merus"
+    notes: "Bispecific antibodies; manufacturing"
+
+  - ticker: NKTR
+    name: "Nektar Therapeutics"
+    notes: "PEGylation platform; facility history"
+
+  - ticker: PTGX
+    name: "Protagonist Therapeutics"
+    notes: "Peptide therapeutics"
+
+  - ticker: EXEL
+    name: "Exelixis"
+    notes: "Cabozantinib franchise; manufacturing investment"
+
+  - ticker: ZYME
+    name: "Zymeworks"
+    notes: "Bispecific antibodies; ADC manufacturing"
+
+  # ── CNS ──
+  - ticker: NBIX
+    name: "Neurocrine Biosciences"
+    notes: "CNS specialty; growing manufacturing needs"
+
+  - ticker: SAGE
+    name: "Sage Therapeutics"
+    notes: "Neuroactive steroids; facility history"
+
+  - ticker: ACAD
+    name: "Acadia Pharmaceuticals"
+    notes: "CNS rare; Rett syndrome program"
+
+  - ticker: PRAX
+    name: "Praxis Precision Medicine"
+    notes: "Ion channel; CNS"
+
+  # ── Immunology / Inflammation ──
+  - ticker: ARQT
+    name: "Arcutis Biotherapeutics"
+    notes: "Dermatology; topical formulation manufacturing"
+
+  - ticker: KRTX
+    name: "Karuna Therapeutics"
+    notes: "CNS/schizophrenia; acquired by BMS but check pre-acquisition"
+
+  - ticker: IMVT
+    name: "Immunovant"
+    notes: "FcRn inhibitor; autoimmune"
+
+  - ticker: ROIV
+    name: "Roivant Sciences"
+    notes: "Multi-asset; subsidiary manufacturing"
+
+  # ── Metabolic / Cardiometabolic ──
+  - ticker: RVMD
+    name: "Revolution Medicines"
+    notes: "RAS oncology/metabolic; manufacturing scale"
+
+  - ticker: PRTA
+    name: "Prothena"
+    notes: "Neurodegeneration + amyloid; manufacturing history"
+
+  - ticker: AGIO
+    name: "Agios Pharmaceuticals"
+    notes: "Metabolic/heme; IDH inhibitors"
+
+  # ── Infectious Disease / Vaccines ──
+  - ticker: NVAX
+    name: "Novavax"
+    notes: "Vaccine; manufacturing scale (COVID + RSV)"
+    capex_tag: PaymentsToAcquirePropertyPlantAndEquipment
+
+  - ticker: SIGA
+    name: "SIGA Technologies"
+    notes: "Smallpox/mpox antiviral; gov contracts + manufacturing"
+
+  # ── Platform / Tools ──
+  - ticker: ALEC
+    name: "Alector"
+    notes: "Neurodegeneration; immuno-neurology"
+
+  - ticker: THTX
+    name: "Theratechnologies"
+    notes: "HIV complications specialty"
+
+  - ticker: VCNX
+    name: "Vaccinex"
+    notes: "SEMA4D platform"

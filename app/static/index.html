@@ -194,6 +194,7 @@
         <div class="card-body">
           <div class="row">
             <button class="btn-run flex-1" id="run-btn">▶  Run Sprint</button>
+            <button class="btn-ghost" id="sweep-btn" style="white-space:nowrap">⟳ Sweep Universe</button>
           </div>
           <label class="checkbox-row">
             <input type="checkbox" id="force-pivot-cb">
@@ -359,6 +360,15 @@ function setupRunButton() {
   };
 
   document.getElementById('clear-btn').onclick = clearTerminal;
+
+  document.getElementById('sweep-btn').onclick = async () => {
+    const r = await api.post('/api/sweep', { limit: 0 });
+    if (r.status === 409) { alert('A run is already in progress.'); return; }
+    if (!r.ok) { alert('Failed to start sweep.'); return; }
+    clearTerminal();
+    connectSSE();
+    pollStatus();
+  };
 }
 
 function clearTerminal() {
@@ -441,12 +451,15 @@ async function pollStatus() {
 
 function updateBadge(s) {
   const badge = document.getElementById('global-badge');
-  const runBtn = document.getElementById('run-btn');
+  const runBtn   = document.getElementById('run-btn');
+  const sweepBtn = document.getElementById('sweep-btn');
   if (s.running) {
     badge.className = 'badge badge-running'; badge.textContent = 'RUNNING';
     runBtn.disabled = true; runBtn.textContent = '⏳  Running…';
+    sweepBtn.disabled = true;
   } else {
     runBtn.disabled = false; runBtn.textContent = '▶  Run Sprint';
+    sweepBtn.disabled = false;
     if (s.verdict === 'ANOMALY') {
       badge.className = 'badge badge-anomaly'; badge.textContent = 'ANOMALY FOUND';
     } else if (s.verdict === 'NULL') {
