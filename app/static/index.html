@@ -22,36 +22,53 @@
   body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 13px; min-height: 100vh; }
 
   /* ── layout ── */
-  header { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid var(--border); background: var(--surface); }
-  header h1 { font-size: 16px; font-weight: 600; letter-spacing: .03em; color: var(--blue); }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; border-bottom: 1px solid var(--border); background: var(--surface); }
+  header h1 { font-size: 15px; font-weight: 600; letter-spacing: .03em; color: var(--blue); }
   header h1 span { color: var(--muted); font-weight: 400; }
-  main { display: grid; grid-template-columns: 340px 1fr; gap: 16px; padding: 16px 24px; }
-  .col-left { display: flex; flex-direction: column; gap: 16px; }
-  .col-right { display: flex; flex-direction: column; gap: 16px; }
+
+  .workspace { display: grid; grid-template-columns: 300px 1fr; gap: 14px; padding: 14px 20px 0; }
+  .col-left  { display: flex; flex-direction: column; gap: 14px; }
+  .col-right { display: flex; flex-direction: column; gap: 14px; }
+
+  /* right column splits into 2 across for control + dashboards */
+  .right-top { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* full-width bottom strip */
+  .bottom-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 14px 20px; }
 
   /* ── cards ── */
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-  .card-header { padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 8px; }
-  .card-body { padding: 16px; }
+  .card-header { padding: 9px 14px; border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .card-body { padding: 14px; }
+
+  /* ── collapsible cards ── */
+  .card-collapsible .card-header { cursor: pointer; user-select: none; border-bottom: none; }
+  .card-collapsible .card-header:hover { color: var(--text); }
+  .card-collapsible.is-open .card-header { border-bottom: 1px solid var(--border); }
+  .card-collapsible .card-body { display: none; padding: 0; }
+  .card-collapsible.is-open .card-body { display: block; }
+  .chevron { margin-left: auto; transition: transform .2s; font-style: normal; }
+  .card-collapsible.is-open .chevron { transform: rotate(180deg); }
 
   /* ── forms ── */
-  label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; margin-top: 12px; }
+  label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; margin-top: 10px; }
   label:first-of-type { margin-top: 0; }
   input[type=text], input[type=password] { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: var(--mono); font-size: 13px; padding: 7px 10px; outline: none; transition: border-color .15s; }
   input:focus { border-color: var(--blue); }
   input[type=range] { width: 100%; accent-color: var(--blue); }
   .range-row { display: flex; align-items: center; gap: 10px; }
-  .range-row span { min-width: 40px; color: var(--blue); }
 
   /* ── buttons ── */
   button { font-family: var(--mono); font-size: 12px; font-weight: 600; border: none; border-radius: 5px; cursor: pointer; padding: 8px 16px; transition: opacity .15s, transform .08s; }
   button:active { transform: scale(.97); }
   button:disabled { opacity: .4; cursor: not-allowed; }
   .btn-primary { background: var(--blue); color: #0d1117; }
-  .btn-run     { background: var(--green); color: #0d1117; font-size: 13px; padding: 10px 24px; width: 100%; }
-  .btn-danger  { background: var(--red); color: #fff; }
+  .btn-run     { background: var(--green); color: #0d1117; font-size: 13px; padding: 11px 24px; width: 100%; }
+  .btn-sweep   { background: rgba(88,166,255,.12); color: var(--blue); border: 1px solid rgba(88,166,255,.25); font-size: 12px; padding: 11px 16px; width: 100%; }
   .btn-ghost   { background: transparent; color: var(--muted); border: 1px solid var(--border); }
   .btn-sm      { padding: 5px 10px; font-size: 11px; }
+  .btn-set     { background: var(--blue); color: #0d1117; font-size: 11px; font-weight: 700; padding: 7px 12px; border-radius: 4px; border: none; cursor: pointer; white-space: nowrap; }
+  .btn-set:hover { opacity: .85; }
 
   /* ── status badge ── */
   .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; letter-spacing: .06em; }
@@ -66,8 +83,21 @@
   .badge-null::before { background: var(--red); }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
+  /* ── verdict block ── */
+  .verdict-block { padding: 14px 16px; border-radius: 6px; font-size: 13px; line-height: 1.75; }
+  .verdict-none    { background: rgba(139,148,158,.08); color: var(--muted); }
+  .verdict-anomaly { background: rgba(63,185,80,.1); border: 1px solid rgba(63,185,80,.3); color: var(--green); }
+  .verdict-null    { background: rgba(248,81,73,.08); border: 1px solid rgba(248,81,73,.2); color: var(--red); }
+  .verdict-pivot   { background: rgba(210,153,34,.1); border: 1px solid rgba(210,153,34,.25); color: var(--yellow); }
+
+  /* ── dashboards ── */
+  .dash-list { display: flex; flex-direction: column; gap: 6px; max-height: 320px; overflow-y: auto; }
+  .dash-link { display: flex; align-items: center; gap: 8px; padding: 7px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; color: var(--blue); text-decoration: none; font-size: 12px; transition: border-color .15s; }
+  .dash-link:hover { border-color: var(--blue); }
+  .dash-link .dash-type { font-size: 10px; color: var(--muted); margin-left: auto; }
+
   /* ── terminal ── */
-  .terminal { background: #010409; border-radius: 6px; padding: 12px; height: 380px; overflow-y: auto; scroll-behavior: smooth; }
+  .terminal { background: #010409; padding: 12px; height: 340px; overflow-y: auto; scroll-behavior: smooth; }
   .terminal pre { white-space: pre-wrap; word-break: break-all; line-height: 1.6; font-size: 12px; color: #c9d1d9; }
   .terminal .line-anomaly { color: var(--green); font-weight: 700; }
   .terminal .line-error   { color: var(--red); }
@@ -76,190 +106,189 @@
   .terminal .line-section { color: var(--blue); }
 
   /* ── log viewer ── */
-  .log-box { background: #010409; border-radius: 6px; padding: 12px; height: 260px; overflow-y: auto; }
+  .log-box { background: #010409; padding: 12px; height: 340px; overflow-y: auto; }
   .log-box pre { white-space: pre-wrap; word-break: break-all; line-height: 1.5; font-size: 11px; color: var(--muted); }
   .log-box .log-error { color: var(--red); }
   .log-box .log-warn  { color: var(--yellow); }
   .log-box .log-info  { color: var(--text); }
-
-  /* ── verdict block ── */
-  .verdict-block { padding: 14px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
-  .verdict-none    { background: rgba(139,148,158,.08); color: var(--muted); }
-  .verdict-anomaly { background: rgba(63,185,80,.1); border: 1px solid rgba(63,185,80,.3); color: var(--green); }
-  .verdict-null    { background: rgba(248,81,73,.08); border: 1px solid rgba(248,81,73,.2); color: var(--red); }
-  .verdict-pivot   { background: rgba(210,153,34,.1); border: 1px solid rgba(210,153,34,.25); color: var(--yellow); }
-
-  /* ── dashboards ── */
-  .dash-list { display: flex; flex-direction: column; gap: 8px; }
-  .dash-link { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; color: var(--blue); text-decoration: none; font-size: 12px; transition: border-color .15s; }
-  .dash-link:hover { border-color: var(--blue); }
-
-  /* ── misc ── */
-  .row { display: flex; gap: 8px; align-items: center; }
-  .flex-1 { flex: 1; }
-  .mt-8 { margin-top: 8px; }
-  .peers-row { display: flex; gap: 6px; flex-wrap: wrap; }
-  .peer-tag { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 3px 8px; font-size: 11px; }
-  .checkbox-row { display: flex; align-items: center; gap: 8px; color: var(--muted); margin-top: 10px; cursor: pointer; }
-  .checkbox-row input { accent-color: var(--yellow); width: 14px; height: 14px; cursor: pointer; }
-  #save-msg { font-size: 11px; color: var(--green); opacity: 0; transition: opacity .4s; }
-  #save-msg.show { opacity: 1; }
-  .section-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
 
   /* ── target picker ── */
   select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: var(--mono); font-size: 13px; padding: 7px 10px; outline: none; transition: border-color .15s; appearance: none; cursor: pointer; }
   select:focus { border-color: var(--blue); }
   select option { background: var(--surface); }
   select optgroup { color: var(--muted); font-size: 11px; }
-  .picker-row { display: flex; gap: 6px; align-items: flex-end; margin-top: 8px; }
+  .picker-row { display: flex; gap: 6px; align-items: flex-end; margin-top: 6px; }
   .picker-row select { flex: 1; }
-  .btn-set { background: var(--blue); color: #0d1117; font-size: 11px; font-weight: 700; padding: 7px 12px; border-radius: 4px; border: none; cursor: pointer; white-space: nowrap; }
-  .btn-set:hover { opacity: .85; }
-  .active-target { font-size: 12px; color: var(--blue); background: rgba(88,166,255,.08); border: 1px solid rgba(88,166,255,.2); border-radius: 4px; padding: 6px 10px; margin-top: 8px; }
+  .active-target { font-size: 12px; color: var(--blue); background: rgba(88,166,255,.08); border: 1px solid rgba(88,166,255,.2); border-radius: 4px; padding: 5px 10px; margin-top: 8px; }
   .active-target strong { color: var(--text); }
+
+  /* ── misc ── */
+  .row { display: flex; gap: 8px; align-items: center; }
+  .flex-1 { flex: 1; }
+  .mt-8 { margin-top: 8px; }
+  .checkbox-row { display: flex; align-items: center; gap: 8px; color: var(--muted); margin-top: 10px; cursor: pointer; }
+  .checkbox-row input { accent-color: var(--yellow); width: 14px; height: 14px; cursor: pointer; }
+  #save-msg       { font-size: 11px; color: var(--green); opacity: 0; transition: opacity .4s; }
+  #save-msg.show  { opacity: 1; }
+  #targets-save-msg { font-size: 11px; color: var(--green); opacity: 0; transition: opacity .4s; display: block; margin-top: 6px; text-align: center; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 </style>
 </head>
 <body>
 
-<!-- ── App shell ─────────────────────────────────────────────────────────── -->
 <div id="app">
   <header>
     <h1>doer <span>/ ndex.us</span></h1>
-    <div style="display:flex;align-items:center;gap:14px;">
-      <span id="global-badge" class="badge badge-idle">IDLE</span>
-    </div>
+    <span id="global-badge" class="badge badge-idle">IDLE</span>
   </header>
 
-  <main>
-    <!-- ── left column ── -->
+  <!-- ── top workspace ── -->
+  <div class="workspace">
+
+    <!-- left sidebar -->
     <div class="col-left">
 
-      <!-- Target picker card -->
+      <!-- Target Picker -->
       <div class="card">
         <div class="card-header">Target Picker</div>
         <div class="card-body">
-          <label>Primary target</label>
+          <label>Primary</label>
           <div class="picker-row">
-            <select id="primary-picker"><option value="">Loading universe…</option></select>
-            <button class="btn-set" id="set-primary-btn">Set primary</button>
+            <select id="primary-picker"><option value="">Loading…</option></select>
+            <button class="btn-set" id="set-primary-btn">Set</button>
           </div>
           <div id="active-primary-display" class="active-target" style="display:none"></div>
 
-          <hr class="section-divider">
-          <label>Peer 1</label>
-          <div class="picker-row">
-            <select id="peer0-picker"><option value="">— none —</option></select>
-          </div>
-          <label style="margin-top:8px">Peer 2</label>
-          <div class="picker-row">
-            <select id="peer1-picker"><option value="">— none —</option></select>
-          </div>
-
-          <hr class="section-divider">
-          <label>Pivot target</label>
-          <div class="picker-row">
-            <select id="pivot-picker"><option value="">— none —</option></select>
+          <div class="two-col" style="margin-top:10px">
+            <div>
+              <label>Peer 1</label>
+              <select id="peer0-picker"><option value="">— none —</option></select>
+            </div>
+            <div>
+              <label>Peer 2</label>
+              <select id="peer1-picker"><option value="">— none —</option></select>
+            </div>
           </div>
 
-          <button class="btn-primary btn-sm mt-8" id="save-targets-btn" style="width:100%;margin-top:14px;">Save targets</button>
-          <span id="targets-save-msg" style="font-size:11px;color:var(--green);opacity:0;transition:opacity .4s;display:block;margin-top:6px;text-align:center;"></span>
-        </div>
-      </div>
+          <label style="margin-top:10px">Pivot</label>
+          <select id="pivot-picker"><option value="">— none —</option></select>
 
-      <!-- Config card -->
-      <div class="card">
-        <div class="card-header">
-          <span>Sprint Settings</span>
-          <span id="save-msg">saved ✓</span>
-        </div>
-        <div class="card-body">
-          <label style="display:none">Primary ticker</label>
+          <button class="btn-primary btn-sm" id="save-targets-btn" style="width:100%;margin-top:12px;">Save targets</button>
+          <span id="targets-save-msg"></span>
+
+          <!-- hidden inputs for compat -->
           <input type="hidden" id="cfg-primary-ticker">
-          <label style="display:none">Primary name</label>
           <input type="hidden" id="cfg-primary-name">
-
           <input type="hidden" id="cfg-peer0-ticker">
           <input type="hidden" id="cfg-peer1-ticker">
           <input type="hidden" id="cfg-pivot-ticker">
+        </div>
+      </div>
+
+      <!-- Sprint Settings -->
+      <div class="card">
+        <div class="card-header">
+          <span>Sprint Settings</span>
+          <span id="save-msg" style="margin-left:auto">saved ✓</span>
+        </div>
+        <div class="card-body">
           <label>Spike threshold — <span id="thresh-label">40</span>%</label>
-          <div class="range-row">
-            <input type="range" id="cfg-threshold" min="10" max="100" step="5" value="40">
-          </div>
+          <input type="range" id="cfg-threshold" min="10" max="100" step="5" value="40">
 
-          <label>Lookback quarters — <span id="quarters-label">8</span></label>
-          <div class="range-row">
-            <input type="range" id="cfg-quarters" min="4" max="16" step="1" value="8">
-          </div>
+          <label style="margin-top:10px">Lookback quarters — <span id="quarters-label">8</span></label>
+          <input type="range" id="cfg-quarters" min="4" max="16" step="1" value="8">
 
-          <button class="btn-primary btn-sm mt-8" id="save-cfg-btn" style="width:100%;margin-top:14px;">Save config</button>
+          <button class="btn-primary btn-sm" id="save-cfg-btn" style="width:100%;margin-top:12px;">Save</button>
         </div>
       </div>
 
-      <!-- Dashboards card -->
-      <div class="card">
-        <div class="card-header">Dashboards</div>
-        <div class="card-body">
-          <div id="dash-list" class="dash-list">
-            <span style="color:var(--muted);font-size:12px;">No dashboards yet — run a sprint first.</span>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- ── right column ── -->
+    <!-- right area -->
     <div class="col-right">
+      <div class="right-top">
 
-      <!-- Run control card -->
-      <div class="card">
-        <div class="card-header">Sprint Control</div>
-        <div class="card-body">
-          <div class="row">
-            <button class="btn-run flex-1" id="run-btn">▶  Run Sprint</button>
-            <button class="btn-ghost" id="sweep-btn" style="white-space:nowrap">⟳ Sweep Universe</button>
-          </div>
-          <label class="checkbox-row">
-            <input type="checkbox" id="force-pivot-cb">
-            Force pivot (skip primary, run pivot target directly)
-          </label>
-          <hr class="section-divider">
-          <div id="verdict-block" class="verdict-block verdict-none">
-            No sprint has run yet this session.
+        <!-- Sprint Control -->
+        <div class="card">
+          <div class="card-header">Sprint Control</div>
+          <div class="card-body">
+            <button class="btn-run" id="run-btn">▶  Run Sprint</button>
+            <button class="btn-sweep" id="sweep-btn" style="margin-top:8px;">⟳  Sweep Universe</button>
+            <label class="checkbox-row">
+              <input type="checkbox" id="force-pivot-cb">
+              Force pivot
+            </label>
+            <hr class="section-divider">
+            <div id="verdict-block" class="verdict-block verdict-none">
+              No sprint has run yet this session.
+            </div>
           </div>
         </div>
+
+        <!-- Reports / Dashboards -->
+        <div class="card">
+          <div class="card-header">
+            <span>Reports</span>
+            <button class="btn-ghost btn-sm" id="refresh-dash-btn" style="margin-left:auto;">↻</button>
+          </div>
+          <div class="card-body" style="padding:10px">
+            <div id="dash-list" class="dash-list">
+              <span style="color:var(--muted);font-size:12px;">No reports yet — run a sprint first.</span>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <!-- Terminal card -->
-      <div class="card">
-        <div class="card-header">
-          <span>Live Output</span>
-          <button class="btn-ghost btn-sm" id="clear-btn" style="margin-left:auto;">clear</button>
-        </div>
-        <div class="card-body" style="padding:0">
-          <div class="terminal" id="terminal">
-            <pre id="terminal-pre" style="color:var(--muted)">Waiting for sprint run…</pre>
-          </div>
-        </div>
-      </div>
-
-      <!-- Log viewer card -->
-      <div class="card">
-        <div class="card-header">
-          <span>Sprint Log</span>
-          <button class="btn-ghost btn-sm" id="refresh-log-btn" style="margin-left:auto;">refresh</button>
-        </div>
-        <div class="card-body" style="padding:0">
-          <div class="log-box" id="log-box">
-            <pre id="log-pre" style="color:var(--muted)">Click refresh to load log…</pre>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </main>
+  </div>
+
+  <!-- ── bottom collapsible strip ── -->
+  <div class="bottom-strip">
+
+    <!-- Live Output -->
+    <div class="card card-collapsible" id="terminal-card">
+      <div class="card-header" onclick="toggleCard('terminal-card')">
+        <span>Live Output</span>
+        <button class="btn-ghost btn-sm" id="clear-btn" onclick="event.stopPropagation();clearTerminal();" style="margin-left:8px;">clear</button>
+        <i class="chevron">▾</i>
+      </div>
+      <div class="card-body">
+        <div class="terminal" id="terminal">
+          <pre id="terminal-pre" style="color:var(--muted)">Waiting for sprint run…</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sprint Log -->
+    <div class="card card-collapsible" id="log-card">
+      <div class="card-header" onclick="toggleCard('log-card')">
+        <span>Sprint Log</span>
+        <button class="btn-ghost btn-sm" id="refresh-log-btn" onclick="event.stopPropagation();refreshLog();" style="margin-left:8px;">↻</button>
+        <i class="chevron">▾</i>
+      </div>
+      <div class="card-body">
+        <div class="log-box" id="log-box">
+          <pre id="log-pre" style="color:var(--muted)">Click ↻ to load log…</pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
 'use strict';
+
+// ── collapsible cards ─────────────────────────────────────────────────────────
+function toggleCard(id) {
+  document.getElementById(id).classList.toggle('is-open');
+}
+
+// auto-expand terminal when a run starts
+function expandTerminal() {
+  document.getElementById('terminal-card').classList.add('is-open');
+}
 
 // ── api helpers ───────────────────────────────────────────────────────────────
 const api = {
@@ -280,11 +309,9 @@ async function loadUniverse(cfg) {
   const { companies } = await r.json();
   _universe = companies;
 
-  // Group by first tag-comment in yaml — we'll group by ticker prefix patterns
-  // Simple: just list all alphabetically
   const grouped = {};
   for (const c of companies) {
-    const g = c.notes ? _inferGroup(c.ticker) : 'Other';
+    const g = _inferGroup(c.ticker);
     (grouped[g] = grouped[g] || []).push(c);
   }
 
@@ -308,14 +335,10 @@ async function loadUniverse(cfg) {
     }
   }
 
-  // Sync pickers to current config
   _syncPickerToConfig(cfg);
 }
 
 function _inferGroup(ticker) {
-  const gene = ['SRPT','CRSP','EDIT','NTLA','BEAM','VERV','SGMO','BLUE_'];
-  const rare  = ['BMRN','ALXN','FOLD'];
-  const onc   = ['KRTX_','MRUS_','ROIV','MDGL','SAGE_'];
   if (['SRPT','CRSP','EDIT','NTLA','BEAM','VERV','SGMO'].includes(ticker)) return 'Gene / Cell Therapy';
   if (['BMRN','ALXN','FOLD','RARE'].includes(ticker)) return 'Rare Disease';
   if (['ROIV','MDGL','RETA'].includes(ticker)) return 'Oncology / Specialty';
@@ -327,7 +350,6 @@ function _syncPickerToConfig(cfg) {
   const p = cfg.primary || {};
   const peers = cfg.peers || [];
   const piv = cfg.pivot || {};
-
   _setPickerValue('primary-picker', p.ticker);
   _setPickerValue('peer0-picker', (peers[0] || {}).ticker);
   _setPickerValue('peer1-picker', (peers[1] || {}).ticker);
@@ -341,7 +363,6 @@ function _setPickerValue(selId, ticker) {
   for (const opt of sel.options) {
     if (opt.value === ticker) { sel.value = ticker; return; }
   }
-  // Ticker not in universe — add a custom option
   const opt = document.createElement('option');
   opt.value = ticker; opt.textContent = ticker; opt.selected = true;
   sel.insertBefore(opt, sel.firstChild);
@@ -363,7 +384,6 @@ function _companyFromPicker(selId) {
 }
 
 function setupTargetPicker() {
-  // "Set primary" just updates the active display label immediately
   document.getElementById('set-primary-btn').onclick = () => {
     const c = _companyFromPicker('primary-picker');
     if (c) _updateActivePrimaryDisplay(c.ticker, c.name);
@@ -379,31 +399,15 @@ function setupTargetPicker() {
 
     const defaultTag = 'PaymentsToAcquirePropertyPlantAndEquipment';
     const body = {
-      primary: {
-        ticker:    primary.ticker,
-        name:      primary.name,
-        type:      'biotech',
-        capex_tag: primary.capex_tag || defaultTag,
-      },
-      peers: [peer0, peer1].filter(Boolean).map(c => ({
-        ticker:    c.ticker,
-        name:      c.name,
-        type:      'biotech',
-        capex_tag: c.capex_tag || defaultTag,
-      })),
-      pivot: pivot ? {
-        ticker:    pivot.ticker,
-        name:      pivot.name,
-        type:      pivot.capex_tag ? 'software' : 'biotech',
-        capex_tag: pivot.capex_tag || defaultTag,
-      } : undefined,
+      primary: { ticker: primary.ticker, name: primary.name, type: 'biotech', capex_tag: primary.capex_tag || defaultTag },
+      peers: [peer0, peer1].filter(Boolean).map(c => ({ ticker: c.ticker, name: c.name, type: 'biotech', capex_tag: c.capex_tag || defaultTag })),
+      pivot: pivot ? { ticker: pivot.ticker, name: pivot.name, type: pivot.capex_tag ? 'software' : 'biotech', capex_tag: pivot.capex_tag || defaultTag } : undefined,
     };
 
     const r = await api.post('/api/config', body);
     if (r.ok) {
       const msg = document.getElementById('targets-save-msg');
-      msg.textContent = 'saved ✓';
-      msg.style.opacity = 1;
+      msg.textContent = 'saved ✓'; msg.style.opacity = 1;
       setTimeout(() => msg.style.opacity = 0, 2000);
       _updateActivePrimaryDisplay(primary.ticker, primary.name);
     } else {
@@ -418,8 +422,8 @@ async function init(cfg) {
   await Promise.all([loadUniverse(cfg), refreshDashboards(), refreshLog(), pollStatus()]);
   setupConfigSave();
   setupRunButton();
-  setupLogRefresh();
   setupTargetPicker();
+  document.getElementById('refresh-dash-btn').onclick = refreshDashboards;
 }
 
 // ── config ────────────────────────────────────────────────────────────────────
@@ -458,7 +462,7 @@ function setupConfigSave() {
   document.getElementById('save-cfg-btn').onclick = async () => {
     const body = {
       sprint: {
-        spike_threshold: parseInt(document.getElementById('cfg-threshold').value) / 100,
+        spike_threshold:   parseInt(document.getElementById('cfg-threshold').value) / 100,
         lookback_quarters: parseInt(document.getElementById('cfg-quarters').value),
       },
     };
@@ -472,17 +476,13 @@ function setupConfigSave() {
 }
 
 // ── run control ───────────────────────────────────────────────────────────────
-let sseSource = null;
-
 function setupRunButton() {
   document.getElementById('run-btn').onclick = async () => {
     const forcePivot = document.getElementById('force-pivot-cb').checked;
     const r = await api.post('/api/run', { force_pivot: forcePivot });
     if (r.status === 409) { alert('Sprint already running.'); return; }
     if (!r.ok) { alert('Failed to start sprint.'); return; }
-    clearTerminal();
-    connectSSE();
-    pollStatus();
+    clearTerminal(); expandTerminal(); connectSSE(); pollStatus();
   };
 
   document.getElementById('clear-btn').onclick = clearTerminal;
@@ -491,9 +491,7 @@ function setupRunButton() {
     const r = await api.post('/api/sweep', { limit: 0 });
     if (r.status === 409) { alert('A run is already in progress.'); return; }
     if (!r.ok) { alert('Failed to start sweep.'); return; }
-    clearTerminal();
-    connectSSE();
-    pollStatus();
+    clearTerminal(); expandTerminal(); connectSSE(); pollStatus();
   };
 }
 
@@ -503,11 +501,6 @@ function clearTerminal() {
 }
 
 function connectSSE() {
-  if (sseSource) { sseSource.close(); sseSource = null; }
-
-  // SSE needs auth header — we use a query param workaround since EventSource doesn't support headers
-  // Instead, we poll /api/run/output while running via status polling, which is simpler and safe.
-  // For streaming, we use fetch + ReadableStream.
   streamOutput();
 }
 
@@ -515,14 +508,12 @@ async function streamOutput() {
   clearTerminal();
   const pre = document.getElementById('terminal-pre');
   pre.style.color = 'var(--text)';
-
   try {
     const resp = await api.get('/api/run/stream');
     if (!resp.ok) return;
     const reader = resp.body.getReader();
     const decoder = new TextDecoder();
     let buf = '';
-
     while (true) {
       const { value, done } = await reader.read();
       if (done) break;
@@ -533,29 +524,23 @@ async function streamOutput() {
         if (!part.startsWith('data: ')) continue;
         const raw = part.slice(6).trim();
         if (raw === '[DONE]' || raw === '') continue;
-        try {
-          const line = JSON.parse(raw);
-          appendTerminalLine(line);
-        } catch { appendTerminalLine(raw); }
+        try { appendTerminalLine(JSON.parse(raw)); } catch { appendTerminalLine(raw); }
       }
     }
-  } catch (e) {
-    appendTerminalLine(`[stream error] ${e.message}`);
-  }
+  } catch (e) { appendTerminalLine(`[stream error] ${e.message}`); }
 }
 
 function appendTerminalLine(line) {
   const pre = document.getElementById('terminal-pre');
   const span = document.createElement('span');
   span.textContent = line + '\n';
-  if (line.includes('ANOMALY'))           span.className = 'line-anomaly';
-  else if (line.includes('VERDICT'))      span.className = 'line-verdict';
-  else if (line.includes('==='))          span.className = 'line-section';
-  else if (/error|ERROR/.test(line))      span.className = 'line-error';
+  if (line.includes('ANOMALY'))            span.className = 'line-anomaly';
+  else if (line.includes('VERDICT'))       span.className = 'line-verdict';
+  else if (line.includes('==='))           span.className = 'line-section';
+  else if (/error|ERROR/.test(line))       span.className = 'line-error';
   else if (/warn|WARN|WARNING/.test(line)) span.className = 'line-warn';
   pre.appendChild(span);
-  const t = document.getElementById('terminal');
-  t.scrollTop = t.scrollHeight;
+  document.getElementById('terminal').scrollTop = 99999;
 }
 
 // ── status polling ────────────────────────────────────────────────────────────
@@ -576,7 +561,7 @@ async function pollStatus() {
 }
 
 function updateBadge(s) {
-  const badge = document.getElementById('global-badge');
+  const badge    = document.getElementById('global-badge');
   const runBtn   = document.getElementById('run-btn');
   const sweepBtn = document.getElementById('sweep-btn');
   if (s.running) {
@@ -586,15 +571,9 @@ function updateBadge(s) {
   } else {
     runBtn.disabled = false; runBtn.textContent = '▶  Run Sprint';
     sweepBtn.disabled = false;
-    if (s.verdict === 'ANOMALY') {
-      badge.className = 'badge badge-anomaly'; badge.textContent = 'ANOMALY FOUND';
-    } else if (s.verdict === 'NULL') {
-      badge.className = 'badge badge-null'; badge.textContent = 'NO ANOMALY';
-    } else if (s.verdict === 'PIVOT_RUNNING') {
-      badge.className = 'badge badge-running'; badge.textContent = 'PIVOT';
-    } else {
-      badge.className = 'badge badge-idle'; badge.textContent = 'IDLE';
-    }
+    if (s.verdict === 'ANOMALY')       { badge.className = 'badge badge-anomaly'; badge.textContent = 'ANOMALY FOUND'; }
+    else if (s.verdict === 'NULL')     { badge.className = 'badge badge-null';    badge.textContent = 'NO ANOMALY'; }
+    else                               { badge.className = 'badge badge-idle';    badge.textContent = 'IDLE'; }
   }
 }
 
@@ -619,7 +598,7 @@ function updateVerdict(s) {
     el.innerHTML = `<strong>No anomaly found in either target.</strong><br>Started: ${started}`;
   } else if (s.exit_code !== null) {
     el.className = 'verdict-block verdict-pivot';
-    el.innerHTML = `Exit code: ${s.exit_code} — Started: ${started}`;
+    el.innerHTML = `Exit code: ${s.exit_code} · Started: ${started}`;
   }
 }
 
@@ -630,12 +609,16 @@ async function refreshDashboards() {
   const { files } = await r.json();
   const el = document.getElementById('dash-list');
   if (!files.length) {
-    el.innerHTML = '<span style="color:var(--muted);font-size:12px;">No dashboards yet — run a sprint first.</span>';
+    el.innerHTML = '<span style="color:var(--muted);font-size:12px;">No reports yet — run a sprint first.</span>';
     return;
   }
   el.innerHTML = files.map(f => {
-    const label = f.replace('dashboard_', '').replace('.html', '');
-    return `<a class="dash-link" href="/output/${f}" target="_blank">📊 ${label}</a>`;
+    const isReport = f.startsWith('report_') || f.startsWith('deep_');
+    const isSweep  = f.startsWith('sweep_');
+    const label    = f.replace(/^(dashboard_|report_|sweep_|deep_)/, '').replace('.html', '');
+    const typeTag  = isReport ? 'report' : isSweep ? 'sweep' : 'dashboard';
+    const icon     = isReport ? '📄' : isSweep ? '🔍' : '📊';
+    return `<a class="dash-link" href="/output/${f}" target="_blank">${icon} ${label}<span class="dash-type">${typeTag}</span></a>`;
   }).join('');
 }
 
@@ -647,16 +630,11 @@ async function refreshLog() {
   const pre = document.getElementById('log-pre');
   if (!lines.length) { pre.textContent = '(log is empty)'; return; }
   pre.innerHTML = lines.map(l => {
-    const cls = /ERROR/.test(l) ? 'log-error' : /WARN/.test(l) ? 'log-warn' : 'log-info';
+    const cls  = /ERROR/.test(l) ? 'log-error' : /WARN/.test(l) ? 'log-warn' : 'log-info';
     const safe = l.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     return `<span class="${cls}">${safe}</span>`;
   }).join('\n');
-  const box = document.getElementById('log-box');
-  box.scrollTop = box.scrollHeight;
-}
-
-function setupLogRefresh() {
-  document.getElementById('refresh-log-btn').onclick = refreshLog;
+  document.getElementById('log-box').scrollTop = 99999;
 }
 
 // ── boot ──────────────────────────────────────────────────────────────────────
