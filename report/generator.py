@@ -393,25 +393,13 @@ def _continue_research_button(ticker: str, company_name: str, anomalies: list[di
         "anomaly_period_ends":  period_ends,
     })
     safe_payload = payload.replace("'", "\\'")
-    return f"""<div style="margin-top:40px;padding-top:28px;border-top:2px solid #d4a72c;text-align:center">
-  <p style="font-size:13px;color:#656d76;margin-bottom:16px">
-    Ready to go deeper? Pull Form 4 insider transactions and the 10-Q PP&amp;E footnote automatically.
-  </p>
-  <button id="deep-research-btn"
-    onclick="runDeepResearch()"
-    style="background:#0969da;color:#fff;border:none;border-radius:6px;padding:12px 28px;
-           font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.02em;">
-    Continue Research →
-  </button>
-  <div id="deep-research-status" style="margin-top:12px;font-size:13px;color:#656d76;min-height:20px"></div>
+    return f"""<div style="margin-top:40px;padding-top:28px;border-top:2px solid #d4a72c">
+  <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0969da;margin-bottom:10px">Deep Research — Auto-Running</div>
+  <div id="deep-research-status" style="font-size:13px;color:#656d76">Fetching Form 4 filings and 10-Q PP&amp;E footnote…</div>
 </div>
 <script>
-async function runDeepResearch() {{
-  const btn = document.getElementById('deep-research-btn');
+(async function runDeepResearch() {{
   const status = document.getElementById('deep-research-status');
-  btn.disabled = true;
-  btn.textContent = 'Running…';
-  status.textContent = 'Fetching Form 4 filings and 10-Q PP&E footnote — this takes ~30 seconds…';
   try {{
     const resp = await fetch('/api/deep-research', {{
       method: 'POST',
@@ -420,16 +408,13 @@ async function runDeepResearch() {{
     }});
     if (!resp.ok) {{
       const err = await resp.text();
-      status.textContent = 'Error: ' + err;
-      btn.disabled = false; btn.textContent = 'Continue Research →';
+      status.textContent = 'Deep research error: ' + err;
       return;
     }}
     const {{ report_url }} = await resp.json();
-    status.innerHTML = '✓ Done — <a href="' + report_url + '" target="_blank">Open deep research report →</a>';
-    btn.textContent = 'Done ✓';
+    status.innerHTML = '✓ Deep research complete — <a href="' + report_url + '" target="_blank" style="color:#0969da;font-weight:700">Open full report →</a>';
   }} catch (e) {{
-    status.textContent = 'Request failed: ' + e.message;
-    btn.disabled = false; btn.textContent = 'Continue Research →';
+    status.textContent = 'Deep research failed: ' + e.message;
   }}
-}}
+}})();
 </script>"""
