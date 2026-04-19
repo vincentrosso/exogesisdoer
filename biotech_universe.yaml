@@ -1,24 +1,25 @@
 # Mid-cap biotech universe for sprint scanning.
 # Market cap roughly $1B–$20B as of early 2026.
-# All use PaymentsToAcquirePropertyPlantAndEquipment for CapEx unless noted.
+# All use PaymentsToAcquirePropertyPlantAndEquipment unless capex_tag overrides.
+# cik: field overrides ticker lookup for companies not in EDGAR company_tickers.json.
 #
-# Run a sweep across all of these with:
-#   python sweep.py
-#
-# Companies are grouped by sub-sector to aid narrative construction.
+# Excluded (annotated below):
+#   BLUE  — bankrupt/delisted March 2024
+#   SAGE  — acquired by Biogen 2023
+#   KRTX  — acquired by BMS early 2024
+#   MRUS  — Merus N.V., Dutch company, 20-F filer, no quarterly XBRL
+#   THTX  — Theratechnologies, Canadian, 20-F filer, no quarterly XBRL
+#   SIGA  — XBRL data annual-only; no quarterly CapEx reported
+#   PRTA  — only 2 XBRL entries from 2012-2013; no recent data
 
 capex_tag_default: PaymentsToAcquirePropertyPlantAndEquipment
 
 companies:
 
-  # ── Gene / Cell Therapy (manufacturing-intensive, high CapEx signal potential) ──
+  # ── Gene / Cell Therapy ──────────────────────────────────────────────────
   - ticker: SRPT
     name: "Sarepta Therapeutics"
     notes: "Gene therapy manufacturing scale-up ongoing"
-
-  - ticker: BLUE
-    name: "bluebird bio"
-    notes: "Cell therapy; manufacturing facility investments"
 
   - ticker: CRSP
     name: "CRISPR Therapeutics"
@@ -38,13 +39,14 @@ companies:
 
   - ticker: VERV
     name: "Verve Therapeutics"
+    cik: "0001840574"   # not in company_tickers.json; CIK confirmed via EDGAR search
     notes: "In vivo base editing"
 
   - ticker: FATE
     name: "Fate Therapeutics"
     notes: "iPSC cell therapy manufacturing"
 
-  # ── Rare Disease / Enzyme Replacement (established manufacturing, CapEx spikes notable) ──
+  # ── Rare Disease ─────────────────────────────────────────────────────────
   - ticker: BMRN
     name: "BioMarin Pharmaceutical"
     notes: "Large manufacturing footprint; facility expansions"
@@ -69,7 +71,7 @@ companies:
     name: "Arvinas"
     notes: "Protein degradation (PROTAC); manufacturing build"
 
-  # ── Oncology (targeted, ADC, cell therapy) ──
+  # ── Oncology ─────────────────────────────────────────────────────────────
   - ticker: RCKT
     name: "Rocket Pharmaceuticals"
     notes: "Gene therapy; lentiviral + AAV manufacturing"
@@ -77,10 +79,6 @@ companies:
   - ticker: KYMR
     name: "Kymera Therapeutics"
     notes: "Targeted protein degradation"
-
-  - ticker: MRUS
-    name: "Merus"
-    notes: "Bispecific antibodies; manufacturing"
 
   - ticker: NKTR
     name: "Nektar Therapeutics"
@@ -98,31 +96,21 @@ companies:
     name: "Zymeworks"
     notes: "Bispecific antibodies; ADC manufacturing"
 
-  # ── CNS ──
+  # ── CNS ──────────────────────────────────────────────────────────────────
   - ticker: NBIX
     name: "Neurocrine Biosciences"
     notes: "CNS specialty; growing manufacturing needs"
 
-  - ticker: SAGE
-    name: "Sage Therapeutics"
-    notes: "Neuroactive steroids; facility history"
-
-  - ticker: ACAD
-    name: "Acadia Pharmaceuticals"
-    notes: "CNS rare; Rett syndrome program"
+  # ACAD excluded: XBRL tag data stops at 2022, near-zero CapEx
 
   - ticker: PRAX
     name: "Praxis Precision Medicine"
     notes: "Ion channel; CNS"
 
-  # ── Immunology / Inflammation ──
+  # ── Immunology / Inflammation ─────────────────────────────────────────────
   - ticker: ARQT
     name: "Arcutis Biotherapeutics"
     notes: "Dermatology; topical formulation manufacturing"
-
-  - ticker: KRTX
-    name: "Karuna Therapeutics"
-    notes: "CNS/schizophrenia; acquired by BMS but check pre-acquisition"
 
   - ticker: IMVT
     name: "Immunovant"
@@ -132,37 +120,22 @@ companies:
     name: "Roivant Sciences"
     notes: "Multi-asset; subsidiary manufacturing"
 
-  # ── Metabolic / Cardiometabolic ──
+  # ── Metabolic / Cardiometabolic ───────────────────────────────────────────
   - ticker: RVMD
     name: "Revolution Medicines"
     notes: "RAS oncology/metabolic; manufacturing scale"
-
-  - ticker: PRTA
-    name: "Prothena"
-    notes: "Neurodegeneration + amyloid; manufacturing history"
 
   - ticker: AGIO
     name: "Agios Pharmaceuticals"
     notes: "Metabolic/heme; IDH inhibitors"
 
-  # ── Infectious Disease / Vaccines ──
-  - ticker: NVAX
-    name: "Novavax"
-    notes: "Vaccine; manufacturing scale (COVID + RSV)"
-    capex_tag: PaymentsToAcquirePropertyPlantAndEquipment
+  # ── Vaccines / Infectious Disease ─────────────────────────────────────────
+  # NVAX excluded: XBRL data for this tag only covers through 2022-09-30
 
-  - ticker: SIGA
-    name: "SIGA Technologies"
-    notes: "Smallpox/mpox antiviral; gov contracts + manufacturing"
-
-  # ── Platform / Tools ──
+  # ── Platform / Tools ──────────────────────────────────────────────────────
   - ticker: ALEC
     name: "Alector"
     notes: "Neurodegeneration; immuno-neurology"
-
-  - ticker: THTX
-    name: "Theratechnologies"
-    notes: "HIV complications specialty"
 
   - ticker: VCNX
     name: "Vaccinex"

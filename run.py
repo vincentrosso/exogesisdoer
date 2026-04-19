@@ -49,8 +49,10 @@ def analyse_company(cfg: dict, company: dict, sprint_cfg: dict) -> dict:
     window  = sprint_cfg["qfg_window_days_after"]
     min_dt  = datetime.strptime(sprint_cfg["min_date"], "%Y-%m-%d") if sprint_cfg.get("min_date") else None
 
+    cik_override = company.get("cik")
     print(f"\n  [{ticker}] Pulling CapEx XBRL ({tag})…")
-    capex_df = get_capex_quarterly(ticker, tag, spike_threshold=thresh, n_quarters=n, min_date=min_dt)
+    capex_df = get_capex_quarterly(ticker, tag, spike_threshold=thresh, n_quarters=n,
+                                   min_date=min_dt, cik_override=cik_override)
 
     if capex_df.empty:
         log.warning("[%s] No quarterly CapEx data for tag '%s' — skipping QFG scan", ticker, tag)

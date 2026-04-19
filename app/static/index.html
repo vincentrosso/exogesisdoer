@@ -509,7 +509,7 @@ async function refreshDashboards() {
   }
   el.innerHTML = files.map(f => {
     const label = f.replace('dashboard_', '').replace('.html', '');
-    return `<a class="dash-link" href="/output/${f}?token=${encodeURIComponent(token)}" target="_blank">📊 ${label}</a>`;
+    return `<a class="dash-link" href="/output/${f}" target="_blank">📊 ${label}</a>`;
   }).join('');
 }
 

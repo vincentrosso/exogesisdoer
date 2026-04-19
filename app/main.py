@@ -61,7 +61,7 @@ async def index():
 
 
 @app.get("/output/{filename}", include_in_schema=False)
-async def serve_output(filename: str, _: Auth):
+async def serve_output(filename: str):
     path = OUTPUT_DIR / filename
     if not path.exists() or path.suffix not in (".html", ".csv"):
         raise HTTPException(status_code=404)

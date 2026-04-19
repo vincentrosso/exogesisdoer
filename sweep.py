@@ -73,9 +73,11 @@ def main():
         tag    = company.get("capex_tag", tag_default)
         print(f"  [{idx:02d}/{total}] {ticker:<6} {name}")
 
+        cik_override = company.get("cik")
         try:
             capex_df = get_capex_quarterly(ticker, tag, spike_threshold=thresh,
-                                           n_quarters=n, min_date=min_dt)
+                                           n_quarters=n, min_date=min_dt,
+                                           cik_override=cik_override)
             if capex_df.empty:
                 print(f"         → no data")
                 no_data.append(ticker)

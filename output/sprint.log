@@ -287,3 +287,1148 @@
 2026-04-18 13:33:47  INFO      exogesisdoer.scrapers.qfg_scraper  [IONS] 2025-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
 2026-04-18 13:33:47  INFO      exogesisdoer.__main__             Sprint complete — anomaly found in SRPT, proceeding to secondary work
 2026-04-18 13:39:40  INFO      exogesisdoer                      Logging initialised — file: /Users/vincentrosso/Dropbox/development/exogesisdoer/output/sprint.log
+2026-04-18 13:41:34  INFO      exogesisdoer                      Logging initialised — file: /Users/vincentrosso/Dropbox/development/exogesisdoer/output/sprint.log
+2026-04-18 13:41:34  INFO      exogesisdoer.__main__             Sprint run started
+2026-04-18 13:41:34  INFO      exogesisdoer.scrapers.capex_scraper  [SRPT] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: SRPT
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:07:59)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar         CIK for SRPT → 0000873303
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0000873303
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000873303_facts (age 0:07:58)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.capex_scraper  [SRPT] Raw XBRL entries for tag: 145
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.capex_scraper  [SRPT] Replacing duplicate period 2023-03-31 with newer filing 2024-05-01
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.capex_scraper  [SRPT] Replacing duplicate period 2024-03-31 with newer filing 2025-05-06
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.capex_scraper  [SRPT] XBRL filtering: 3 quarterly rows kept, 117 non-quarterly skipped
+2026-04-18 13:41:34  INFO      exogesisdoer.scrapers.capex_scraper  [SRPT] CapEx data ready: 3 quarters, 1 spike(s) ≥40%
+2026-04-18 13:41:34  INFO      exogesisdoer.scrapers.qfg_scraper  [SRPT] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: SRPT
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:07:59)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar         CIK for SRPT → 0000873303
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0000873303
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0000873303
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000873303_submissions (age 0:07:58)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000873303_sub_CIK0000873303-submissions-001.json (age 0:07:58)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar         Found 308 8-K filings for CIK 0000873303
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.qfg_scraper  [SRPT] 8-K filings with Item 2.02 or 7.01: 112 of 308 total
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.qfg_scraper  [SRPT] 2023-Q1: 0 8-K(s) in window [2023-03-31 → 2023-06-14]
+2026-04-18 13:41:34  INFO      exogesisdoer.scrapers.qfg_scraper  [SRPT] 2023-Q1 QFG=0 — no 8-K Item 2.02/7.01 filings found in window
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.qfg_scraper  [SRPT] 2024-Q1: 0 8-K(s) in window [2024-03-31 → 2024-06-14]
+2026-04-18 13:41:34  INFO      exogesisdoer.scrapers.qfg_scraper  [SRPT] 2024-Q1 QFG=0 — no 8-K Item 2.02/7.01 filings found in window
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.qfg_scraper  [SRPT] 2025-Q1: 0 8-K(s) in window [2025-03-31 → 2025-06-14]
+2026-04-18 13:41:34  INFO      exogesisdoer.scrapers.qfg_scraper  [SRPT] 2025-Q1 QFG=0 — no 8-K Item 2.02/7.01 filings found in window
+2026-04-18 13:41:34  INFO      exogesisdoer.scrapers.capex_scraper  [BMRN] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: BMRN
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:07:59)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar         CIK for BMRN → 0001048477
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001048477
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0001048477_facts (age 0:07:56)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.capex_scraper  [BMRN] Raw XBRL entries for tag: 146
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.capex_scraper  [BMRN] Replacing duplicate period 2023-03-31 with newer filing 2024-04-26
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.capex_scraper  [BMRN] Replacing duplicate period 2024-03-31 with newer filing 2025-05-02
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.capex_scraper  [BMRN] XBRL filtering: 3 quarterly rows kept, 115 non-quarterly skipped
+2026-04-18 13:41:34  INFO      exogesisdoer.scrapers.capex_scraper  [BMRN] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:41:34  INFO      exogesisdoer.scrapers.qfg_scraper  [BMRN] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: BMRN
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:07:59)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar         CIK for BMRN → 0001048477
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0001048477
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0001048477
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0001048477_submissions (age 0:07:55)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0001048477_sub_CIK0001048477-submissions-001.json (age 0:07:55)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar         Found 339 8-K filings for CIK 0001048477
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.qfg_scraper  [BMRN] 8-K filings with Item 2.02 or 7.01: 111 of 339 total
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.qfg_scraper  [BMRN] 2023-Q1: 1 8-K(s) in window [2023-03-31 → 2023-06-14]
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001048477-23-000016 / bmrn-20230426.htm
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1048477/000104847723000016/bmrn-20230426.htm
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar         → 33147 bytes
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3624 chars
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.qfg_scraper  [BMRN] 2023-Q1 filing 0001048477-23-000016 (2023-04-26): 16 sentences, 0 match(es)
+2026-04-18 13:41:34  INFO      exogesisdoer.scrapers.qfg_scraper  [BMRN] 2023-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.qfg_scraper  [BMRN] 2024-Q1: 1 8-K(s) in window [2024-03-31 → 2024-06-14]
+2026-04-18 13:41:34  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001048477-24-000066 / bmrn-20240424.htm
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1048477/000104847724000066/bmrn-20240424.htm
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar         → 24996 bytes
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3624 chars
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.qfg_scraper  [BMRN] 2024-Q1 filing 0001048477-24-000066 (2024-04-24): 16 sentences, 0 match(es)
+2026-04-18 13:41:35  INFO      exogesisdoer.scrapers.qfg_scraper  [BMRN] 2024-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.qfg_scraper  [BMRN] 2025-Q1: 2 8-K(s) in window [2025-03-31 → 2025-06-14]
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001048477-25-000049 / bmrn-20250501.htm
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1048477/000104847725000049/bmrn-20250501.htm
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar         → 24982 bytes
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3609 chars
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.qfg_scraper  [BMRN] 2025-Q1 filing 0001048477-25-000049 (2025-05-01): 16 sentences, 0 match(es)
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001193125-25-121296 / d833625d8k.htm
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1048477/000119312525121296/d833625d8k.htm
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar         → 52452 bytes
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 23209 chars
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.qfg_scraper  [BMRN] 2025-Q1 filing 0001193125-25-121296 (2025-05-16): 68 sentences, 0 match(es)
+2026-04-18 13:41:35  INFO      exogesisdoer.scrapers.qfg_scraper  [BMRN] 2025-Q1 QFG=0 — no qualifying sentence in 2 filing(s)
+2026-04-18 13:41:35  INFO      exogesisdoer.scrapers.capex_scraper  [IONS] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: IONS
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:08:00)
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar         CIK for IONS → 0000874015
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0000874015
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000874015_facts (age 0:07:52)
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.capex_scraper  [IONS] Raw XBRL entries for tag: 142
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.capex_scraper  [IONS] Replacing duplicate period 2023-03-31 with newer filing 2024-05-07
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.capex_scraper  [IONS] Replacing duplicate period 2024-03-31 with newer filing 2025-04-30
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.capex_scraper  [IONS] XBRL filtering: 3 quarterly rows kept, 112 non-quarterly skipped
+2026-04-18 13:41:35  INFO      exogesisdoer.scrapers.capex_scraper  [IONS] CapEx data ready: 3 quarters, 1 spike(s) ≥40%
+2026-04-18 13:41:35  INFO      exogesisdoer.scrapers.qfg_scraper  [IONS] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: IONS
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:08:00)
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar         CIK for IONS → 0000874015
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0000874015
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0000874015
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000874015_submissions (age 0:07:51)
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000874015_sub_CIK0000874015-submissions-001.json (age 0:07:51)
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar         Found 318 8-K filings for CIK 0000874015
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 8-K filings with Item 2.02 or 7.01: 95 of 318 total
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 2023-Q1: 1 8-K(s) in window [2023-03-31 → 2023-06-14]
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001140361-23-022621 / brhc20052344_8k.htm
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/874015/000114036123022621/brhc20052344_8k.htm
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar         → 28697 bytes
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 4070 chars
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 2023-Q1 filing 0001140361-23-022621 (2023-05-03): 18 sentences, 0 match(es)
+2026-04-18 13:41:35  INFO      exogesisdoer.scrapers.qfg_scraper  [IONS] 2023-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 2024-Q1: 1 8-K(s) in window [2024-03-31 → 2024-06-14]
+2026-04-18 13:41:35  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001140361-24-024648 / ef20028585_8k.htm
+2026-04-18 13:41:36  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/874015/000114036124024648/ef20028585_8k.htm
+2026-04-18 13:41:36  DEBUG     exogesisdoer.scrapers.edgar         → 27574 bytes
+2026-04-18 13:41:36  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 4046 chars
+2026-04-18 13:41:36  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 2024-Q1 filing 0001140361-24-024648 (2024-05-07): 18 sentences, 0 match(es)
+2026-04-18 13:41:36  INFO      exogesisdoer.scrapers.qfg_scraper  [IONS] 2024-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:41:36  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 2025-Q1: 1 8-K(s) in window [2025-03-31 → 2025-06-14]
+2026-04-18 13:41:36  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001140361-25-016562 / ef20048172_8k.htm
+2026-04-18 13:41:36  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/874015/000114036125016562/ef20048172_8k.htm
+2026-04-18 13:41:36  DEBUG     exogesisdoer.scrapers.edgar         → 27566 bytes
+2026-04-18 13:41:36  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 4083 chars
+2026-04-18 13:41:36  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 2025-Q1 filing 0001140361-25-016562 (2025-04-30): 18 sentences, 0 match(es)
+2026-04-18 13:41:36  INFO      exogesisdoer.scrapers.qfg_scraper  [IONS] 2025-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:41:36  INFO      exogesisdoer.scrapers.clinicaltrials_scraper  ClinicalTrials.gov: querying sponsor 'Sarepta Therapeutics'
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT00844597 — status=COMPLETED enrollment=19(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT03769116 — status=COMPLETED enrollment=41(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT01375985 — status=TERMINATED enrollment=8(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT05906251 — status=TERMINATED enrollment=2(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT03652259 — status=TERMINATED enrollment=6(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT06952686 — status=WITHDRAWN enrollment=0(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT03680365 — status=COMPLETED enrollment=60(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT03375255 — status=COMPLETED enrollment=15(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT02286947 — status=COMPLETED enrollment=24(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT02530905 — status=COMPLETED enrollment=12(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT07536061 — status=NOT_YET_RECRUITING enrollment=32(ESTIMATED)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT03375164 — status=COMPLETED enrollment=4(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT06581887 — status=RECRUITING enrollment=100(ESTIMATED)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT00387283 — status=COMPLETED enrollment=14()
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT05096221 — status=COMPLETED enrollment=126(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT04179409 — status=COMPLETED enrollment=3(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT04004065 — status=TERMINATED enrollment=62(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT02710500 — status=COMPLETED enrollment=2(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT06246513 — status=ACTIVE_NOT_RECRUITING enrollment=17(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT03985878 — status=TERMINATED enrollment=15(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT02255552 — status=COMPLETED enrollment=109(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT00159250 — status=COMPLETED enrollment=7(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT05881408 — status=ACTIVE_NOT_RECRUITING enrollment=148(ESTIMATED)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT06241950 — status=TERMINATED enrollment=5(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT00229749 — status=TERMINATED enrollment=80(ESTIMATED)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT03218995 — status=COMPLETED enrollment=15(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT00091845 — status=TERMINATED enrollment=50(ESTIMATED)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT06128564 — status=ACTIVE_NOT_RECRUITING enrollment=13(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT03992430 — status=ACTIVE_NOT_RECRUITING enrollment=160(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT01593072 — status=WITHDRAWN enrollment=0(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT00451256 — status=TERMINATED enrollment=600(ESTIMATED)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT06597656 — status=TERMINATED enrollment=3(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT04475926 — status=ACTIVE_NOT_RECRUITING enrollment=205(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT03655223 — status=ENROLLING_BY_INVITATION enrollment=30000(ESTIMATED)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT02310906 — status=COMPLETED enrollment=39(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT05876780 — status=ACTIVE_NOT_RECRUITING enrollment=6(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT02420379 — status=COMPLETED enrollment=33(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT00244647 — status=TERMINATED enrollment=40()
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT01540409 — status=COMPLETED enrollment=12(ACTUAL)
+2026-04-18 13:41:37  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT01566877 — status=COMPLETED enrollment=40(ACTUAL)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT00248066 — status=COMPLETED enrollment=50()
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT06270719 — status=ENROLLING_BY_INVITATION enrollment=500(ESTIMATED)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT01353027 — status=COMPLETED enrollment=30(ACTUAL)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT02500381 — status=COMPLETED enrollment=228(ACTUAL)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT06606340 — status=ENROLLING_BY_INVITATION enrollment=300(ESTIMATED)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT01976091 — status=COMPLETED enrollment=6(ACTUAL)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT03675126 — status=TERMINATED enrollment=15(ACTUAL)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT06747273 — status=TERMINATED enrollment=4(ACTUAL)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT04626674 — status=RECRUITING enrollment=83(ESTIMATED)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT05967351 — status=ENROLLING_BY_INVITATION enrollment=400(ESTIMATED)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT03532542 — status=TERMINATED enrollment=171(ACTUAL)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT00381433 — status=COMPLETED enrollment=12()
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT00343148 — status=COMPLETED enrollment=6()
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT04708314 — status=TERMINATED enrollment=2(ACTUAL)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT01353040 — status=COMPLETED enrollment=30(ESTIMATED)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.clinicaltrials_scraper    trial NCT01396239 — status=COMPLETED enrollment=12(ACTUAL)
+2026-04-18 13:41:38  INFO      exogesisdoer.scrapers.clinicaltrials_scraper  ClinicalTrials.gov: 56 total trials — 24 flat/concerning, 32 active
+2026-04-18 13:41:38  INFO      exogesisdoer.scrapers.earnings_scraper  [SRPT] Scanning earnings call Q&A for 1 anomaly quarter(s)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: SRPT
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:08:03)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.edgar         CIK for SRPT → 0000873303
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0000873303
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0000873303
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000873303_submissions (age 0:08:02)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000873303_sub_CIK0000873303-submissions-001.json (age 0:08:01)
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.edgar         Found 308 8-K filings for CIK 0000873303
+2026-04-18 13:41:38  DEBUG     exogesisdoer.scrapers.earnings_scraper  [SRPT] 2024-Q1: 0 earnings 8-K(s) to scan for Q&A
+2026-04-18 13:41:38  INFO      exogesisdoer.scrapers.earnings_scraper  [SRPT] Q&A scan complete: 0 capital-allocation Q&A found, 0 evasive
+2026-04-18 13:41:38  INFO      exogesisdoer.report.generator     Report written → /Users/vincentrosso/Dropbox/development/exogesisdoer/output/report_SRPT_20260418_1341.html (24706 bytes)
+2026-04-18 13:41:38  INFO      exogesisdoer.__main__             Sprint complete — anomaly found in SRPT, secondary work done
+2026-04-18 13:42:59  INFO      exogesisdoer                      Logging initialised — file: /Users/vincentrosso/Dropbox/development/exogesisdoer/output/sprint.log
+2026-04-18 13:42:59  INFO      exogesisdoer.scrapers.capex_scraper  [SRPT] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: SRPT
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:24)
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar         CIK for SRPT → 0000873303
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0000873303
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000873303_facts (age 0:09:23)
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.capex_scraper  [SRPT] Raw XBRL entries for tag: 145
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.capex_scraper  [SRPT] Replacing duplicate period 2023-03-31 with newer filing 2024-05-01
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.capex_scraper  [SRPT] Replacing duplicate period 2024-03-31 with newer filing 2025-05-06
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.capex_scraper  [SRPT] XBRL filtering: 3 quarterly rows kept, 117 non-quarterly skipped
+2026-04-18 13:42:59  INFO      exogesisdoer.scrapers.capex_scraper  [SRPT] CapEx data ready: 3 quarters, 1 spike(s) ≥40%
+2026-04-18 13:42:59  INFO      exogesisdoer.scrapers.qfg_scraper  [SRPT] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: SRPT
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:24)
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar         CIK for SRPT → 0000873303
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0000873303
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0000873303
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000873303_submissions (age 0:09:23)
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000873303_sub_CIK0000873303-submissions-001.json (age 0:09:23)
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar         Found 308 8-K filings for CIK 0000873303
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.qfg_scraper  [SRPT] 8-K filings with Item 2.02 or 7.01: 112 of 308 total
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.qfg_scraper  [SRPT] 2023-Q1: 0 8-K(s) in window [2023-03-31 → 2023-06-14]
+2026-04-18 13:42:59  INFO      exogesisdoer.scrapers.qfg_scraper  [SRPT] 2023-Q1 QFG=0 — no 8-K Item 2.02/7.01 filings found in window
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.qfg_scraper  [SRPT] 2024-Q1: 0 8-K(s) in window [2024-03-31 → 2024-06-14]
+2026-04-18 13:42:59  INFO      exogesisdoer.scrapers.qfg_scraper  [SRPT] 2024-Q1 QFG=0 — no 8-K Item 2.02/7.01 filings found in window
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.qfg_scraper  [SRPT] 2025-Q1: 0 8-K(s) in window [2025-03-31 → 2025-06-14]
+2026-04-18 13:42:59  INFO      exogesisdoer.scrapers.qfg_scraper  [SRPT] 2025-Q1 QFG=0 — no 8-K Item 2.02/7.01 filings found in window
+2026-04-18 13:42:59  INFO      exogesisdoer.scrapers.capex_scraper  [BLUE] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: BLUE
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:24)
+2026-04-18 13:42:59  ERROR     exogesisdoer.scrapers.edgar       Ticker 'BLUE' not found in EDGAR company tickers
+2026-04-18 13:42:59  ERROR     exogesisdoer.__main__             [BLUE] sweep error: Ticker 'BLUE' not found in EDGAR company tickers
+Traceback (most recent call last):
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/sweep.py", line 77, in main
+    capex_df = get_capex_quarterly(ticker, tag, spike_threshold=thresh,
+                                   n_quarters=n, min_date=min_dt)
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/scrapers/capex_scraper.py", line 34, in get_capex_quarterly
+    cik = get_cik(ticker)
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/scrapers/edgar.py", line 80, in get_cik
+    raise ValueError(f"Ticker '{ticker}' not found in EDGAR company tickers")
+ValueError: Ticker 'BLUE' not found in EDGAR company tickers
+2026-04-18 13:42:59  INFO      exogesisdoer.scrapers.capex_scraper  [CRSP] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: CRSP
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:24)
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar         CIK for CRSP → 0001674416
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001674416
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001674416_facts
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001674416.json
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar         → 1646678 bytes
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001674416_facts.json
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.capex_scraper  [CRSP] Raw XBRL entries for tag: 85
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.capex_scraper  [CRSP] Replacing duplicate period 2023-03-31 with newer filing 2024-05-08
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.capex_scraper  [CRSP] Replacing duplicate period 2024-03-31 with newer filing 2025-05-06
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.capex_scraper  [CRSP] XBRL filtering: 3 quarterly rows kept, 68 non-quarterly skipped
+2026-04-18 13:42:59  INFO      exogesisdoer.scrapers.capex_scraper  [CRSP] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:42:59  INFO      exogesisdoer.scrapers.capex_scraper  [EDIT] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:42:59  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: EDIT
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:24)
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar         CIK for EDIT → 0001650664
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001650664
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001650664_facts
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001650664.json
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar         → 1499671 bytes
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001650664_facts.json
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.capex_scraper  [EDIT] Raw XBRL entries for tag: 89
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.capex_scraper  [EDIT] Replacing duplicate period 2023-03-31 with newer filing 2024-05-08
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.capex_scraper  [EDIT] Replacing duplicate period 2024-03-31 with newer filing 2025-05-12
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.capex_scraper  [EDIT] XBRL filtering: 3 quarterly rows kept, 69 non-quarterly skipped
+2026-04-18 13:43:00  INFO      exogesisdoer.scrapers.capex_scraper  [EDIT] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:00  INFO      exogesisdoer.scrapers.capex_scraper  [NTLA] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: NTLA
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:25)
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar         CIK for NTLA → 0001652130
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001652130
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001652130_facts
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001652130.json
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar         → 1562800 bytes
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001652130_facts.json
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.capex_scraper  [NTLA] Raw XBRL entries for tag: 90
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.capex_scraper  [NTLA] Replacing duplicate period 2023-03-31 with newer filing 2024-05-09
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.capex_scraper  [NTLA] Replacing duplicate period 2024-03-31 with newer filing 2025-05-08
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.capex_scraper  [NTLA] XBRL filtering: 3 quarterly rows kept, 70 non-quarterly skipped
+2026-04-18 13:43:00  INFO      exogesisdoer.scrapers.capex_scraper  [NTLA] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:00  INFO      exogesisdoer.scrapers.capex_scraper  [BEAM] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: BEAM
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:25)
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar         CIK for BEAM → 0001745999
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001745999
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001745999_facts
+2026-04-18 13:43:00  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001745999.json
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar         → 1063321 bytes
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001745999_facts.json
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.capex_scraper  [BEAM] Raw XBRL entries for tag: 53
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.capex_scraper  [BEAM] Replacing duplicate period 2023-03-31 with newer filing 2024-05-07
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.capex_scraper  [BEAM] Replacing duplicate period 2024-03-31 with newer filing 2025-05-06
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.capex_scraper  [BEAM] XBRL filtering: 3 quarterly rows kept, 41 non-quarterly skipped
+2026-04-18 13:43:01  INFO      exogesisdoer.scrapers.capex_scraper  [BEAM] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:01  INFO      exogesisdoer.scrapers.capex_scraper  [VERV] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: VERV
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:26)
+2026-04-18 13:43:01  ERROR     exogesisdoer.scrapers.edgar       Ticker 'VERV' not found in EDGAR company tickers
+2026-04-18 13:43:01  ERROR     exogesisdoer.__main__             [VERV] sweep error: Ticker 'VERV' not found in EDGAR company tickers
+Traceback (most recent call last):
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/sweep.py", line 77, in main
+    capex_df = get_capex_quarterly(ticker, tag, spike_threshold=thresh,
+                                   n_quarters=n, min_date=min_dt)
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/scrapers/capex_scraper.py", line 34, in get_capex_quarterly
+    cik = get_cik(ticker)
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/scrapers/edgar.py", line 80, in get_cik
+    raise ValueError(f"Ticker '{ticker}' not found in EDGAR company tickers")
+ValueError: Ticker 'VERV' not found in EDGAR company tickers
+2026-04-18 13:43:01  INFO      exogesisdoer.scrapers.capex_scraper  [FATE] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: FATE
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:26)
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar         CIK for FATE → 0001434316
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001434316
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001434316_facts
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001434316.json
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar         → 1663408 bytes
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001434316_facts.json
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.capex_scraper  [FATE] Raw XBRL entries for tag: 113
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.capex_scraper  [FATE] Replacing duplicate period 2023-03-31 with newer filing 2024-05-09
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.capex_scraper  [FATE] Replacing duplicate period 2024-03-31 with newer filing 2025-05-13
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.capex_scraper  [FATE] XBRL filtering: 3 quarterly rows kept, 89 non-quarterly skipped
+2026-04-18 13:43:01  INFO      exogesisdoer.scrapers.capex_scraper  [FATE] CapEx data ready: 3 quarters, 1 spike(s) ≥40%
+2026-04-18 13:43:01  INFO      exogesisdoer.scrapers.qfg_scraper  [FATE] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: FATE
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:26)
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar         CIK for FATE → 0001434316
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0001434316
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0001434316
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001434316_submissions
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/submissions/CIK0001434316.json
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar         → 130721 bytes
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001434316_submissions.json
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar         Found 127 8-K filings for CIK 0001434316
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.qfg_scraper  [FATE] 8-K filings with Item 2.02 or 7.01: 73 of 127 total
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.qfg_scraper  [FATE] 2023-Q1: 1 8-K(s) in window [2023-03-31 → 2023-06-14]
+2026-04-18 13:43:01  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0000950170-23-017157 / fate-20230503.htm
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1434316/000095017023017157/fate-20230503.htm
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar         → 54548 bytes
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3374 chars
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.qfg_scraper  [FATE] 2023-Q1 filing 0000950170-23-017157 (2023-05-03): 12 sentences, 0 match(es)
+2026-04-18 13:43:02  INFO      exogesisdoer.scrapers.qfg_scraper  [FATE] 2023-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.qfg_scraper  [FATE] 2024-Q1: 2 8-K(s) in window [2024-03-31 → 2024-06-14]
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0000950170-24-056852 / fate-20240509.htm
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1434316/000095017024056852/fate-20240509.htm
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar         → 39142 bytes
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3375 chars
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.qfg_scraper  [FATE] 2024-Q1 filing 0000950170-24-056852 (2024-05-09): 12 sentences, 0 match(es)
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001193125-24-134840 / d675282d8k.htm
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1434316/000119312524134840/d675282d8k.htm
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar         → 34695 bytes
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 10662 chars
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.qfg_scraper  [FATE] 2024-Q1 filing 0001193125-24-134840 (2024-05-09): 31 sentences, 0 match(es)
+2026-04-18 13:43:02  INFO      exogesisdoer.scrapers.qfg_scraper  [FATE] 2024-Q1 QFG=0 — no qualifying sentence in 2 filing(s)
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.qfg_scraper  [FATE] 2025-Q1: 2 8-K(s) in window [2025-03-31 → 2025-06-14]
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0000950170-25-070280 / fate-20250513.htm
+2026-04-18 13:43:02  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1434316/000095017025070280/fate-20250513.htm
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar         → 45028 bytes
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3388 chars
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.qfg_scraper  [FATE] 2025-Q1 filing 0000950170-25-070280 (2025-05-13): 12 sentences, 0 match(es)
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001193125-25-132301 / d42374d8k.htm
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1434316/000119312525132301/d42374d8k.htm
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar         → 57604 bytes
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 11699 chars
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.qfg_scraper  [FATE] 2025-Q1 filing 0001193125-25-132301 (2025-05-30): 61 sentences, 0 match(es)
+2026-04-18 13:43:03  INFO      exogesisdoer.scrapers.qfg_scraper  [FATE] 2025-Q1 QFG=0 — no qualifying sentence in 2 filing(s)
+2026-04-18 13:43:03  INFO      exogesisdoer.scrapers.capex_scraper  [BMRN] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: BMRN
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:28)
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar         CIK for BMRN → 0001048477
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001048477
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0001048477_facts (age 0:09:24)
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.capex_scraper  [BMRN] Raw XBRL entries for tag: 146
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.capex_scraper  [BMRN] Replacing duplicate period 2023-03-31 with newer filing 2024-04-26
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.capex_scraper  [BMRN] Replacing duplicate period 2024-03-31 with newer filing 2025-05-02
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.capex_scraper  [BMRN] XBRL filtering: 3 quarterly rows kept, 115 non-quarterly skipped
+2026-04-18 13:43:03  INFO      exogesisdoer.scrapers.capex_scraper  [BMRN] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:03  INFO      exogesisdoer.scrapers.capex_scraper  [ALNY] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: ALNY
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:28)
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar         CIK for ALNY → 0001178670
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001178670
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001178670_facts
+2026-04-18 13:43:03  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001178670.json
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar         → 2496337 bytes
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001178670_facts.json
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.capex_scraper  [ALNY] Raw XBRL entries for tag: 142
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.capex_scraper  [ALNY] Replacing duplicate period 2023-03-31 with newer filing 2024-05-02
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.capex_scraper  [ALNY] Replacing duplicate period 2024-03-31 with newer filing 2025-05-01
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.capex_scraper  [ALNY] XBRL filtering: 3 quarterly rows kept, 112 non-quarterly skipped
+2026-04-18 13:43:04  INFO      exogesisdoer.scrapers.capex_scraper  [ALNY] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:04  INFO      exogesisdoer.scrapers.capex_scraper  [IONS] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: IONS
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:28)
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar         CIK for IONS → 0000874015
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0000874015
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000874015_facts (age 0:09:20)
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.capex_scraper  [IONS] Raw XBRL entries for tag: 142
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.capex_scraper  [IONS] Replacing duplicate period 2023-03-31 with newer filing 2024-05-07
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.capex_scraper  [IONS] Replacing duplicate period 2024-03-31 with newer filing 2025-04-30
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.capex_scraper  [IONS] XBRL filtering: 3 quarterly rows kept, 112 non-quarterly skipped
+2026-04-18 13:43:04  INFO      exogesisdoer.scrapers.capex_scraper  [IONS] CapEx data ready: 3 quarters, 1 spike(s) ≥40%
+2026-04-18 13:43:04  INFO      exogesisdoer.scrapers.qfg_scraper  [IONS] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: IONS
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:29)
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar         CIK for IONS → 0000874015
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0000874015
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0000874015
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000874015_submissions (age 0:09:20)
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: 0000874015_sub_CIK0000874015-submissions-001.json (age 0:09:19)
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar         Found 318 8-K filings for CIK 0000874015
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 8-K filings with Item 2.02 or 7.01: 95 of 318 total
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 2023-Q1: 1 8-K(s) in window [2023-03-31 → 2023-06-14]
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001140361-23-022621 / brhc20052344_8k.htm
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/874015/000114036123022621/brhc20052344_8k.htm
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar         → 28697 bytes
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 4070 chars
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 2023-Q1 filing 0001140361-23-022621 (2023-05-03): 18 sentences, 0 match(es)
+2026-04-18 13:43:04  INFO      exogesisdoer.scrapers.qfg_scraper  [IONS] 2023-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 2024-Q1: 1 8-K(s) in window [2024-03-31 → 2024-06-14]
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001140361-24-024648 / ef20028585_8k.htm
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/874015/000114036124024648/ef20028585_8k.htm
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar         → 27574 bytes
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 4046 chars
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 2024-Q1 filing 0001140361-24-024648 (2024-05-07): 18 sentences, 0 match(es)
+2026-04-18 13:43:04  INFO      exogesisdoer.scrapers.qfg_scraper  [IONS] 2024-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 2025-Q1: 1 8-K(s) in window [2025-03-31 → 2025-06-14]
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001140361-25-016562 / ef20048172_8k.htm
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/874015/000114036125016562/ef20048172_8k.htm
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar         → 27566 bytes
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 4083 chars
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IONS] 2025-Q1 filing 0001140361-25-016562 (2025-04-30): 18 sentences, 0 match(es)
+2026-04-18 13:43:04  INFO      exogesisdoer.scrapers.qfg_scraper  [IONS] 2025-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:04  INFO      exogesisdoer.scrapers.capex_scraper  [FOLD] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: FOLD
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:29)
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar         CIK for FOLD → 0001178879
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001178879
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001178879_facts
+2026-04-18 13:43:04  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001178879.json
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar         → 2641515 bytes
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001178879_facts.json
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.capex_scraper  [FOLD] Raw XBRL entries for tag: 146
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.capex_scraper  [FOLD] Replacing duplicate period 2023-03-31 with newer filing 2024-05-09
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.capex_scraper  [FOLD] Replacing duplicate period 2024-03-31 with newer filing 2025-05-01
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.capex_scraper  [FOLD] XBRL filtering: 3 quarterly rows kept, 120 non-quarterly skipped
+2026-04-18 13:43:05  INFO      exogesisdoer.scrapers.capex_scraper  [FOLD] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:05  INFO      exogesisdoer.scrapers.capex_scraper  [RARE] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: RARE
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:30)
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar         CIK for RARE → 0001515673
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001515673
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001515673_facts
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001515673.json
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar         → 1821488 bytes
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001515673_facts.json
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.capex_scraper  [RARE] Raw XBRL entries for tag: 109
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.capex_scraper  [RARE] Replacing duplicate period 2023-03-31 with newer filing 2024-05-03
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.capex_scraper  [RARE] Replacing duplicate period 2024-03-31 with newer filing 2025-05-07
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.capex_scraper  [RARE] XBRL filtering: 3 quarterly rows kept, 85 non-quarterly skipped
+2026-04-18 13:43:05  INFO      exogesisdoer.scrapers.capex_scraper  [RARE] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:05  INFO      exogesisdoer.scrapers.capex_scraper  [ARVN] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: ARVN
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:30)
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar         CIK for ARVN → 0001655759
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001655759
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001655759_facts
+2026-04-18 13:43:05  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001655759.json
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar         → 1217246 bytes
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001655759_facts.json
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.capex_scraper  [ARVN] Raw XBRL entries for tag: 66
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.capex_scraper  [ARVN] Replacing duplicate period 2023-03-31 with newer filing 2024-05-07
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.capex_scraper  [ARVN] Replacing duplicate period 2024-03-31 with newer filing 2025-05-01
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.capex_scraper  [ARVN] XBRL filtering: 3 quarterly rows kept, 52 non-quarterly skipped
+2026-04-18 13:43:06  INFO      exogesisdoer.scrapers.capex_scraper  [ARVN] CapEx data ready: 3 quarters, 1 spike(s) ≥40%
+2026-04-18 13:43:06  INFO      exogesisdoer.scrapers.qfg_scraper  [ARVN] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: ARVN
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:31)
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar         CIK for ARVN → 0001655759
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0001655759
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0001655759
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001655759_submissions
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/submissions/CIK0001655759.json
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar         → 90264 bytes
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001655759_submissions.json
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar         Found 106 8-K filings for CIK 0001655759
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 8-K filings with Item 2.02 or 7.01: 61 of 106 total
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2023-Q1: 2 8-K(s) in window [2023-03-31 → 2023-06-14]
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001655759-23-000039 / arvn-20230505.htm
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1655759/000165575923000039/arvn-20230505.htm
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar         → 36248 bytes
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3478 chars
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2023-Q1 filing 0001655759-23-000039 (2023-05-05): 15 sentences, 0 match(es)
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001655759-23-000043 / arvn-20230608.htm
+2026-04-18 13:43:06  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1655759/000165575923000043/arvn-20230608.htm
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.edgar         → 49695 bytes
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 10308 chars
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2023-Q1 filing 0001655759-23-000043 (2023-06-08): 47 sentences, 0 match(es)
+2026-04-18 13:43:07  INFO      exogesisdoer.scrapers.qfg_scraper  [ARVN] 2023-Q1 QFG=0 — no qualifying sentence in 2 filing(s)
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2024-Q1: 3 8-K(s) in window [2024-03-31 → 2024-06-14]
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001655759-24-000043 / arvn-20240410.htm
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1655759/000165575924000043/arvn-20240410.htm
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.edgar         → 38112 bytes
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 8027 chars
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2024-Q1 filing 0001655759-24-000043 (2024-04-11): 33 sentences, 0 match(es)
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001655759-24-000056 / arvn-20240507.htm
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1655759/000165575924000056/arvn-20240507.htm
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.edgar         → 26707 bytes
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3481 chars
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2024-Q1 filing 0001655759-24-000056 (2024-05-07): 15 sentences, 0 match(es)
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001655759-24-000063 / arvn-20240516.htm
+2026-04-18 13:43:07  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1655759/000165575924000063/arvn-20240516.htm
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar         → 42481 bytes
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 10932 chars
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2024-Q1 filing 0001655759-24-000063 (2024-05-16): 44 sentences, 0 match(es)
+2026-04-18 13:43:08  INFO      exogesisdoer.scrapers.qfg_scraper  [ARVN] 2024-Q1 QFG=0 — no qualifying sentence in 3 filing(s)
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2025-Q1: 5 8-K(s) in window [2025-03-31 → 2025-06-14]
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001655759-25-000066 / arvn-20250404.htm
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1655759/000165575925000066/arvn-20250404.htm
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar         → 38835 bytes
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 7865 chars
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2025-Q1 filing 0001655759-25-000066 (2025-04-04): 40 sentences, 0 match(es)
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001655759-25-000069 / arvn-20250428.htm
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1655759/000165575925000069/arvn-20250428.htm
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar         → 32331 bytes
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 5631 chars
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2025-Q1 filing 0001655759-25-000069 (2025-04-28): 24 sentences, 0 match(es)
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001655759-25-000081 / arvn-20250430.htm
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1655759/000165575925000081/arvn-20250430.htm
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar         → 33993 bytes
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 8727 chars
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2025-Q1 filing 0001655759-25-000081 (2025-05-01): 33 sentences, 0 match(es)
+2026-04-18 13:43:08  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001655759-25-000095 / arvn-20250531.htm
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1655759/000165575925000095/arvn-20250531.htm
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar         → 44288 bytes
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 11172 chars
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2025-Q1 filing 0001655759-25-000095 (2025-06-02): 48 sentences, 0 match(es)
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001655759-25-000103 / arvn-20250613.htm
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1655759/000165575925000103/arvn-20250613.htm
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar         → 35166 bytes
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 7785 chars
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARVN] 2025-Q1 filing 0001655759-25-000103 (2025-06-13): 34 sentences, 0 match(es)
+2026-04-18 13:43:09  INFO      exogesisdoer.scrapers.qfg_scraper  [ARVN] 2025-Q1 QFG=0 — no qualifying sentence in 5 filing(s)
+2026-04-18 13:43:09  INFO      exogesisdoer.scrapers.capex_scraper  [RCKT] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: RCKT
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:34)
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar         CIK for RCKT → 0001281895
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001281895
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001281895_facts
+2026-04-18 13:43:09  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001281895.json
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar         → 1618638 bytes
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001281895_facts.json
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.capex_scraper  [RCKT] Raw XBRL entries for tag: 70
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.capex_scraper  [RCKT] Replacing duplicate period 2023-03-31 with newer filing 2024-05-07
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.capex_scraper  [RCKT] Replacing duplicate period 2024-03-31 with newer filing 2025-05-08
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.capex_scraper  [RCKT] XBRL filtering: 3 quarterly rows kept, 54 non-quarterly skipped
+2026-04-18 13:43:10  INFO      exogesisdoer.scrapers.capex_scraper  [RCKT] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:10  INFO      exogesisdoer.scrapers.capex_scraper  [KYMR] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: KYMR
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:35)
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar         CIK for KYMR → 0001815442
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001815442
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001815442_facts
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001815442.json
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar         → 997065 bytes
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001815442_facts.json
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.capex_scraper  [KYMR] Raw XBRL entries for tag: 49
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.capex_scraper  [KYMR] Replacing duplicate period 2023-03-31 with newer filing 2024-05-02
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.capex_scraper  [KYMR] Replacing duplicate period 2024-03-31 with newer filing 2025-05-09
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.capex_scraper  [KYMR] XBRL filtering: 3 quarterly rows kept, 39 non-quarterly skipped
+2026-04-18 13:43:10  INFO      exogesisdoer.scrapers.capex_scraper  [KYMR] CapEx data ready: 3 quarters, 1 spike(s) ≥40%
+2026-04-18 13:43:10  INFO      exogesisdoer.scrapers.qfg_scraper  [KYMR] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: KYMR
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:35)
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar         CIK for KYMR → 0001815442
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0001815442
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0001815442
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001815442_submissions
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/submissions/CIK0001815442.json
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar         → 88629 bytes
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001815442_submissions.json
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar         Found 70 8-K filings for CIK 0001815442
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.qfg_scraper  [KYMR] 8-K filings with Item 2.02 or 7.01: 47 of 70 total
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.qfg_scraper  [KYMR] 2023-Q1: 2 8-K(s) in window [2023-03-31 → 2023-06-14]
+2026-04-18 13:43:10  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0000950170-23-017458 / kymr-20230504.htm
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1815442/000095017023017458/kymr-20230504.htm
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar         → 68187 bytes
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3321 chars
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.qfg_scraper  [KYMR] 2023-Q1 filing 0000950170-23-017458 (2023-05-04): 16 sentences, 0 match(es)
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001193125-23-150555 / d434201d8k.htm
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1815442/000119312523150555/d434201d8k.htm
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar         → 29136 bytes
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 7090 chars
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.qfg_scraper  [KYMR] 2023-Q1 filing 0001193125-23-150555 (2023-05-22): 40 sentences, 0 match(es)
+2026-04-18 13:43:11  INFO      exogesisdoer.scrapers.qfg_scraper  [KYMR] 2023-Q1 QFG=0 — no qualifying sentence in 2 filing(s)
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.qfg_scraper  [KYMR] 2024-Q1: 1 8-K(s) in window [2024-03-31 → 2024-06-14]
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0000950170-24-051566 / kymr-20240502.htm
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1815442/000095017024051566/kymr-20240502.htm
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar         → 49308 bytes
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3321 chars
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.qfg_scraper  [KYMR] 2024-Q1 filing 0000950170-24-051566 (2024-05-02): 16 sentences, 0 match(es)
+2026-04-18 13:43:11  INFO      exogesisdoer.scrapers.qfg_scraper  [KYMR] 2024-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.qfg_scraper  [KYMR] 2025-Q1: 3 8-K(s) in window [2025-03-31 → 2025-06-14]
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001193125-25-116443 / d27625d8k.htm
+2026-04-18 13:43:11  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1815442/000119312525116443/d27625d8k.htm
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar         → 27232 bytes
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 4176 chars
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.qfg_scraper  [KYMR] 2025-Q1 filing 0001193125-25-116443 (2025-05-09): 20 sentences, 0 match(es)
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001193125-25-132838 / d943327d8k.htm
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1815442/000119312525132838/d943327d8k.htm
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar         → 25212 bytes
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3529 chars
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.qfg_scraper  [KYMR] 2025-Q1 filing 0001193125-25-132838 (2025-06-02): 17 sentences, 0 match(es)
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001193125-25-132760 / d57872d8k.htm
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1815442/000119312525132760/d57872d8k.htm
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar         → 39208 bytes
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 12222 chars
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.qfg_scraper  [KYMR] 2025-Q1 filing 0001193125-25-132760 (2025-06-02): 57 sentences, 0 match(es)
+2026-04-18 13:43:12  INFO      exogesisdoer.scrapers.qfg_scraper  [KYMR] 2025-Q1 QFG=0 — no qualifying sentence in 3 filing(s)
+2026-04-18 13:43:12  INFO      exogesisdoer.scrapers.capex_scraper  [MRUS] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: MRUS
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:37)
+2026-04-18 13:43:12  ERROR     exogesisdoer.scrapers.edgar       Ticker 'MRUS' not found in EDGAR company tickers
+2026-04-18 13:43:12  ERROR     exogesisdoer.__main__             [MRUS] sweep error: Ticker 'MRUS' not found in EDGAR company tickers
+Traceback (most recent call last):
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/sweep.py", line 77, in main
+    capex_df = get_capex_quarterly(ticker, tag, spike_threshold=thresh,
+                                   n_quarters=n, min_date=min_dt)
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/scrapers/capex_scraper.py", line 34, in get_capex_quarterly
+    cik = get_cik(ticker)
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/scrapers/edgar.py", line 80, in get_cik
+    raise ValueError(f"Ticker '{ticker}' not found in EDGAR company tickers")
+ValueError: Ticker 'MRUS' not found in EDGAR company tickers
+2026-04-18 13:43:12  INFO      exogesisdoer.scrapers.capex_scraper  [NKTR] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: NKTR
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:37)
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar         CIK for NKTR → 0000906709
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0000906709
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0000906709_facts
+2026-04-18 13:43:12  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0000906709.json
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar         → 2481145 bytes
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0000906709_facts.json
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.capex_scraper  [NKTR] Raw XBRL entries for tag: 133
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.capex_scraper  [NKTR] Replacing duplicate period 2023-03-31 with newer filing 2024-05-10
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.capex_scraper  [NKTR] Replacing duplicate period 2024-03-31 with newer filing 2025-05-09
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.capex_scraper  [NKTR] XBRL filtering: 3 quarterly rows kept, 103 non-quarterly skipped
+2026-04-18 13:43:13  INFO      exogesisdoer.scrapers.capex_scraper  [NKTR] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:13  INFO      exogesisdoer.scrapers.capex_scraper  [PTGX] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: PTGX
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:38)
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar         CIK for PTGX → 0001377121
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001377121
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001377121_facts
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001377121.json
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar         → 1557624 bytes
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001377121_facts.json
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.capex_scraper  [PTGX] Raw XBRL entries for tag: 88
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.capex_scraper  [PTGX] Replacing duplicate period 2023-03-31 with newer filing 2024-05-07
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.capex_scraper  [PTGX] Replacing duplicate period 2024-03-31 with newer filing 2025-05-06
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.capex_scraper  [PTGX] XBRL filtering: 3 quarterly rows kept, 70 non-quarterly skipped
+2026-04-18 13:43:13  INFO      exogesisdoer.scrapers.capex_scraper  [PTGX] CapEx data ready: 3 quarters, 2 spike(s) ≥40%
+2026-04-18 13:43:13  INFO      exogesisdoer.scrapers.qfg_scraper  [PTGX] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: PTGX
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:38)
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar         CIK for PTGX → 0001377121
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0001377121
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0001377121
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001377121_submissions
+2026-04-18 13:43:13  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/submissions/CIK0001377121.json
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar         → 109379 bytes
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001377121_submissions.json
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar         Found 102 8-K filings for CIK 0001377121
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.qfg_scraper  [PTGX] 8-K filings with Item 2.02 or 7.01: 46 of 102 total
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.qfg_scraper  [PTGX] 2023-Q1: 1 8-K(s) in window [2023-03-31 → 2023-06-14]
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001104659-23-056018 / tm2314649d1_8k.htm
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1377121/000110465923056018/tm2314649d1_8k.htm
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar         → 27320 bytes
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3762 chars
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.qfg_scraper  [PTGX] 2023-Q1 filing 0001104659-23-056018 (2023-05-04): 16 sentences, 0 match(es)
+2026-04-18 13:43:14  INFO      exogesisdoer.scrapers.qfg_scraper  [PTGX] 2023-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.qfg_scraper  [PTGX] 2024-Q1: 1 8-K(s) in window [2024-03-31 → 2024-06-14]
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001104659-24-058036 / tm2413671d1_8k.htm
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1377121/000110465924058036/tm2413671d1_8k.htm
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar         → 27888 bytes
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3736 chars
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.qfg_scraper  [PTGX] 2024-Q1 filing 0001104659-24-058036 (2024-05-07): 16 sentences, 0 match(es)
+2026-04-18 13:43:14  INFO      exogesisdoer.scrapers.qfg_scraper  [PTGX] 2024-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.qfg_scraper  [PTGX] 2025-Q1: 1 8-K(s) in window [2025-03-31 → 2025-06-14]
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001104659-25-045073 / tm2514117d1_8k.htm
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1377121/000110465925045073/tm2514117d1_8k.htm
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar         → 27657 bytes
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3740 chars
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.qfg_scraper  [PTGX] 2025-Q1 filing 0001104659-25-045073 (2025-05-06): 16 sentences, 0 match(es)
+2026-04-18 13:43:14  INFO      exogesisdoer.scrapers.qfg_scraper  [PTGX] 2025-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:14  INFO      exogesisdoer.scrapers.capex_scraper  [EXEL] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: EXEL
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:39)
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar         CIK for EXEL → 0000939767
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0000939767
+2026-04-18 13:43:14  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0000939767_facts
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0000939767.json
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar         → 2845589 bytes
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0000939767_facts.json
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.capex_scraper  [EXEL] Raw XBRL entries for tag: 133
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.capex_scraper  [EXEL] Replacing duplicate period 2023-03-31 with newer filing 2024-04-30
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.capex_scraper  [EXEL] Replacing duplicate period 2024-03-29 with newer filing 2025-05-13
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.capex_scraper  [EXEL] XBRL filtering: 3 quarterly rows kept, 105 non-quarterly skipped
+2026-04-18 13:43:15  INFO      exogesisdoer.scrapers.capex_scraper  [EXEL] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:15  INFO      exogesisdoer.scrapers.capex_scraper  [ZYME] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: ZYME
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:40)
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar         CIK for ZYME → 0001937653
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001937653
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001937653_facts
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001937653.json
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar         → 775760 bytes
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001937653_facts.json
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.capex_scraper  [ZYME] Raw XBRL entries for tag: 32
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.capex_scraper  [ZYME] Replacing duplicate period 2023-03-31 with newer filing 2024-05-02
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.capex_scraper  [ZYME] Replacing duplicate period 2024-03-31 with newer filing 2025-05-08
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.capex_scraper  [ZYME] XBRL filtering: 3 quarterly rows kept, 26 non-quarterly skipped
+2026-04-18 13:43:15  INFO      exogesisdoer.scrapers.capex_scraper  [ZYME] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:15  INFO      exogesisdoer.scrapers.capex_scraper  [NBIX] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: NBIX
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:40)
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar         CIK for NBIX → 0000914475
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0000914475
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0000914475_facts
+2026-04-18 13:43:15  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0000914475.json
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar         → 2397583 bytes
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0000914475_facts.json
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.capex_scraper  [NBIX] Raw XBRL entries for tag: 133
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.capex_scraper  [NBIX] Replacing duplicate period 2023-03-31 with newer filing 2024-05-01
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.capex_scraper  [NBIX] Replacing duplicate period 2024-03-31 with newer filing 2025-05-05
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.capex_scraper  [NBIX] XBRL filtering: 3 quarterly rows kept, 105 non-quarterly skipped
+2026-04-18 13:43:16  INFO      exogesisdoer.scrapers.capex_scraper  [NBIX] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:16  INFO      exogesisdoer.scrapers.capex_scraper  [SAGE] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: SAGE
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:41)
+2026-04-18 13:43:16  ERROR     exogesisdoer.scrapers.edgar       Ticker 'SAGE' not found in EDGAR company tickers
+2026-04-18 13:43:16  ERROR     exogesisdoer.__main__             [SAGE] sweep error: Ticker 'SAGE' not found in EDGAR company tickers
+Traceback (most recent call last):
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/sweep.py", line 77, in main
+    capex_df = get_capex_quarterly(ticker, tag, spike_threshold=thresh,
+                                   n_quarters=n, min_date=min_dt)
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/scrapers/capex_scraper.py", line 34, in get_capex_quarterly
+    cik = get_cik(ticker)
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/scrapers/edgar.py", line 80, in get_cik
+    raise ValueError(f"Ticker '{ticker}' not found in EDGAR company tickers")
+ValueError: Ticker 'SAGE' not found in EDGAR company tickers
+2026-04-18 13:43:16  INFO      exogesisdoer.scrapers.capex_scraper  [ACAD] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: ACAD
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:41)
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar         CIK for ACAD → 0001070494
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001070494
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001070494_facts
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001070494.json
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar         → 2258765 bytes
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001070494_facts.json
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.capex_scraper  [ACAD] Raw XBRL entries for tag: 99
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.capex_scraper  [ACAD] XBRL filtering: 0 quarterly rows kept, 82 non-quarterly skipped
+2026-04-18 13:43:16  WARNING   exogesisdoer.scrapers.capex_scraper  [ACAD] No single-quarter (~90-day) entries found for tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:16  INFO      exogesisdoer.scrapers.capex_scraper  [PRAX] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: PRAX
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:41)
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar         CIK for PRAX → 0001689548
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001689548
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001689548_facts
+2026-04-18 13:43:16  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001689548.json
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar         → 861245 bytes
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001689548_facts.json
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.capex_scraper  [PRAX] Raw XBRL entries for tag: 36
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.capex_scraper  [PRAX] XBRL filtering: 1 quarterly rows kept, 30 non-quarterly skipped
+2026-04-18 13:43:17  INFO      exogesisdoer.scrapers.capex_scraper  [PRAX] CapEx data ready: 1 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:17  INFO      exogesisdoer.scrapers.capex_scraper  [ARQT] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: ARQT
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:42)
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar         CIK for ARQT → 0001787306
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001787306
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001787306_facts
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001787306.json
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar         → 1175033 bytes
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001787306_facts.json
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.capex_scraper  [ARQT] Raw XBRL entries for tag: 54
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.capex_scraper  [ARQT] Replacing duplicate period 2023-03-31 with newer filing 2024-05-14
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.capex_scraper  [ARQT] Replacing duplicate period 2024-03-31 with newer filing 2025-05-06
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.capex_scraper  [ARQT] XBRL filtering: 3 quarterly rows kept, 42 non-quarterly skipped
+2026-04-18 13:43:17  INFO      exogesisdoer.scrapers.capex_scraper  [ARQT] CapEx data ready: 3 quarters, 1 spike(s) ≥40%
+2026-04-18 13:43:17  INFO      exogesisdoer.scrapers.qfg_scraper  [ARQT] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: ARQT
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:42)
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar         CIK for ARQT → 0001787306
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0001787306
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0001787306
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001787306_submissions
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/submissions/CIK0001787306.json
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar         → 121655 bytes
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001787306_submissions.json
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar         Found 68 8-K filings for CIK 0001787306
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARQT] 8-K filings with Item 2.02 or 7.01: 34 of 68 total
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARQT] 2023-Q1: 1 8-K(s) in window [2023-03-31 → 2023-06-14]
+2026-04-18 13:43:17  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001787306-23-000042 / arqt-20230509.htm
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1787306/000178730623000042/arqt-20230509.htm
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar         → 36096 bytes
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3549 chars
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARQT] 2023-Q1 filing 0001787306-23-000042 (2023-05-09): 15 sentences, 0 match(es)
+2026-04-18 13:43:18  INFO      exogesisdoer.scrapers.qfg_scraper  [ARQT] 2023-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARQT] 2024-Q1: 2 8-K(s) in window [2024-03-31 → 2024-06-14]
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001787306-24-000046 / arqt-20240410.htm
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1787306/000178730624000046/arqt-20240410.htm
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar         → 37811 bytes
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 10057 chars
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARQT] 2024-Q1 filing 0001787306-24-000046 (2024-04-10): 56 sentences, 0 match(es)
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001787306-24-000078 / arqt-20240514.htm
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1787306/000178730624000078/arqt-20240514.htm
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar         → 27359 bytes
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3546 chars
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARQT] 2024-Q1 filing 0001787306-24-000078 (2024-05-14): 15 sentences, 0 match(es)
+2026-04-18 13:43:18  INFO      exogesisdoer.scrapers.qfg_scraper  [ARQT] 2024-Q1 QFG=0 — no qualifying sentence in 2 filing(s)
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARQT] 2025-Q1: 2 8-K(s) in window [2025-03-31 → 2025-06-14]
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001787306-25-000058 / arqt-20250410.htm
+2026-04-18 13:43:18  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1787306/000178730625000058/arqt-20250410.htm
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar         → 35934 bytes
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 9394 chars
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARQT] 2025-Q1 filing 0001787306-25-000058 (2025-04-10): 53 sentences, 0 match(es)
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001787306-25-000091 / arqt-20250506.htm
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1787306/000178730625000091/arqt-20250506.htm
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar         → 27548 bytes
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3547 chars
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ARQT] 2025-Q1 filing 0001787306-25-000091 (2025-05-06): 15 sentences, 0 match(es)
+2026-04-18 13:43:19  INFO      exogesisdoer.scrapers.qfg_scraper  [ARQT] 2025-Q1 QFG=0 — no qualifying sentence in 2 filing(s)
+2026-04-18 13:43:19  INFO      exogesisdoer.scrapers.capex_scraper  [KRTX] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: KRTX
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:44)
+2026-04-18 13:43:19  ERROR     exogesisdoer.scrapers.edgar       Ticker 'KRTX' not found in EDGAR company tickers
+2026-04-18 13:43:19  ERROR     exogesisdoer.__main__             [KRTX] sweep error: Ticker 'KRTX' not found in EDGAR company tickers
+Traceback (most recent call last):
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/sweep.py", line 77, in main
+    capex_df = get_capex_quarterly(ticker, tag, spike_threshold=thresh,
+                                   n_quarters=n, min_date=min_dt)
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/scrapers/capex_scraper.py", line 34, in get_capex_quarterly
+    cik = get_cik(ticker)
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/scrapers/edgar.py", line 80, in get_cik
+    raise ValueError(f"Ticker '{ticker}' not found in EDGAR company tickers")
+ValueError: Ticker 'KRTX' not found in EDGAR company tickers
+2026-04-18 13:43:19  INFO      exogesisdoer.scrapers.capex_scraper  [IMVT] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: IMVT
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:44)
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar         CIK for IMVT → 0001764013
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001764013
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001764013_facts
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001764013.json
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar         → 887684 bytes
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001764013_facts.json
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.capex_scraper  [IMVT] Raw XBRL entries for tag: 51
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.capex_scraper  [IMVT] Replacing duplicate period 2023-06-30 with newer filing 2024-08-06
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.capex_scraper  [IMVT] Replacing duplicate period 2024-06-30 with newer filing 2025-08-11
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.capex_scraper  [IMVT] XBRL filtering: 3 quarterly rows kept, 39 non-quarterly skipped
+2026-04-18 13:43:19  INFO      exogesisdoer.scrapers.capex_scraper  [IMVT] CapEx data ready: 3 quarters, 1 spike(s) ≥40%
+2026-04-18 13:43:19  INFO      exogesisdoer.scrapers.qfg_scraper  [IMVT] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: IMVT
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:44)
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar         CIK for IMVT → 0001764013
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0001764013
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0001764013
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001764013_submissions
+2026-04-18 13:43:19  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/submissions/CIK0001764013.json
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar         → 97884 bytes
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001764013_submissions.json
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar         Found 81 8-K filings for CIK 0001764013
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IMVT] 8-K filings with Item 2.02 or 7.01: 57 of 81 total
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IMVT] 2023-Q2: 1 8-K(s) in window [2023-06-30 → 2023-09-13]
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001764013-23-000090 / imvt-20230810.htm
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1764013/000176401323000090/imvt-20230810.htm
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar         → 28132 bytes
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3398 chars
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IMVT] 2023-Q2 filing 0001764013-23-000090 (2023-08-10): 15 sentences, 0 match(es)
+2026-04-18 13:43:20  INFO      exogesisdoer.scrapers.qfg_scraper  [IMVT] 2023-Q2 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IMVT] 2024-Q2: 2 8-K(s) in window [2024-06-30 → 2024-09-13]
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001764013-24-000147 / imvt-20240806.htm
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1764013/000176401324000147/imvt-20240806.htm
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar         → 27268 bytes
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3402 chars
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IMVT] 2024-Q2 filing 0001764013-24-000147 (2024-08-06): 14 sentences, 0 match(es)
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001764013-24-000162 / imvt-20240909.htm
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1764013/000176401324000162/imvt-20240909.htm
+2026-04-18 13:43:20  DEBUG     exogesisdoer.scrapers.edgar         → 29056 bytes
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3854 chars
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IMVT] 2024-Q2 filing 0001764013-24-000162 (2024-09-09): 18 sentences, 0 match(es)
+2026-04-18 13:43:21  INFO      exogesisdoer.scrapers.qfg_scraper  [IMVT] 2024-Q2 QFG=0 — no qualifying sentence in 2 filing(s)
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IMVT] 2025-Q2: 2 8-K(s) in window [2025-06-30 → 2025-09-13]
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001764013-25-000128 / imvt-20250811.htm
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1764013/000176401325000128/imvt-20250811.htm
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar         → 27330 bytes
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3395 chars
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IMVT] 2025-Q2 filing 0001764013-25-000128 (2025-08-11): 14 sentences, 0 match(es)
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001764013-25-000136 / imvt-20250903.htm
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1764013/000176401325000136/imvt-20250903.htm
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar         → 29122 bytes
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 4145 chars
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.qfg_scraper  [IMVT] 2025-Q2 filing 0001764013-25-000136 (2025-09-03): 19 sentences, 0 match(es)
+2026-04-18 13:43:21  INFO      exogesisdoer.scrapers.qfg_scraper  [IMVT] 2025-Q2 QFG=0 — no qualifying sentence in 2 filing(s)
+2026-04-18 13:43:21  INFO      exogesisdoer.scrapers.capex_scraper  [ROIV] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: ROIV
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:46)
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar         CIK for ROIV → 0001635088
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001635088
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001635088_facts
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001635088.json
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar         → 837596 bytes
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001635088_facts.json
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.capex_scraper  [ROIV] Raw XBRL entries for tag: 39
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.capex_scraper  [ROIV] Replacing duplicate period 2023-06-30 with newer filing 2024-08-09
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.capex_scraper  [ROIV] Replacing duplicate period 2024-06-30 with newer filing 2025-08-11
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.capex_scraper  [ROIV] XBRL filtering: 3 quarterly rows kept, 29 non-quarterly skipped
+2026-04-18 13:43:21  INFO      exogesisdoer.scrapers.capex_scraper  [ROIV] CapEx data ready: 3 quarters, 2 spike(s) ≥40%
+2026-04-18 13:43:21  INFO      exogesisdoer.scrapers.qfg_scraper  [ROIV] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: ROIV
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:46)
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar         CIK for ROIV → 0001635088
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0001635088
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0001635088
+2026-04-18 13:43:21  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001635088_submissions
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/submissions/CIK0001635088.json
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar         → 137784 bytes
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001635088_submissions.json
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar         Found 72 8-K filings for CIK 0001635088
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ROIV] 8-K filings with Item 2.02 or 7.01: 40 of 72 total
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ROIV] 2023-Q2: 1 8-K(s) in window [2023-06-30 → 2023-09-13]
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001140361-23-039405 / brhc20057388_8k.htm
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1635088/000114036123039405/brhc20057388_8k.htm
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar         → 33598 bytes
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3784 chars
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ROIV] 2023-Q2 filing 0001140361-23-039405 (2023-08-14): 15 sentences, 0 match(es)
+2026-04-18 13:43:22  INFO      exogesisdoer.scrapers.qfg_scraper  [ROIV] 2023-Q2 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ROIV] 2024-Q2: 3 8-K(s) in window [2024-06-30 → 2024-09-13]
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001140361-24-036281 / ef20033756_8k.htm
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1635088/000114036124036281/ef20033756_8k.htm
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar         → 33554 bytes
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3525 chars
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ROIV] 2024-Q2 filing 0001140361-24-036281 (2024-08-08): 15 sentences, 0 match(es)
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001140361-24-040507 / ef20035648_8k.htm
+2026-04-18 13:43:22  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1635088/000114036124040507/ef20035648_8k.htm
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar         → 29090 bytes
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3550 chars
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ROIV] 2024-Q2 filing 0001140361-24-040507 (2024-09-09): 15 sentences, 0 match(es)
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001140361-24-040650 / ef20035693_8k.htm
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1635088/000114036124040650/ef20035693_8k.htm
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar         → 29004 bytes
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3562 chars
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ROIV] 2024-Q2 filing 0001140361-24-040650 (2024-09-10): 15 sentences, 0 match(es)
+2026-04-18 13:43:23  INFO      exogesisdoer.scrapers.qfg_scraper  [ROIV] 2024-Q2 QFG=0 — no qualifying sentence in 3 filing(s)
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ROIV] 2025-Q2: 2 8-K(s) in window [2025-06-30 → 2025-09-13]
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001140361-25-029998 / ef20053385_8k.htm
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1635088/000114036125029998/ef20053385_8k.htm
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar         → 28747 bytes
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3490 chars
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ROIV] 2025-Q2 filing 0001140361-25-029998 (2025-08-11): 15 sentences, 0 match(es)
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001140361-25-033767 / ef20055076_8k.htm
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1635088/000114036125033767/ef20055076_8k.htm
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar         → 28565 bytes
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 4446 chars
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.qfg_scraper  [ROIV] 2025-Q2 filing 0001140361-25-033767 (2025-09-03): 21 sentences, 0 match(es)
+2026-04-18 13:43:23  INFO      exogesisdoer.scrapers.qfg_scraper  [ROIV] 2025-Q2 QFG=0 — no qualifying sentence in 2 filing(s)
+2026-04-18 13:43:23  INFO      exogesisdoer.scrapers.capex_scraper  [RVMD] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: RVMD
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:48)
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar         CIK for RVMD → 0001628171
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001628171
+2026-04-18 13:43:23  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001628171_facts
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001628171.json
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar         → 1126036 bytes
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001628171_facts.json
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.capex_scraper  [RVMD] Raw XBRL entries for tag: 54
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.capex_scraper  [RVMD] Replacing duplicate period 2023-03-31 with newer filing 2024-05-08
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.capex_scraper  [RVMD] Replacing duplicate period 2024-03-31 with newer filing 2025-05-07
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.capex_scraper  [RVMD] XBRL filtering: 3 quarterly rows kept, 42 non-quarterly skipped
+2026-04-18 13:43:24  INFO      exogesisdoer.scrapers.capex_scraper  [RVMD] CapEx data ready: 3 quarters, 1 spike(s) ≥40%
+2026-04-18 13:43:24  INFO      exogesisdoer.scrapers.qfg_scraper  [RVMD] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: RVMD
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:49)
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar         CIK for RVMD → 0001628171
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0001628171
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0001628171
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001628171_submissions
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/submissions/CIK0001628171.json
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar         → 117605 bytes
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001628171_submissions.json
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar         Found 65 8-K filings for CIK 0001628171
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.qfg_scraper  [RVMD] 8-K filings with Item 2.02 or 7.01: 36 of 65 total
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.qfg_scraper  [RVMD] 2023-Q1: 1 8-K(s) in window [2023-03-31 → 2023-06-14]
+2026-04-18 13:43:24  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0000950170-23-018785 / rvmd-20230508.htm
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1628171/000095017023018785/rvmd-20230508.htm
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar         → 53221 bytes
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3426 chars
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.qfg_scraper  [RVMD] 2023-Q1 filing 0000950170-23-018785 (2023-05-08): 15 sentences, 0 match(es)
+2026-04-18 13:43:25  INFO      exogesisdoer.scrapers.qfg_scraper  [RVMD] 2023-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.qfg_scraper  [RVMD] 2024-Q1: 1 8-K(s) in window [2024-03-31 → 2024-06-14]
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0000950170-24-055606 / rvmd-20240508.htm
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1628171/000095017024055606/rvmd-20240508.htm
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar         → 41031 bytes
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3637 chars
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.qfg_scraper  [RVMD] 2024-Q1 filing 0000950170-24-055606 (2024-05-08): 15 sentences, 0 match(es)
+2026-04-18 13:43:25  INFO      exogesisdoer.scrapers.qfg_scraper  [RVMD] 2024-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.qfg_scraper  [RVMD] 2025-Q1: 1 8-K(s) in window [2025-03-31 → 2025-06-14]
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0000950170-25-065618 / rvmd-20250507.htm
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1628171/000095017025065618/rvmd-20250507.htm
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar         → 46800 bytes
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3624 chars
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.qfg_scraper  [RVMD] 2025-Q1 filing 0000950170-25-065618 (2025-05-07): 15 sentences, 0 match(es)
+2026-04-18 13:43:25  INFO      exogesisdoer.scrapers.qfg_scraper  [RVMD] 2025-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:25  INFO      exogesisdoer.scrapers.capex_scraper  [PRTA] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: PRTA
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:50)
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar         CIK for PRTA → 0001559053
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001559053
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001559053_facts
+2026-04-18 13:43:25  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001559053.json
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar         → 1949245 bytes
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001559053_facts.json
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.capex_scraper  [PRTA] Raw XBRL entries for tag: 2
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.capex_scraper  [PRTA] XBRL filtering: 0 quarterly rows kept, 0 non-quarterly skipped
+2026-04-18 13:43:26  WARNING   exogesisdoer.scrapers.capex_scraper  [PRTA] No single-quarter (~90-day) entries found for tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:26  INFO      exogesisdoer.scrapers.capex_scraper  [AGIO] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: AGIO
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:51)
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar         CIK for AGIO → 0001439222
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001439222
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001439222_facts
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001439222.json
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar         → 2219592 bytes
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001439222_facts.json
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.capex_scraper  [AGIO] Raw XBRL entries for tag: 115
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.capex_scraper  [AGIO] Replacing duplicate period 2023-03-31 with newer filing 2024-05-02
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.capex_scraper  [AGIO] Replacing duplicate period 2024-03-31 with newer filing 2025-05-01
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.capex_scraper  [AGIO] XBRL filtering: 3 quarterly rows kept, 91 non-quarterly skipped
+2026-04-18 13:43:26  INFO      exogesisdoer.scrapers.capex_scraper  [AGIO] CapEx data ready: 3 quarters, 1 spike(s) ≥40%
+2026-04-18 13:43:26  INFO      exogesisdoer.scrapers.qfg_scraper  [AGIO] Starting QFG scan for 3 quarters (window: +75 days)
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: AGIO
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:51)
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar         CIK for AGIO → 0001439222
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.qfg_scraper  QFG patterns compiled — currency: \$[\d,]+\.?\d*\s*(?:million|billion|[MBK])\b | expansion nouns: capacity|facility|facilities|manufacturing|software|platform|digital | future: will|plan\ to|expect\ to|guidance\ for|coming\ online|intend\ to|anticipated
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       Listing 8-K filings for CIK 0001439222
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       Fetching submissions for CIK 0001439222
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001439222_submissions
+2026-04-18 13:43:26  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/submissions/CIK0001439222.json
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar         → 162716 bytes
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001439222_submissions.json
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001439222_sub_CIK0001439222-submissions-001.json
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/submissions/CIK0001439222-submissions-001.json
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar         → 40348 bytes
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001439222_sub_CIK0001439222-submissions-001.json.json
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar         Found 188 8-K filings for CIK 0001439222
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.qfg_scraper  [AGIO] 8-K filings with Item 2.02 or 7.01: 69 of 188 total
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.qfg_scraper  [AGIO] 2023-Q1: 1 8-K(s) in window [2023-03-31 → 2023-06-14]
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001439222-23-000063 / agio-20230504.htm
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1439222/000143922223000063/agio-20230504.htm
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar         → 41469 bytes
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3311 chars
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.qfg_scraper  [AGIO] 2023-Q1 filing 0001439222-23-000063 (2023-05-04): 14 sentences, 0 match(es)
+2026-04-18 13:43:27  INFO      exogesisdoer.scrapers.qfg_scraper  [AGIO] 2023-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.qfg_scraper  [AGIO] 2024-Q1: 1 8-K(s) in window [2024-03-31 → 2024-06-14]
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001439222-24-000067 / agio-20240502.htm
+2026-04-18 13:43:27  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1439222/000143922224000067/agio-20240502.htm
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar         → 33116 bytes
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3310 chars
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.qfg_scraper  [AGIO] 2024-Q1 filing 0001439222-24-000067 (2024-05-02): 13 sentences, 0 match(es)
+2026-04-18 13:43:28  INFO      exogesisdoer.scrapers.qfg_scraper  [AGIO] 2024-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.qfg_scraper  [AGIO] 2025-Q1: 1 8-K(s) in window [2025-03-31 → 2025-06-14]
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       Downloading filing text: 0001439222-25-000034 / agio-20250501.htm
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       GET https://www.sec.gov/Archives/edgar/data/1439222/000143922225000034/agio-20250501.htm
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar         → 32913 bytes
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar         Parsed HTML → 3310 chars
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.qfg_scraper  [AGIO] 2025-Q1 filing 0001439222-25-000034 (2025-05-01): 13 sentences, 0 match(es)
+2026-04-18 13:43:28  INFO      exogesisdoer.scrapers.qfg_scraper  [AGIO] 2025-Q1 QFG=0 — no qualifying sentence in 1 filing(s)
+2026-04-18 13:43:28  INFO      exogesisdoer.scrapers.capex_scraper  [NVAX] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: NVAX
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:53)
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar         CIK for NVAX → 0001000694
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001000694
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001000694_facts
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001000694.json
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar         → 2766827 bytes
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001000694_facts.json
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.capex_scraper  [NVAX] Raw XBRL entries for tag: 2
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.capex_scraper  [NVAX] XBRL filtering: 0 quarterly rows kept, 2 non-quarterly skipped
+2026-04-18 13:43:28  WARNING   exogesisdoer.scrapers.capex_scraper  [NVAX] No single-quarter (~90-day) entries found for tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:28  INFO      exogesisdoer.scrapers.capex_scraper  [SIGA] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: SIGA
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:53)
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar         CIK for SIGA → 0001010086
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001010086
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001010086_facts
+2026-04-18 13:43:28  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001010086.json
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar         → 2147019 bytes
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001010086_facts.json
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.capex_scraper  [SIGA] Raw XBRL entries for tag: 70
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.capex_scraper  [SIGA] XBRL filtering: 0 quarterly rows kept, 58 non-quarterly skipped
+2026-04-18 13:43:29  WARNING   exogesisdoer.scrapers.capex_scraper  [SIGA] No single-quarter (~90-day) entries found for tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:29  INFO      exogesisdoer.scrapers.capex_scraper  [ALEC] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: ALEC
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:54)
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar         CIK for ALEC → 0001653087
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001653087
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001653087_facts
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001653087.json
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar         → 923916 bytes
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001653087_facts.json
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.capex_scraper  [ALEC] Raw XBRL entries for tag: 62
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.capex_scraper  [ALEC] Replacing duplicate period 2023-03-31 with newer filing 2024-05-08
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.capex_scraper  [ALEC] Replacing duplicate period 2024-03-31 with newer filing 2025-05-08
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.capex_scraper  [ALEC] XBRL filtering: 3 quarterly rows kept, 48 non-quarterly skipped
+2026-04-18 13:43:29  INFO      exogesisdoer.scrapers.capex_scraper  [ALEC] CapEx data ready: 3 quarters, 0 spike(s) ≥40%
+2026-04-18 13:43:29  INFO      exogesisdoer.scrapers.capex_scraper  [THTX] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: THTX
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:54)
+2026-04-18 13:43:29  ERROR     exogesisdoer.scrapers.edgar       Ticker 'THTX' not found in EDGAR company tickers
+2026-04-18 13:43:29  ERROR     exogesisdoer.__main__             [THTX] sweep error: Ticker 'THTX' not found in EDGAR company tickers
+Traceback (most recent call last):
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/sweep.py", line 77, in main
+    capex_df = get_capex_quarterly(ticker, tag, spike_threshold=thresh,
+                                   n_quarters=n, min_date=min_dt)
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/scrapers/capex_scraper.py", line 34, in get_capex_quarterly
+    cik = get_cik(ticker)
+  File "/Users/vincentrosso/Dropbox/development/exogesisdoer/scrapers/edgar.py", line 80, in get_cik
+    raise ValueError(f"Ticker '{ticker}' not found in EDGAR company tickers")
+ValueError: Ticker 'THTX' not found in EDGAR company tickers
+2026-04-18 13:43:29  INFO      exogesisdoer.scrapers.capex_scraper  [VCNX] Fetching CapEx via XBRL tag 'PaymentsToAcquirePropertyPlantAndEquipment'
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       Resolving CIK for ticker: VCNX
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       Cache hit: company_tickers (age 0:09:54)
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar         CIK for VCNX → 0001205922
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       Fetching company facts for CIK 0001205922
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       Cache miss: 0001205922_facts
+2026-04-18 13:43:29  DEBUG     exogesisdoer.scrapers.edgar       GET https://data.sec.gov/api/xbrl/companyfacts/CIK0001205922.json
+2026-04-18 13:43:30  DEBUG     exogesisdoer.scrapers.edgar         → 905978 bytes
+2026-04-18 13:43:30  DEBUG     exogesisdoer.scrapers.edgar       Cache written: 0001205922_facts.json
+2026-04-18 13:43:30  DEBUG     exogesisdoer.scrapers.capex_scraper  [VCNX] Raw XBRL entries for tag: 50
+2026-04-18 13:43:30  DEBUG     exogesisdoer.scrapers.capex_scraper  [VCNX] Replacing duplicate period 2023-03-31 with newer filing 2024-05-15
+2026-04-18 13:43:30  DEBUG     exogesisdoer.scrapers.capex_scraper  [VCNX] XBRL filtering: 2 quarterly rows kept, 44 non-quarterly skipped
+2026-04-18 13:43:30  INFO      exogesisdoer.scrapers.capex_scraper  [VCNX] CapEx data ready: 2 quarters, 0 spike(s) ≥40%

@@ -81,7 +81,8 @@ def get_cik(ticker: str) -> str:
 
 
 def get_company_facts(cik: str) -> dict:
-    """Full XBRL company facts JSON (cached 24h). ~1-5 MB per company."""
+    """Full XBRL company facts JSON (cached 24h). Accepts raw or zero-padded CIK."""
+    cik = str(int(cik)).zfill(10)  # normalise to 10-digit zero-padded
     log.debug("Fetching company facts for CIK %s", cik)
     return _cached_json(
         f"{cik}_facts",
