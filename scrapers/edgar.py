@@ -117,6 +117,39 @@ def get_filing_text(cik: str, accession_no: str, primary_doc: str) -> str:
     return r.text
 
 
+def list_filing_documents(cik: str, accession_no: str) -> list[dict]:
+    """
+    Return all documents in a filing as a list of dicts with keys:
+      sequence, type, filename, description
+    """
+    cik_int = int(cik)
+    acc_nodash = accession_no.replace("-", "")
+    idx_url = f"{WWW_BASE}/Archives/edgar/data/{cik_int}/{acc_nodash}/{accession_no}-index.htm"
+    log.debug("Fetching filing index: %s", idx_url)
+    try:
+        r = _get(idx_url)
+        soup = BeautifulSoup(r.text, "lxml")
+        docs = []
+        for row in soup.select("table tr"):
+            cells = row.find_all("td")
+            if len(cells) < 3:
+                continue
+            link = cells[2].find("a")
+            if not link:
+                continue
+            docs.append({
+                "sequence":    cells[0].get_text(strip=True),
+                "type":        cells[1].get_text(strip=True),
+                "filename":    link.get_text(strip=True),
+                "description": cells[3].get_text(strip=True) if len(cells) > 3 else "",
+            })
+        log.debug("  Filing %s has %d document(s)", accession_no, len(docs))
+        return docs
+    except Exception:
+        log.warning("Failed to fetch filing index for %s", accession_no, exc_info=True)
+        return []
+
+
 def list_filings(cik: str, form_type: str) -> list[dict]:
     """
     Return list of filings of a given form type from EDGAR submissions.

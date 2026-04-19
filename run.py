@@ -26,6 +26,7 @@ from scrapers.capex_scraper        import get_capex_quarterly
 from scrapers.qfg_scraper          import get_qfg_flags
 from scrapers.clinicaltrials_scraper import get_trials
 from scrapers.earnings_scraper     import get_evasive_qa
+from scrapers.filing_analyst       import get_filing_analysis
 from dashboard.plot                import generate_dashboard
 from report.generator              import generate_report
 
@@ -239,20 +240,36 @@ def main():
                 print(f"  → ERROR: {exc}")
                 qa_findings = []
 
-            print(f"\n  [3/3] Generating spectacle report…")
+            print(f"\n  [3/4] Press release analysis — extracting capex context from EX-99.1…")
+            try:
+                cik_override   = cfg["primary"].get("cik")
+                filing_analysis = get_filing_analysis(primary_ticker, anomaly_ends,
+                                                       cik_override=cik_override)
+                for fa in filing_analysis:
+                    score_label = ["no context", "partial context", "explicit disclosure"][fa["explanation_score"]]
+                    print(f"     • {fa['quarter']} — {score_label}: {fa['summary'][:100]}")
+                    if fa["program_mentions"]:
+                        print(f"       Programs: {', '.join(fa['program_mentions'][:6])}")
+            except Exception as exc:
+                log.error("Filing analysis failed", exc_info=True)
+                print(f"  → ERROR: {exc}")
+                filing_analysis = []
+
+            print(f"\n  [4/4] Generating report…")
             ts          = datetime.now().strftime("%Y%m%d_%H%M")
             report_path = OUTPUT_DIR / f"report_{primary_ticker}_{ts}.html"
             try:
                 primary_entry = primary_results[primary_ticker]
                 generate_report(
-                    ticker       = primary_ticker,
-                    company_name = primary_name,
-                    anomalies    = primary_anomalies,
-                    capex_df     = primary_entry["capex"],
-                    qfg_results  = primary_entry["qfg"],
-                    trials       = trials,
-                    qa_findings  = qa_findings,
-                    output_path  = report_path,
+                    ticker          = primary_ticker,
+                    company_name    = primary_name,
+                    anomalies       = primary_anomalies,
+                    capex_df        = primary_entry["capex"],
+                    qfg_results     = primary_entry["qfg"],
+                    trials          = trials,
+                    qa_findings     = qa_findings,
+                    filing_analysis = filing_analysis,
+                    output_path     = report_path,
                 )
                 print(f"  → Report saved → {report_path}")
             except Exception as exc:
@@ -324,19 +341,32 @@ def main():
             log.error("Earnings Q&A scraper failed (pivot)", exc_info=True)
             print(f"  → ERROR: {exc}"); qa_findings = []
 
-        print(f"\n  [3/3] Generating spectacle report…")
+        print(f"\n  [3/4] Press release analysis…")
+        try:
+            cik_override    = pivot_cfg.get("cik")
+            filing_analysis = get_filing_analysis(pivot_ticker, anomaly_ends,
+                                                   cik_override=cik_override)
+            for fa in filing_analysis:
+                score_label = ["no context", "partial context", "explicit disclosure"][fa["explanation_score"]]
+                print(f"     • {fa['quarter']} — {score_label}: {fa['summary'][:100]}")
+        except Exception as exc:
+            log.error("Filing analysis failed (pivot)", exc_info=True)
+            print(f"  → ERROR: {exc}"); filing_analysis = []
+
+        print(f"\n  [4/4] Generating report…")
         ts          = datetime.now().strftime("%Y%m%d_%H%M")
         report_path = OUTPUT_DIR / f"report_{pivot_ticker}_{ts}.html"
         try:
             generate_report(
-                ticker       = pivot_ticker,
-                company_name = pivot_name,
-                anomalies    = pivot_anomalies,
-                capex_df     = pivot_entry["capex"],
-                qfg_results  = pivot_entry["qfg"],
-                trials       = trials,
-                qa_findings  = qa_findings,
-                output_path  = report_path,
+                ticker          = pivot_ticker,
+                company_name    = pivot_name,
+                anomalies       = pivot_anomalies,
+                capex_df        = pivot_entry["capex"],
+                qfg_results     = pivot_entry["qfg"],
+                trials          = trials,
+                qa_findings     = qa_findings,
+                filing_analysis = filing_analysis,
+                output_path     = report_path,
             )
             print(f"  → Report saved → {report_path}")
         except Exception as exc:

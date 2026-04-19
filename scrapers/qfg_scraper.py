@@ -15,7 +15,7 @@ import re
 from datetime import datetime, timedelta
 
 from logger import get_logger
-from scrapers.edgar import get_cik, get_filing_text, list_filings
+from scrapers.edgar import get_cik, get_filing_text, list_filing_documents, list_filings
 
 log = get_logger(__name__)
 
@@ -108,7 +108,20 @@ def get_qfg_flags(
             doc      = filing["primaryDocument"]
             filed_on = filing["filingDate"]
             try:
-                text      = get_filing_text(cik, accn, doc)
+                # Collect all documents to scan: primary doc + EX-99.1 if present
+                docs_to_scan = [doc]
+                for fdoc in list_filing_documents(cik, accn):
+                    if fdoc["type"].startswith("EX-99") and fdoc["filename"] not in docs_to_scan:
+                        docs_to_scan.append(fdoc["filename"])
+
+                combined_text = ""
+                for d in docs_to_scan:
+                    try:
+                        combined_text += " " + get_filing_text(cik, accn, d)
+                    except Exception:
+                        log.warning("[%s] Could not fetch %s from %s", ticker, d, accn)
+
+                text      = combined_text.strip()
                 sentences = _split_sentences(text)
                 matches   = [s for s in sentences if _check_sentence(s, patterns)]
                 log.debug(
