@@ -25,9 +25,6 @@
   header { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid var(--border); background: var(--surface); }
   header h1 { font-size: 16px; font-weight: 600; letter-spacing: .03em; color: var(--blue); }
   header h1 span { color: var(--muted); font-weight: 400; }
-  #login-overlay { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 100; }
-  #login-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 32px; width: 320px; }
-  #login-box h2 { font-size: 15px; margin-bottom: 20px; color: var(--blue); }
   main { display: grid; grid-template-columns: 340px 1fr; gap: 16px; padding: 16px 24px; }
   .col-left { display: flex; flex-direction: column; gap: 16px; }
   .col-right { display: flex; flex-direction: column; gap: 16px; }
@@ -124,24 +121,12 @@
 </head>
 <body>
 
-<!-- ── Login overlay ─────────────────────────────────────────────────────── -->
-<div id="login-overlay">
-  <div id="login-box">
-    <h2>doer.ndex.us</h2>
-    <label for="pw-input">Access key</label>
-    <input type="password" id="pw-input" placeholder="Enter sprint key" autocomplete="current-password">
-    <div id="login-error" style="color:var(--red);font-size:11px;margin-top:8px;min-height:16px;"></div>
-    <button class="btn-primary mt-8" id="login-btn" style="width:100%;margin-top:12px;">Unlock</button>
-  </div>
-</div>
-
 <!-- ── App shell ─────────────────────────────────────────────────────────── -->
-<div id="app" style="display:none">
+<div id="app">
   <header>
     <h1>doer <span>/ ndex.us</span></h1>
     <div style="display:flex;align-items:center;gap:14px;">
       <span id="global-badge" class="badge badge-idle">IDLE</span>
-      <button class="btn-ghost btn-sm" id="logout-btn">lock</button>
     </div>
   </header>
 
@@ -276,43 +261,12 @@
 <script>
 'use strict';
 
-// ── auth ──────────────────────────────────────────────────────────────────────
-const TOKEN_KEY = 'doer_token';
-let token = localStorage.getItem(TOKEN_KEY) || '';
-
-async function tryLogin(pw) {
-  const r = await fetch('/api/config', { headers: { Authorization: `Bearer ${pw}` } });
-  return r.ok ? r.json() : null;
-}
-
-document.getElementById('login-btn').onclick = async () => {
-  const pw = document.getElementById('pw-input').value.trim();
-  if (!pw) return;
-  const cfg = await tryLogin(pw);
-  if (cfg) {
-    token = pw;
-    localStorage.setItem(TOKEN_KEY, token);
-    document.getElementById('login-overlay').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-    init(cfg);
-  } else {
-    document.getElementById('login-error').textContent = 'Invalid key.';
-  }
-};
-document.getElementById('pw-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') document.getElementById('login-btn').click();
-});
-document.getElementById('logout-btn').onclick = () => {
-  localStorage.removeItem(TOKEN_KEY);
-  location.reload();
-};
-
 // ── api helpers ───────────────────────────────────────────────────────────────
 const api = {
-  get:  (path)      => fetch(path, { headers: { Authorization: `Bearer ${token}` } }),
+  get:  (path)       => fetch(path),
   post: (path, body) => fetch(path, {
     method: 'POST',
-    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   }),
 };
@@ -693,18 +647,8 @@ function setupLogRefresh() {
 
 // ── boot ──────────────────────────────────────────────────────────────────────
 (async () => {
-  if (token) {
-    const cfg = await tryLogin(token);
-    if (cfg) {
-      document.getElementById('login-overlay').style.display = 'none';
-      document.getElementById('app').style.display = 'block';
-      init(cfg);
-      return;
-    }
-    localStorage.removeItem(TOKEN_KEY);
-    token = '';
-  }
-  document.getElementById('pw-input').focus();
+  const cfg = await api.get('/api/config').then(r => r.json());
+  init(cfg);
 })();
 </script>
 </body>

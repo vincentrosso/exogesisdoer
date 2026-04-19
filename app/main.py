@@ -14,12 +14,10 @@ Routes:
   GET  /api/dashboards         — list generated HTML dashboard files
 """
 
-import logging
 from pathlib import Path
-from typing import Annotated
 
 import yaml
-from fastapi import Depends, FastAPI, Header, HTTPException, Request
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 from pydantic import BaseModel
 
@@ -35,23 +33,6 @@ OUTPUT_DIR     = BASE_DIR / "output"
 STATIC_DIR     = Path(__file__).parent / "static"
 
 app = FastAPI(title="doer sprint manager", docs_url=None, redoc_url=None)
-
-
-# ── auth ─────────────────────────────────────────────────────────────────────
-
-def _web_secret() -> str:
-    cfg = yaml.safe_load(CONFIG_PATH.read_text())
-    return cfg.get("web", {}).get("secret", "")
-
-
-async def require_auth(authorization: Annotated[str | None, Header()] = None):
-    secret = _web_secret()
-    if not secret or authorization != f"Bearer {secret}":
-        log.warning("Unauthorized request (token mismatch or missing)")
-        raise HTTPException(status_code=401, detail="Unauthorized")
-
-
-Auth = Annotated[None, Depends(require_auth)]
 
 
 # ── pages / static ───────────────────────────────────────────────────────────
@@ -72,12 +53,12 @@ async def serve_output(filename: str):
 # ── config ───────────────────────────────────────────────────────────────────
 
 @app.get("/api/config")
-async def get_config(_: Auth):
+async def get_config():
     return yaml.safe_load(CONFIG_PATH.read_text())
 
 
 @app.post("/api/config")
-async def update_config(data: dict, _: Auth):
+async def update_config(data: dict):
     cfg = yaml.safe_load(CONFIG_PATH.read_text())
     _deep_merge(cfg, data)
     CONFIG_PATH.write_text(yaml.dump(cfg, default_flow_style=False, allow_unicode=True))
@@ -92,7 +73,7 @@ class RunRequest(BaseModel):
 
 
 @app.post("/api/run")
-async def run_sprint(body: RunRequest, _: Auth):
+async def run_sprint(body: RunRequest):
     started = await runner.start(body.force_pivot)
     if not started:
         raise HTTPException(status_code=409, detail="Sprint already running")
@@ -106,7 +87,7 @@ class SweepRequest(BaseModel):
 
 
 @app.post("/api/sweep")
-async def run_sweep(body: SweepRequest, _: Auth):
+async def run_sweep(body: SweepRequest):
     if runner.state["running"]:
         raise HTTPException(status_code=409, detail="A run is already in progress")
 
@@ -162,7 +143,7 @@ async def _run_sweep_process(cmd: list):
 
 
 @app.get("/api/run/status")
-async def run_status(_: Auth):
+async def run_status():
     return {
         "running":    runner.state["running"],
         "started_at": runner.state["started_at"],
@@ -173,26 +154,26 @@ async def run_status(_: Auth):
 
 
 @app.get("/api/run/stream")
-async def run_stream(_: Auth):
+async def run_stream():
     return StreamingResponse(
         runner.output_stream(),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
-            "X-Accel-Buffering": "no",   # disable nginx buffering for SSE
+            "X-Accel-Buffering": "no",
         },
     )
 
 
 @app.get("/api/run/output")
-async def run_output(_: Auth):
+async def run_output():
     return {"lines": runner.state["output_lines"]}
 
 
 # ── logs ─────────────────────────────────────────────────────────────────────
 
 @app.get("/api/logs")
-async def get_logs(n: int = 200, _: Auth = None):
+async def get_logs(n: int = 200):
     log_path = OUTPUT_DIR / "sprint.log"
     if not log_path.exists():
         return {"lines": []}
@@ -201,13 +182,13 @@ async def get_logs(n: int = 200, _: Auth = None):
 
 
 @app.get("/api/universe")
-async def get_universe(_: Auth):
+async def get_universe():
     data = yaml.safe_load(UNIVERSE_PATH.read_text())
     return {"companies": data.get("companies", [])}
 
 
 @app.get("/api/dashboards")
-async def list_dashboards(_: Auth):
+async def list_dashboards():
     files = sorted(
         list(OUTPUT_DIR.glob("dashboard_*.html")) + list(OUTPUT_DIR.glob("report_*.html")),
         key=lambda p: p.stat().st_mtime,
