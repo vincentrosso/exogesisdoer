@@ -21,27 +21,20 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 13px; min-height: 100vh; }
 
-  /* ── layout ── */
   header { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; border-bottom: 1px solid var(--border); background: var(--surface); }
   header h1 { font-size: 15px; font-weight: 600; letter-spacing: .03em; color: var(--blue); }
   header h1 span { color: var(--muted); font-weight: 400; }
 
-  .workspace { display: grid; grid-template-columns: 300px 1fr; gap: 14px; padding: 14px 20px 0; }
+  .workspace { display: grid; grid-template-columns: 280px 1fr; gap: 14px; padding: 14px 20px 0; }
   .col-left  { display: flex; flex-direction: column; gap: 14px; }
   .col-right { display: flex; flex-direction: column; gap: 14px; }
-
-  /* right column splits into 3 across */
-  .right-top { display: grid; grid-template-columns: 220px 1fr 1fr; gap: 14px; }
-
-  /* full-width bottom strip */
+  .right-row { display: grid; grid-template-columns: 1fr 220px; gap: 14px; }
   .bottom-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 14px 20px; }
 
-  /* ── cards ── */
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
   .card-header { padding: 9px 14px; border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 8px; }
   .card-body { padding: 14px; }
 
-  /* ── collapsible cards ── */
   .card-collapsible .card-header { cursor: pointer; user-select: none; border-bottom: none; }
   .card-collapsible .card-header:hover { color: var(--text); }
   .card-collapsible.is-open .card-header { border-bottom: 1px solid var(--border); }
@@ -50,105 +43,103 @@
   .chevron { margin-left: auto; transition: transform .2s; font-style: normal; }
   .card-collapsible.is-open .chevron { transform: rotate(180deg); }
 
-  /* ── forms ── */
   label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; margin-top: 10px; }
   label:first-of-type { margin-top: 0; }
-  input[type=text], input[type=password] { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: var(--mono); font-size: 13px; padding: 7px 10px; outline: none; transition: border-color .15s; }
+  input[type=text] { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: var(--mono); font-size: 13px; padding: 7px 10px; outline: none; transition: border-color .15s; }
   input:focus { border-color: var(--blue); }
   input[type=range] { width: 100%; accent-color: var(--blue); }
-  .range-row { display: flex; align-items: center; gap: 10px; }
 
-  /* ── buttons ── */
   button { font-family: var(--mono); font-size: 12px; font-weight: 600; border: none; border-radius: 5px; cursor: pointer; padding: 8px 16px; transition: opacity .15s, transform .08s; }
   button:active { transform: scale(.97); }
   button:disabled { opacity: .4; cursor: not-allowed; }
   .btn-primary { background: var(--blue); color: #0d1117; }
-  .btn-run     { background: var(--green); color: #0d1117; font-size: 13px; padding: 11px 24px; width: 100%; }
-  .btn-sweep   { background: rgba(88,166,255,.12); color: var(--blue); border: 1px solid rgba(88,166,255,.25); font-size: 12px; padding: 11px 16px; width: 100%; }
+  .btn-sweep   { background: var(--green); color: #0d1117; font-size: 14px; font-weight: 700; padding: 13px 0; width: 100%; letter-spacing: .04em; }
   .btn-ghost   { background: transparent; color: var(--muted); border: 1px solid var(--border); }
   .btn-sm      { padding: 5px 10px; font-size: 11px; }
   .btn-set     { background: var(--blue); color: #0d1117; font-size: 11px; font-weight: 700; padding: 7px 12px; border-radius: 4px; border: none; cursor: pointer; white-space: nowrap; }
-  .btn-set:hover { opacity: .85; }
 
-  /* ── status badge ── */
   .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; letter-spacing: .06em; }
   .badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
   .badge-idle    { background: rgba(139,148,158,.12); color: var(--muted); }
   .badge-idle::before { background: var(--muted); }
   .badge-running { background: rgba(210,153,34,.15); color: var(--yellow); }
   .badge-running::before { background: var(--yellow); animation: pulse 1s ease-in-out infinite; }
-  .badge-anomaly { background: rgba(63,185,80,.15); color: var(--green); }
-  .badge-anomaly::before { background: var(--green); }
-  .badge-null    { background: rgba(248,81,73,.12); color: var(--red); }
-  .badge-null::before { background: var(--red); }
+  .badge-done    { background: rgba(63,185,80,.15); color: var(--green); }
+  .badge-done::before { background: var(--green); }
+  .badge-error   { background: rgba(248,81,73,.12); color: var(--red); }
+  .badge-error::before { background: var(--red); }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-  /* ── verdict block ── */
-  .verdict-block { padding: 14px 16px; border-radius: 6px; font-size: 13px; line-height: 1.75; }
-  .verdict-none    { background: rgba(139,148,158,.08); color: var(--muted); }
-  .verdict-anomaly { background: rgba(63,185,80,.1); border: 1px solid rgba(63,185,80,.3); color: var(--green); }
-  .verdict-null    { background: rgba(248,81,73,.08); border: 1px solid rgba(248,81,73,.2); color: var(--red); }
-  .verdict-pivot   { background: rgba(210,153,34,.1); border: 1px solid rgba(210,153,34,.25); color: var(--yellow); }
-
-  /* ── dashboards ── */
-  .dash-list { display: flex; flex-direction: column; gap: 6px; max-height: 280px; overflow-y: auto; }
-  .dash-link { display: flex; align-items: center; gap: 8px; padding: 7px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; color: var(--blue); text-decoration: none; font-size: 12px; transition: border-color .15s; }
-  .dash-link:hover { border-color: var(--blue); }
-  .dash-link .dash-type { font-size: 10px; color: var(--muted); margin-left: auto; }
+  /* ── pipeline monitor ── */
+  .pipe-list { display: flex; flex-direction: column; }
+  .pipe-row { display: flex; align-items: baseline; gap: 10px; padding: 8px 14px; border-bottom: 1px solid rgba(48,54,61,.6); font-size: 12px; }
+  .pipe-row:last-child { border-bottom: none; }
+  .pipe-row.sub { padding: 5px 14px 5px 36px; background: rgba(0,0,0,.15); border-bottom: 1px solid rgba(48,54,61,.4); }
+  .pipe-row.sub:last-child { border-bottom: none; }
+  .pipe-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+  .pipe-dot.pending { background: var(--border); }
+  .pipe-dot.running { background: var(--yellow); animation: pulse 1s infinite; }
+  .pipe-dot.ok      { background: var(--green); }
+  .pipe-dot.error   { background: var(--red); }
+  .pipe-dot.skip    { background: var(--border); opacity: .4; }
+  .pipe-label { font-weight: 600; color: var(--text); min-width: 160px; flex-shrink: 0; }
+  .pipe-label.sub-label { font-weight: 400; color: var(--muted); font-size: 11px; }
+  .pipe-detail { color: var(--muted); font-size: 11px; flex: 1; }
+  .pipe-detail.ok    { color: var(--green); }
+  .pipe-detail.error { color: var(--red); }
+  .pipe-detail a { color: var(--blue); text-decoration: none; }
+  .pipe-detail a:hover { text-decoration: underline; }
+  .pipe-empty { padding: 20px 14px; color: var(--muted); font-size: 12px; }
 
   /* ── ranked targets ── */
-  .rank-list { display: flex; flex-direction: column; gap: 5px; max-height: 340px; overflow-y: auto; }
-  .rank-row { display: flex; align-items: center; gap: 8px; padding: 7px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; font-size: 12px; transition: border-color .15s; }
-  .rank-row:hover { border-color: var(--border); }
+  .rank-list { display: flex; flex-direction: column; gap: 5px; max-height: 280px; overflow-y: auto; }
+  .rank-row { display: flex; align-items: center; gap: 6px; padding: 6px 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; font-size: 11px; }
   .rank-row.priority { border-left: 3px solid var(--green); }
   .rank-row.seasonal  { border-left: 3px solid var(--yellow); opacity: .75; }
-  .rank-num  { color: var(--muted); font-size: 10px; min-width: 18px; text-align: right; }
-  .rank-ticker { font-weight: 700; color: var(--text); min-width: 48px; }
-  .rank-quarter { color: var(--muted); font-size: 11px; min-width: 60px; }
-  .rank-pct  { color: var(--red); font-weight: 700; min-width: 58px; text-align: right; font-size: 11px; }
-  .rank-name { color: var(--muted); font-size: 11px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .btn-use   { background: rgba(63,185,80,.15); color: var(--green); border: 1px solid rgba(63,185,80,.3); font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
-  .btn-use:hover { background: rgba(63,185,80,.25); }
-  .rank-meta { font-size: 10px; color: var(--muted); padding: 4px 0 2px; }
-  .tag-seasonal { background: rgba(210,153,34,.15); color: var(--yellow); border-radius: 3px; padding: 1px 5px; font-size: 10px; font-weight: 700; }
+  .rank-num  { color: var(--muted); font-size: 10px; min-width: 16px; text-align: right; }
+  .rank-ticker { font-weight: 700; color: var(--text); min-width: 40px; }
+  .rank-quarter { color: var(--muted); font-size: 10px; min-width: 54px; }
+  .rank-pct  { color: var(--red); font-weight: 700; font-size: 10px; min-width: 48px; text-align: right; }
+  .rank-name { color: var(--muted); font-size: 10px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rank-meta { font-size: 10px; color: var(--muted); padding: 2px 0 4px; }
+  .tag-seasonal { background: rgba(210,153,34,.15); color: var(--yellow); border-radius: 3px; padding: 1px 4px; font-size: 10px; font-weight: 700; }
+
+  /* ── dashboards ── */
+  .dash-list { display: flex; flex-direction: column; gap: 5px; max-height: 220px; overflow-y: auto; }
+  .dash-link { display: flex; align-items: center; gap: 6px; padding: 6px 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--blue); text-decoration: none; font-size: 11px; transition: border-color .15s; }
+  .dash-link:hover { border-color: var(--blue); }
+  .dash-link .dash-type { font-size: 10px; color: var(--muted); margin-left: auto; }
+  .dash-link.dash-batch { border-color: rgba(63,185,80,.4); color: var(--green); }
 
   /* ── terminal ── */
-  .terminal { background: #010409; padding: 12px; height: 340px; overflow-y: auto; scroll-behavior: smooth; }
-  .terminal pre { white-space: pre-wrap; word-break: break-all; line-height: 1.6; font-size: 12px; color: #c9d1d9; }
+  .terminal { background: #010409; padding: 12px; height: 300px; overflow-y: auto; scroll-behavior: smooth; }
+  .terminal pre { white-space: pre-wrap; word-break: break-all; line-height: 1.6; font-size: 11px; color: #c9d1d9; }
   .terminal .line-anomaly { color: var(--green); font-weight: 700; }
   .terminal .line-error   { color: var(--red); }
   .terminal .line-warn    { color: var(--yellow); }
   .terminal .line-verdict { color: var(--purple); font-weight: 700; }
   .terminal .line-section { color: var(--blue); }
 
-  /* ── log viewer ── */
-  .log-box { background: #010409; padding: 12px; height: 340px; overflow-y: auto; }
+  .log-box { background: #010409; padding: 12px; height: 300px; overflow-y: auto; }
   .log-box pre { white-space: pre-wrap; word-break: break-all; line-height: 1.5; font-size: 11px; color: var(--muted); }
   .log-box .log-error { color: var(--red); }
   .log-box .log-warn  { color: var(--yellow); }
   .log-box .log-info  { color: var(--text); }
 
-  /* ── target picker ── */
-  select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: var(--mono); font-size: 13px; padding: 7px 10px; outline: none; transition: border-color .15s; appearance: none; cursor: pointer; }
+  select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: var(--mono); font-size: 12px; padding: 6px 8px; outline: none; transition: border-color .15s; appearance: none; cursor: pointer; }
   select:focus { border-color: var(--blue); }
   select option { background: var(--surface); }
   select optgroup { color: var(--muted); font-size: 11px; }
-  .picker-row { display: flex; gap: 6px; align-items: flex-end; margin-top: 6px; }
+  .picker-row { display: flex; gap: 6px; align-items: flex-end; margin-top: 4px; }
   .picker-row select { flex: 1; }
-  .active-target { font-size: 12px; color: var(--blue); background: rgba(88,166,255,.08); border: 1px solid rgba(88,166,255,.2); border-radius: 4px; padding: 5px 10px; margin-top: 8px; }
+  .active-target { font-size: 11px; color: var(--blue); background: rgba(88,166,255,.08); border: 1px solid rgba(88,166,255,.2); border-radius: 4px; padding: 5px 8px; margin-top: 6px; }
   .active-target strong { color: var(--text); }
 
-  /* ── misc ── */
   .row { display: flex; gap: 8px; align-items: center; }
-  .flex-1 { flex: 1; }
-  .mt-8 { margin-top: 8px; }
-  .checkbox-row { display: flex; align-items: center; gap: 8px; color: var(--muted); margin-top: 10px; cursor: pointer; }
-  .checkbox-row input { accent-color: var(--yellow); width: 14px; height: 14px; cursor: pointer; }
-  #save-msg       { font-size: 11px; color: var(--green); opacity: 0; transition: opacity .4s; }
-  #save-msg.show  { opacity: 1; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  #save-msg { font-size: 11px; color: var(--green); opacity: 0; transition: opacity .4s; }
   #targets-save-msg { font-size: 11px; color: var(--green); opacity: 0; transition: opacity .4s; display: block; margin-top: 6px; text-align: center; }
   .section-divider { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 </style>
 </head>
 <body>
@@ -159,11 +150,13 @@
     <span id="global-badge" class="badge badge-idle">IDLE</span>
   </header>
 
-  <!-- ── top workspace ── -->
   <div class="workspace">
 
     <!-- left sidebar -->
     <div class="col-left">
+
+      <!-- Sweep button -->
+      <button class="btn-sweep" id="sweep-btn">▶ SWEEP</button>
 
       <!-- Target Picker -->
       <div class="card">
@@ -176,7 +169,7 @@
           </div>
           <div id="active-primary-display" class="active-target" style="display:none"></div>
 
-          <div class="two-col" style="margin-top:10px">
+          <div class="two-col" style="margin-top:8px">
             <div>
               <label>Peer 1</label>
               <select id="peer0-picker"><option value="">— none —</option></select>
@@ -187,13 +180,12 @@
             </div>
           </div>
 
-          <label style="margin-top:10px">Pivot</label>
+          <label>Pivot</label>
           <select id="pivot-picker"><option value="">— none —</option></select>
 
-          <button class="btn-primary btn-sm" id="save-targets-btn" style="width:100%;margin-top:12px;">Save targets</button>
+          <button class="btn-primary btn-sm" id="save-targets-btn" style="width:100%;margin-top:10px;">Save targets</button>
           <span id="targets-save-msg"></span>
 
-          <!-- hidden inputs for compat -->
           <input type="hidden" id="cfg-primary-ticker">
           <input type="hidden" id="cfg-primary-name">
           <input type="hidden" id="cfg-peer0-ticker">
@@ -211,11 +203,9 @@
         <div class="card-body">
           <label>Spike threshold — <span id="thresh-label">40</span>%</label>
           <input type="range" id="cfg-threshold" min="10" max="100" step="5" value="40">
-
-          <label style="margin-top:10px">Lookback quarters — <span id="quarters-label">8</span></label>
+          <label style="margin-top:8px">Lookback quarters — <span id="quarters-label">8</span></label>
           <input type="range" id="cfg-quarters" min="4" max="16" step="1" value="8">
-
-          <button class="btn-primary btn-sm" id="save-cfg-btn" style="width:100%;margin-top:12px;">Save</button>
+          <button class="btn-primary btn-sm" id="save-cfg-btn" style="width:100%;margin-top:10px;">Save</button>
         </div>
       </div>
 
@@ -223,52 +213,44 @@
 
     <!-- right area -->
     <div class="col-right">
-      <div class="right-top">
 
-        <!-- Sprint Control -->
-        <div class="card">
-          <div class="card-header">Sprint Control</div>
-          <div class="card-body">
-            <button class="btn-run" id="run-btn">▶  Run Sprint</button>
-            <button class="btn-sweep" id="sweep-btn" style="margin-top:8px;">⟳  Sweep Universe</button>
-            <label class="checkbox-row">
-              <input type="checkbox" id="force-pivot-cb">
-              Force pivot
-            </label>
-            <hr class="section-divider">
-            <div id="verdict-block" class="verdict-block verdict-none">
-              No sprint has run yet this session.
-            </div>
-          </div>
+      <!-- pipeline monitor — full width -->
+      <div class="card">
+        <div class="card-header">
+          <span>Pipeline</span>
+          <span id="pipe-meta" style="margin-left:auto;font-size:10px;color:var(--muted)"></span>
         </div>
+        <div id="pipeline-list" class="pipe-list">
+          <div class="pipe-empty">Click ▶ SWEEP to run the full pipeline.</div>
+        </div>
+      </div>
 
-        <!-- Ranked Targets -->
+      <!-- rankings + reports side by side -->
+      <div class="right-row">
+
+        <!-- Rankings -->
         <div class="card">
           <div class="card-header">
             <span>Sweep Rankings</span>
             <button class="btn-ghost btn-sm" id="refresh-rank-btn" style="margin-left:auto;">↻</button>
           </div>
-          <div class="card-body" style="padding:10px">
+          <div class="card-body" style="padding:8px">
             <div id="rank-meta" class="rank-meta"></div>
             <div id="rank-list" class="rank-list">
-              <span style="color:var(--muted);font-size:12px;">Run ⟳ Sweep Universe to populate rankings.</span>
-            </div>
-            <div id="rank-actions" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
-              <button id="run-queue-btn" onclick="runCheckedQueue()" style="background:var(--green);color:#fff;border:none;border-radius:5px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer;">▶ Run Checked</button>
-              <span id="queue-status" style="margin-left:10px;font-size:12px;color:var(--muted)"></span>
+              <span style="color:var(--muted);font-size:11px;">Run ▶ SWEEP to populate.</span>
             </div>
           </div>
         </div>
 
-        <!-- Reports / Dashboards -->
+        <!-- Reports -->
         <div class="card">
           <div class="card-header">
             <span>Reports</span>
             <button class="btn-ghost btn-sm" id="refresh-dash-btn" style="margin-left:auto;">↻</button>
           </div>
-          <div class="card-body" style="padding:10px">
+          <div class="card-body" style="padding:8px">
             <div id="dash-list" class="dash-list">
-              <span style="color:var(--muted);font-size:12px;">No reports yet — run a sprint first.</span>
+              <span style="color:var(--muted);font-size:11px;">No reports yet.</span>
             </div>
           </div>
         </div>
@@ -277,10 +259,9 @@
     </div>
   </div>
 
-  <!-- ── bottom collapsible strip ── -->
+  <!-- bottom collapsible strip -->
   <div class="bottom-strip">
 
-    <!-- Live Output -->
     <div class="card card-collapsible" id="terminal-card">
       <div class="card-header" onclick="toggleCard('terminal-card')">
         <span>Live Output</span>
@@ -289,12 +270,11 @@
       </div>
       <div class="card-body">
         <div class="terminal" id="terminal">
-          <pre id="terminal-pre" style="color:var(--muted)">Waiting for sprint run…</pre>
+          <pre id="terminal-pre" style="color:var(--muted)">Waiting for run…</pre>
         </div>
       </div>
     </div>
 
-    <!-- Sprint Log -->
     <div class="card card-collapsible" id="log-card">
       <div class="card-header" onclick="toggleCard('log-card')">
         <span>Sprint Log</span>
@@ -314,24 +294,14 @@
 <script>
 'use strict';
 
-// ── collapsible cards ─────────────────────────────────────────────────────────
-function toggleCard(id) {
-  document.getElementById(id).classList.toggle('is-open');
-}
+// ── collapsible ───────────────────────────────────────────────────────────────
+function toggleCard(id) { document.getElementById(id).classList.toggle('is-open'); }
+function expandTerminal() { document.getElementById('terminal-card').classList.add('is-open'); }
 
-// auto-expand terminal when a run starts
-function expandTerminal() {
-  document.getElementById('terminal-card').classList.add('is-open');
-}
-
-// ── api helpers ───────────────────────────────────────────────────────────────
+// ── api ───────────────────────────────────────────────────────────────────────
 const api = {
-  get:  (path)       => fetch(path),
-  post: (path, body) => fetch(path, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  }),
+  get:  path       => fetch(path),
+  post: (path, body) => fetch(path, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) }),
 };
 
 // ── universe / target picker ──────────────────────────────────────────────────
@@ -342,48 +312,35 @@ async function loadUniverse(cfg) {
   if (!r.ok) return;
   const { companies } = await r.json();
   _universe = companies;
-
   const grouped = {};
-  for (const c of companies) {
-    const g = _inferGroup(c.ticker);
-    (grouped[g] = grouped[g] || []).push(c);
-  }
-
-  const selectors = ['primary-picker', 'peer0-picker', 'peer1-picker', 'pivot-picker'];
-  for (const selId of selectors) {
+  for (const c of companies) { const g = _inferGroup(c.ticker); (grouped[g] = grouped[g] || []).push(c); }
+  for (const selId of ['primary-picker','peer0-picker','peer1-picker','pivot-picker']) {
     const sel = document.getElementById(selId);
     const isMain = selId === 'primary-picker';
     sel.innerHTML = isMain ? '' : '<option value="">— none —</option>';
     for (const [grp, list] of Object.entries(grouped)) {
-      const og = document.createElement('optgroup');
-      og.label = grp;
+      const og = document.createElement('optgroup'); og.label = grp;
       for (const c of list) {
         const opt = document.createElement('option');
-        opt.value = c.ticker;
-        opt.dataset.name = c.name;
-        opt.dataset.capexTag = c.capex_tag || '';
-        opt.textContent = `${c.ticker} — ${c.name}`;
-        og.appendChild(opt);
+        opt.value = c.ticker; opt.dataset.name = c.name; opt.dataset.capexTag = c.capex_tag || '';
+        opt.textContent = `${c.ticker} — ${c.name}`; og.appendChild(opt);
       }
       sel.appendChild(og);
     }
   }
-
   _syncPickerToConfig(cfg);
 }
 
 function _inferGroup(ticker) {
   if (['SRPT','CRSP','EDIT','NTLA','BEAM','VERV','SGMO'].includes(ticker)) return 'Gene / Cell Therapy';
-  if (['BMRN','ALXN','FOLD','RARE'].includes(ticker)) return 'Rare Disease';
-  if (['ROIV','MDGL','RETA'].includes(ticker)) return 'Oncology / Specialty';
-  if (['IONS','AKRO','SRRK','ARQT','ARWR','PRAX'].includes(ticker)) return 'RNA / Antisense';
+  if (['BMRN','ALXN','FOLD','RARE'].includes(ticker))                       return 'Rare Disease';
+  if (['ROIV','MDGL','RETA'].includes(ticker))                               return 'Oncology / Specialty';
+  if (['IONS','AKRO','SRRK','ARQT','ARWR','PRAX'].includes(ticker))         return 'RNA / Antisense';
   return 'Other';
 }
 
 function _syncPickerToConfig(cfg) {
-  const p = cfg.primary || {};
-  const peers = cfg.peers || [];
-  const piv = cfg.pivot || {};
+  const p = cfg.primary || {}, peers = cfg.peers || [], piv = cfg.pivot || {};
   _setPickerValue('primary-picker', p.ticker);
   _setPickerValue('peer0-picker', (peers[0] || {}).ticker);
   _setPickerValue('peer1-picker', (peers[1] || {}).ticker);
@@ -394,9 +351,7 @@ function _syncPickerToConfig(cfg) {
 function _setPickerValue(selId, ticker) {
   if (!ticker) return;
   const sel = document.getElementById(selId);
-  for (const opt of sel.options) {
-    if (opt.value === ticker) { sel.value = ticker; return; }
-  }
+  for (const opt of sel.options) { if (opt.value === ticker) { sel.value = ticker; return; } }
   const opt = document.createElement('option');
   opt.value = ticker; opt.textContent = ticker; opt.selected = true;
   sel.insertBefore(opt, sel.firstChild);
@@ -411,10 +366,8 @@ function _updateActivePrimaryDisplay(ticker, name) {
 
 function _companyFromPicker(selId) {
   const sel = document.getElementById(selId);
-  const ticker = sel.value;
-  if (!ticker) return null;
-  const found = _universe.find(c => c.ticker === ticker);
-  return found || { ticker, name: sel.options[sel.selectedIndex]?.dataset?.name || ticker };
+  const ticker = sel.value; if (!ticker) return null;
+  return _universe.find(c => c.ticker === ticker) || { ticker, name: sel.options[sel.selectedIndex]?.dataset?.name || ticker };
 }
 
 function setupTargetPicker() {
@@ -422,147 +375,178 @@ function setupTargetPicker() {
     const c = _companyFromPicker('primary-picker');
     if (c) _updateActivePrimaryDisplay(c.ticker, c.name);
   };
-
   document.getElementById('save-targets-btn').onclick = async () => {
     const primary = _companyFromPicker('primary-picker');
-    const peer0   = _companyFromPicker('peer0-picker');
-    const peer1   = _companyFromPicker('peer1-picker');
-    const pivot   = _companyFromPicker('pivot-picker');
-
     if (!primary) { alert('Select a primary target first.'); return; }
-
-    const defaultTag = 'PaymentsToAcquirePropertyPlantAndEquipment';
+    const peer0 = _companyFromPicker('peer0-picker'), peer1 = _companyFromPicker('peer1-picker'), pivot = _companyFromPicker('pivot-picker');
+    const tag = 'PaymentsToAcquirePropertyPlantAndEquipment';
     const body = {
-      primary: { ticker: primary.ticker, name: primary.name, type: 'biotech', capex_tag: primary.capex_tag || defaultTag },
-      peers: [peer0, peer1].filter(Boolean).map(c => ({ ticker: c.ticker, name: c.name, type: 'biotech', capex_tag: c.capex_tag || defaultTag })),
-      pivot: pivot ? { ticker: pivot.ticker, name: pivot.name, type: pivot.capex_tag ? 'software' : 'biotech', capex_tag: pivot.capex_tag || defaultTag } : undefined,
+      primary: { ticker: primary.ticker, name: primary.name, type:'biotech', capex_tag: primary.capex_tag || tag },
+      peers: [peer0, peer1].filter(Boolean).map(c => ({ ticker:c.ticker, name:c.name, type:'biotech', capex_tag: c.capex_tag || tag })),
+      pivot: pivot ? { ticker:pivot.ticker, name:pivot.name, type:'biotech', capex_tag: pivot.capex_tag || tag } : undefined,
     };
-
     const r = await api.post('/api/config', body);
     if (r.ok) {
       const msg = document.getElementById('targets-save-msg');
       msg.textContent = 'saved ✓'; msg.style.opacity = 1;
       setTimeout(() => msg.style.opacity = 0, 2000);
       _updateActivePrimaryDisplay(primary.ticker, primary.name);
-    } else {
-      alert('Save failed — check server logs.');
-    }
+    } else { alert('Save failed — check server logs.'); }
   };
 }
 
-// ── sweep rankings ────────────────────────────────────────────────────────────
-async function refreshRankings() {
-  const r = await api.get('/api/sweep/results');
-  if (!r.ok) return;
-  const data = await r.json();
-  const meta = document.getElementById('rank-meta');
-  const list = document.getElementById('rank-list');
+// ── pipeline monitor ──────────────────────────────────────────────────────────
+const _pipe = { running: false, stages: [] };
 
-  if (!data.generated_at) {
-    list.innerHTML = '<span style="color:var(--muted);font-size:12px;">Run ⟳ Sweep Universe to populate rankings.</span>';
-    meta.textContent = '';
-    return;
-  }
-
-  const when = new Date(data.generated_at).toLocaleDateString();
-  meta.textContent = `${data.hits} hit(s) of ${data.scanned} scanned · ${when}`;
-
-  if (!data.ranked.length) {
-    list.innerHTML = '<span style="color:var(--muted);font-size:12px;">No anomalies found in last sweep.</span>';
-    return;
-  }
-
-  // Store full ranked data for use by the queue runner
-  window._rankedData = data.ranked;
-
-  list.innerHTML = data.ranked.map((row, i) => {
-    const pct      = row.qoq_pct != null ? `+${row.qoq_pct}%` : '+∞%';
-    const css      = row.priority ? 'priority' : row.q2 ? 'seasonal' : '';
-    const tag      = row.q2 ? '<span class="tag-seasonal">Q2</span>' : '';
-    const checked  = i < 8 ? 'checked' : '';
-    const safeName = row.name.replace(/'/g,"\\'");
-    return `<div class="rank-row ${css}" id="rank-row-${i}" title="${row.notes || ''}">
-  <input type="checkbox" class="rank-cb" data-ticker="${row.ticker}" data-name="${safeName}" data-i="${i}" ${checked} style="margin-right:6px;cursor:pointer;">
-  <span class="rank-num">${i+1}</span>
-  <span class="rank-ticker">${row.ticker}</span>
-  <span class="rank-quarter">${row.quarter}</span>
-  <span class="rank-pct">${pct}</span>
-  ${tag}
-  <span class="rank-name">${row.name}</span>
-  <button class="btn-use" onclick="setTargetFromRank('${row.ticker}','${safeName}')">▶ Use</button>
-</div>`;
-  }).join('');
-  document.getElementById('rank-actions').style.display = data.ranked.length ? '' : 'none';
+function _pipeInit(stages) {
+  _pipe.stages = stages;
+  _renderPipeline();
 }
 
-async function runCheckedQueue() {
-  const boxes = Array.from(document.querySelectorAll('.rank-cb:checked'));
-  if (!boxes.length) { alert('No tickers checked.'); return; }
-
-  const btn    = document.getElementById('run-queue-btn');
-  const status = document.getElementById('queue-status');
-  btn.disabled = true;
-
-  const batchResults = [];
-  const ranked = window._rankedData || [];
-
-  // Group checked boxes by ticker so each ticker runs once with all its anomaly quarters
-  const byTicker = {};
-  for (const cb of boxes) {
-    const t = cb.dataset.ticker;
-    if (!byTicker[t]) byTicker[t] = { ticker: t, name: cb.dataset.name, rows: [], rowId: 'rank-row-' + cb.dataset.i };
-    // collect all ranked entries for this ticker
-    byTicker[t].rows = ranked.filter(r => r.ticker === t);
+function _pipeSet(id, status, detail) {
+  // find in top-level or as a sub
+  for (const s of _pipe.stages) {
+    if (s.id === id) { s.status = status; s.detail = detail; break; }
+    if (s.sub && s.sub.id === id) { s.sub.status = status; s.sub.detail = detail; break; }
   }
-  const tickers = Object.values(byTicker);
+  // patch DOM directly (faster than full re-render)
+  const row = document.getElementById('prow-' + id);
+  if (!row) return;
+  row.querySelector('.pipe-dot').className = 'pipe-dot ' + status;
+  const det = row.querySelector('.pipe-detail');
+  det.className = 'pipe-detail ' + (status === 'error' ? 'error' : status === 'ok' ? 'ok' : '');
+  det.innerHTML = detail;
+}
 
-  for (let idx = 0; idx < tickers.length; idx++) {
-    const { ticker, name, rows, rowId } = tickers[idx];
-    const rank = ranked.findIndex(r => r.ticker === ticker) + 1;
+function _renderPipeline() {
+  const list = document.getElementById('pipeline-list');
+  if (!_pipe.stages.length) {
+    list.innerHTML = '<div class="pipe-empty">Click ▶ SWEEP to run the full pipeline.</div>';
+    return;
+  }
+  list.innerHTML = _pipe.stages.map(s => {
+    const subHtml = s.sub ? `<div class="pipe-row sub" id="prow-${s.sub.id}">
+      <div class="pipe-dot ${s.sub.status}"></div>
+      <div class="pipe-label sub-label">${s.sub.label}</div>
+      <div class="pipe-detail">${s.sub.detail}</div>
+    </div>` : '';
+    return `<div class="pipe-row" id="prow-${s.id}">
+      <div class="pipe-dot ${s.status}"></div>
+      <div class="pipe-label">${s.label}</div>
+      <div class="pipe-detail">${s.detail}</div>
+    </div>${subHtml}`;
+  }).join('');
+}
 
-    status.textContent = `[${idx+1}/${tickers.length}] Setting target: ${ticker}…`;
+// ── main pipeline ─────────────────────────────────────────────────────────────
+async function runFullPipeline() {
+  if (_pipe.running) return;
+  _pipe.running = true;
+  const btn = document.getElementById('sweep-btn');
+  btn.disabled = true; btn.textContent = '⟳ Running…';
+  updateGlobalBadge('running');
+  document.getElementById('pipe-meta').textContent = '';
+
+  _pipeInit([
+    { id:'sweep',   label:'Sweep Universe',  status:'running', detail:'scanning…' },
+    { id:'summary', label:'Batch Summary',   status:'pending', detail:'—' },
+  ]);
+
+  // ── 1. Sweep ──────────────────────────────────────────────────────────────
+  expandTerminal(); clearTerminal();
+  const sweepResp = await api.post('/api/sweep', { limit: 0 });
+  if (!sweepResp.ok) {
+    _pipeSet('sweep', 'error', `HTTP ${sweepResp.status} — failed to start sweep`);
+    return _finishPipeline(btn, 0);
+  }
+  connectSSE();
+  await _waitForRun();
+
+  const rankResp = await api.get('/api/sweep/results');
+  if (!rankResp.ok) {
+    _pipeSet('sweep', 'error', 'Could not read sweep results');
+    return _finishPipeline(btn, 0);
+  }
+  const rankData = await rankResp.json();
+  const ranked   = rankData.ranked || [];
+  window._rankedData = ranked;
+  await refreshRankings();
+
+  if (!ranked.length) {
+    _pipeSet('sweep', 'ok', `${rankData.scanned} scanned · 0 hits`);
+    _pipeSet('summary', 'skip', 'No anomalies — nothing to run');
+    return _finishPipeline(btn, 0);
+  }
+  _pipeSet('sweep', 'ok', `${rankData.scanned} scanned · ${rankData.hits} hit(s)`);
+
+  // ── 2. Build ticker stages ─────────────────────────────────────────────────
+  const top8    = _dedupeByTicker(ranked).slice(0, 8);
+  const summaryIdx = _pipe.stages.findIndex(s => s.id === 'summary');
+  const tickerStages = top8.map((t, i) => ({
+    id:     `t-${t.ticker}`,
+    label:  `${i+1}. ${t.ticker}`,
+    status: 'pending',
+    detail: '—',
+    sub:  { id: `t-${t.ticker}-deep`, label: '└ Deep Research', status: 'pending', detail: '—' },
+  }));
+  _pipe.stages.splice(summaryIdx, 0, ...tickerStages);
+  _renderPipeline();
+
+  // ── 3. Run each ticker ─────────────────────────────────────────────────────
+  const batchResults = [];
+  for (let idx = 0; idx < top8.length; idx++) {
+    const ticker = top8[idx].ticker, name = top8[idx].name;
+    const rows   = ranked.filter(r => r.ticker === ticker);
+
+    _pipeSet(`t-${ticker}`, 'running', 'setting target…');
 
     const c = _universe.find(x => x.ticker === ticker) || { ticker, name };
-    const defaultTag = 'PaymentsToAcquirePropertyPlantAndEquipment';
-    const cfgResp = await api.post('/api/config', {
-      primary: { ticker: c.ticker, name: c.name, type: 'biotech', capex_tag: c.capex_tag || defaultTag },
-    });
-    if (!cfgResp.ok) { status.textContent = `Failed to set target ${ticker}`; break; }
+    const tag = 'PaymentsToAcquirePropertyPlantAndEquipment';
+    const cfgOk = await api.post('/api/config', {
+      primary: { ticker: c.ticker, name: c.name, type:'biotech', capex_tag: c.capex_tag || tag },
+    }).then(r => r.ok);
 
+    if (!cfgOk) {
+      _pipeSet(`t-${ticker}`, 'error', 'failed to set target');
+      _pipeSet(`t-${ticker}-deep`, 'skip', 'skipped');
+      batchResults.push(_emptyResult(idx+1, ticker, name, rows));
+      continue;
+    }
     _setPickerValue('primary-picker', ticker);
     _updateActivePrimaryDisplay(ticker, name);
 
-    document.querySelectorAll('.rank-row').forEach(r => r.style.outline = '');
-    const activeRow = document.getElementById(rowId);
-    if (activeRow) activeRow.style.outline = '2px solid var(--blue)';
+    // sprint
+    _pipeSet(`t-${ticker}`, 'running', 'sprint running…');
+    clearTerminal(); connectSSE();
+    const runOk = await api.post('/api/run', { force_pivot: false }).then(r => r.ok);
+    if (!runOk) {
+      _pipeSet(`t-${ticker}`, 'error', 'failed to start sprint');
+      _pipeSet(`t-${ticker}-deep`, 'skip', 'skipped');
+      batchResults.push(_emptyResult(idx+1, ticker, name, rows));
+      continue;
+    }
+    const sprintStatus = await _waitForRun();
+    const verdict = sprintStatus?.verdict || '—';
+    const exitOk  = sprintStatus?.exit_code === 0;
 
-    // Sprint
-    status.textContent = `[${idx+1}/${tickers.length}] Running sprint for ${ticker}…`;
-    expandTerminal();
-    const runResp = await api.post('/api/run', { force_pivot: false });
-    if (!runResp.ok) { status.textContent = `Failed to start sprint for ${ticker}`; break; }
-
-    // Wait for sprint to finish
     let sprintReportUrl = null;
-    await new Promise(resolve => {
-      const poll = setInterval(async () => {
-        const s = await api.get('/api/run/status');
-        if (!s.ok) { clearInterval(poll); resolve(); return; }
-        const st = await s.json();
-        if (!st.running) { clearInterval(poll); resolve(); }
-      }, 3000);
-    });
-
-    // Grab latest report for this ticker
     const dashResp = await api.get('/api/dashboards');
     if (dashResp.ok) {
       const { files } = await dashResp.json();
-      const match = files.find(f => f.toLowerCase().includes(ticker.toLowerCase()));
+      const match = files.find(f =>
+        f.toLowerCase().includes(ticker.toLowerCase()) &&
+        !f.startsWith('deep_') && !f.startsWith('batch_')
+      );
       if (match) sprintReportUrl = `/output/${match}`;
     }
 
-    // Deep research
-    status.textContent = `[${idx+1}/${tickers.length}] Deep research for ${ticker}…`;
+    const sprintDetail = verdict === 'ANOMALY'
+      ? `<a href="${sprintReportUrl}" target="_blank">★ ANOMALY — open report →</a>`
+      : verdict === 'NULL' ? 'no anomaly' : `exit ${sprintStatus?.exit_code ?? '?'}`;
+    _pipeSet(`t-${ticker}`, exitOk ? 'ok' : 'error', sprintDetail);
+
+    // deep research
+    _pipeSet(`t-${ticker}-deep`, 'running', 'Form 4 + 10-Q…');
     const quarters   = rows.map(r => r.quarter);
     const periodEnds = rows.map(r => r.period_end).filter(Boolean);
     let deepReportUrl = null, findings = null;
@@ -570,264 +554,128 @@ async function runCheckedQueue() {
     if (periodEnds.length) {
       try {
         const dr = await api.post('/api/deep-research', {
-          ticker,
-          company_name:       name,
-          anomaly_quarters:   quarters,
-          anomaly_period_ends: periodEnds,
-          cik_override:       rows[0]?.cik || null,
+          ticker, company_name: name,
+          anomaly_quarters: quarters, anomaly_period_ends: periodEnds,
+          cik_override: rows[0]?.cik || null,
         });
         if (dr.ok) {
           const drData = await dr.json();
-          deepReportUrl = drData.report_url;
-          findings      = drData.findings;
+          deepReportUrl = drData.report_url; findings = drData.findings;
+          const sig = findings?.insider_signal || 'neutral';
+          const net = findings?.net_insider_value;
+          const netStr = net != null ? ` · ${net >= 0 ? '+' : ''}$${(Math.abs(net)/1e6).toFixed(1)}M insider` : '';
+          const cip = findings?.has_cip ? ' · CIP ✓' : '';
+          _pipeSet(`t-${ticker}-deep`, 'ok', `<a href="${deepReportUrl}" target="_blank">${sig}${netStr}${cip} →</a>`);
+        } else {
+          const err = await dr.text();
+          _pipeSet(`t-${ticker}-deep`, 'error', `HTTP ${dr.status}: ${err.slice(0,80)}`);
         }
-      } catch(e) { /* non-fatal */ }
+      } catch(e) {
+        _pipeSet(`t-${ticker}-deep`, 'error', e.message.slice(0,80));
+      }
+    } else {
+      _pipeSet(`t-${ticker}-deep`, 'skip', 'no period_end in sweep data');
     }
 
-    if (activeRow) activeRow.style.outline = '2px solid var(--green)';
-
     batchResults.push({
-      rank,
-      ticker,
-      name,
-      quarter:       rows.map(r => r.quarter).join(', '),
-      qoq_pct:       rows[0]?.qoq_pct ?? null,
-      report_url:    sprintReportUrl,
+      rank: idx+1, ticker, name,
+      quarter:        rows.map(r => r.quarter).join(', '),
+      qoq_pct:        rows[0]?.qoq_pct ?? null,
+      report_url:     sprintReportUrl,
       deep_report_url: deepReportUrl,
       findings,
     });
   }
 
-  // Generate batch summary
-  status.textContent = 'Generating batch summary…';
+  // ── 4. Batch summary ───────────────────────────────────────────────────────
+  _pipeSet('summary', 'running', 'generating…');
   try {
     const sr = await api.post('/api/batch-summary', { results: batchResults });
     if (sr.ok) {
       const { report_url } = await sr.json();
-      status.innerHTML = `Done — <a href="${report_url}" target="_blank" style="color:var(--green);font-weight:700">Open batch summary →</a>`;
+      _pipeSet('summary', 'ok', `<a href="${report_url}" target="_blank">Open batch summary →</a>`);
     } else {
-      status.textContent = `Done — ${tickers.length} ticker(s) run.`;
+      _pipeSet('summary', 'error', `HTTP ${sr.status}`);
     }
   } catch(e) {
-    status.textContent = `Done — ${tickers.length} ticker(s) run.`;
+    _pipeSet('summary', 'error', e.message.slice(0,80));
   }
 
-  btn.disabled = false;
   await refreshDashboards();
+  _finishPipeline(btn, batchResults.length);
 }
 
-async function setTargetFromRank(ticker, name) {
-  // Find full company record from universe if available
-  const c = _universe.find(x => x.ticker === ticker) || { ticker, name };
-  const defaultTag = 'PaymentsToAcquirePropertyPlantAndEquipment';
-  const body = {
-    primary: { ticker: c.ticker, name: c.name, type: 'biotech', capex_tag: c.capex_tag || defaultTag },
-  };
-  const r = await api.post('/api/config', body);
-  if (r.ok) {
-    // Sync pickers
-    _setPickerValue('primary-picker', ticker);
-    _updateActivePrimaryDisplay(ticker, name);
-    // Flash confirmation on the row
-    const rows = document.querySelectorAll('.rank-row');
-    rows.forEach(row => {
-      const t = row.querySelector('.rank-ticker');
-      if (t && t.textContent === ticker) {
-        row.style.borderColor = 'var(--green)';
-        row.style.background  = 'rgba(63,185,80,.08)';
-        setTimeout(() => { row.style.borderColor = ''; row.style.background = ''; }, 1500);
-      }
-    });
-  } else {
-    alert('Failed to set target.');
-  }
+function _finishPipeline(btn, count) {
+  _pipe.running = false;
+  btn.disabled = false; btn.textContent = '▶ SWEEP';
+  updateGlobalBadge('done');
+  document.getElementById('pipe-meta').textContent = count ? `${count} ticker(s) run` : '';
 }
 
-// ── init ──────────────────────────────────────────────────────────────────────
-async function init(cfg) {
-  applyConfig(cfg);
-  await Promise.all([loadUniverse(cfg), refreshDashboards(), refreshRankings(), refreshLog(), pollStatus()]);
-  setupConfigSave();
-  setupRunButton();
-  setupTargetPicker();
-  document.getElementById('refresh-dash-btn').onclick = refreshDashboards;
-  document.getElementById('refresh-rank-btn').onclick = refreshRankings;
+function _emptyResult(rank, ticker, name, rows) {
+  return { rank, ticker, name, quarter: rows.map(r=>r.quarter).join(', '), qoq_pct: rows[0]?.qoq_pct??null, report_url:null, deep_report_url:null, findings:null };
 }
 
-// ── config ────────────────────────────────────────────────────────────────────
-function applyConfig(cfg) {
-  const p = cfg.primary || {};
-  const peers = cfg.peers || [];
-  const piv = cfg.pivot || {};
-  const sprint = cfg.sprint || {};
-
-  set('cfg-primary-ticker', p.ticker || '');
-  set('cfg-primary-name',   p.name   || '');
-  set('cfg-peer0-ticker',   (peers[0] || {}).ticker || '');
-  set('cfg-peer1-ticker',   (peers[1] || {}).ticker || '');
-  set('cfg-pivot-ticker',   piv.ticker || '');
-
-  if (p.ticker) _updateActivePrimaryDisplay(p.ticker, p.name);
-
-  const thresh = Math.round((sprint.spike_threshold || 0.4) * 100);
-  document.getElementById('cfg-threshold').value = thresh;
-  document.getElementById('thresh-label').textContent = thresh;
-
-  const qtr = sprint.lookback_quarters || 8;
-  document.getElementById('cfg-quarters').value = qtr;
-  document.getElementById('quarters-label').textContent = qtr;
+function _dedupeByTicker(ranked) {
+  const seen = new Set(), out = [];
+  for (const r of ranked) { if (!seen.has(r.ticker)) { seen.add(r.ticker); out.push(r); } }
+  return out;
 }
 
-function set(id, val) { document.getElementById(id).value = val; }
-function get(id)       { return document.getElementById(id).value.trim(); }
-
-document.getElementById('cfg-threshold').oninput = e =>
-  document.getElementById('thresh-label').textContent = e.target.value;
-document.getElementById('cfg-quarters').oninput = e =>
-  document.getElementById('quarters-label').textContent = e.target.value;
-
-function setupConfigSave() {
-  document.getElementById('save-cfg-btn').onclick = async () => {
-    const body = {
-      sprint: {
-        spike_threshold:   parseInt(document.getElementById('cfg-threshold').value) / 100,
-        lookback_quarters: parseInt(document.getElementById('cfg-quarters').value),
-      },
-    };
-    const r = await api.post('/api/config', body);
-    if (r.ok) {
-      const msg = document.getElementById('save-msg');
-      msg.classList.add('show');
-      setTimeout(() => msg.classList.remove('show'), 2000);
-    }
-  };
+async function _waitForRun() {
+  return new Promise(resolve => {
+    const poll = setInterval(async () => {
+      try {
+        const s = await api.get('/api/run/status');
+        if (!s.ok) { clearInterval(poll); resolve(null); return; }
+        const st = await s.json();
+        updateGlobalBadge(st.running ? 'running' : 'done');
+        if (!st.running) { clearInterval(poll); resolve(st); }
+      } catch { clearInterval(poll); resolve(null); }
+    }, 3000);
+  });
 }
 
-// ── run control ───────────────────────────────────────────────────────────────
-function setupRunButton() {
-  document.getElementById('run-btn').onclick = async () => {
-    const forcePivot = document.getElementById('force-pivot-cb').checked;
-    const r = await api.post('/api/run', { force_pivot: forcePivot });
-    if (r.status === 409) { alert('Sprint already running.'); return; }
-    if (!r.ok) { alert('Failed to start sprint.'); return; }
-    clearTerminal(); expandTerminal(); connectSSE(); pollStatus();
-  };
-
-  document.getElementById('clear-btn').onclick = clearTerminal;
-
-  document.getElementById('sweep-btn').onclick = async () => {
-    const r = await api.post('/api/sweep', { limit: 0 });
-    if (r.status === 409) { alert('A run is already in progress.'); return; }
-    if (!r.ok) { alert('Failed to start sweep.'); return; }
-    clearTerminal(); expandTerminal(); connectSSE(); pollStatus();
-  };
-}
-
-function clearTerminal() {
-  document.getElementById('terminal-pre').innerHTML = '';
-  document.getElementById('terminal-pre').style.color = 'var(--text)';
-}
-
-function connectSSE() {
-  streamOutput();
-}
-
-async function streamOutput() {
-  clearTerminal();
-  const pre = document.getElementById('terminal-pre');
-  pre.style.color = 'var(--text)';
-  try {
-    const resp = await api.get('/api/run/stream');
-    if (!resp.ok) return;
-    const reader = resp.body.getReader();
-    const decoder = new TextDecoder();
-    let buf = '';
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      buf += decoder.decode(value, { stream: true });
-      const parts = buf.split('\n\n');
-      buf = parts.pop();
-      for (const part of parts) {
-        if (!part.startsWith('data: ')) continue;
-        const raw = part.slice(6).trim();
-        if (raw === '[DONE]' || raw === '') continue;
-        try { appendTerminalLine(JSON.parse(raw)); } catch { appendTerminalLine(raw); }
-      }
-    }
-  } catch (e) { appendTerminalLine(`[stream error] ${e.message}`); }
-}
-
-function appendTerminalLine(line) {
-  const pre = document.getElementById('terminal-pre');
-  const span = document.createElement('span');
-  span.textContent = line + '\n';
-  if (line.includes('ANOMALY'))            span.className = 'line-anomaly';
-  else if (line.includes('VERDICT'))       span.className = 'line-verdict';
-  else if (line.includes('==='))           span.className = 'line-section';
-  else if (/error|ERROR/.test(line))       span.className = 'line-error';
-  else if (/warn|WARN|WARNING/.test(line)) span.className = 'line-warn';
-  pre.appendChild(span);
-  document.getElementById('terminal').scrollTop = 99999;
-}
-
-// ── status polling ────────────────────────────────────────────────────────────
-let _pollTimer = null;
-
-async function pollStatus() {
-  clearTimeout(_pollTimer);
-  const r = await api.get('/api/run/status');
+// ── sweep rankings display ────────────────────────────────────────────────────
+async function refreshRankings() {
+  const r = await api.get('/api/sweep/results');
   if (!r.ok) return;
-  const s = await r.json();
-  updateBadge(s);
-  updateVerdict(s);
-  if (s.running) {
-    _pollTimer = setTimeout(pollStatus, 2000);
-  } else {
-    await refreshDashboards();
+  const data = await r.json();
+  const meta = document.getElementById('rank-meta');
+  const list = document.getElementById('rank-list');
+  if (!data.generated_at) {
+    list.innerHTML = '<span style="color:var(--muted);font-size:11px;">Run ▶ SWEEP to populate.</span>';
+    meta.textContent = ''; return;
   }
+  const when = new Date(data.generated_at).toLocaleDateString();
+  meta.textContent = `${data.hits} hit(s) · ${data.scanned} scanned · ${when}`;
+  if (!data.ranked.length) {
+    list.innerHTML = '<span style="color:var(--muted);font-size:11px;">No anomalies found.</span>'; return;
+  }
+  window._rankedData = data.ranked;
+  list.innerHTML = data.ranked.map((row, i) => {
+    const pct     = row.qoq_pct != null ? `+${row.qoq_pct}%` : '+∞%';
+    const css     = row.priority ? 'priority' : row.q2 ? 'seasonal' : '';
+    const tag     = row.q2 ? '<span class="tag-seasonal">Q2</span>' : '';
+    const safeName = row.name.replace(/'/g,"\\'");
+    return `<div class="rank-row ${css}" title="${row.notes||''}">
+  <span class="rank-num">${i+1}</span>
+  <span class="rank-ticker">${row.ticker}</span>
+  <span class="rank-quarter">${row.quarter}</span>
+  <span class="rank-pct">${pct}</span>
+  ${tag}
+  <span class="rank-name">${row.name}</span>
+</div>`;
+  }).join('');
 }
 
-function updateBadge(s) {
-  const badge    = document.getElementById('global-badge');
-  const runBtn   = document.getElementById('run-btn');
-  const sweepBtn = document.getElementById('sweep-btn');
-  if (s.running) {
-    badge.className = 'badge badge-running'; badge.textContent = 'RUNNING';
-    runBtn.disabled = true; runBtn.textContent = '⏳  Running…';
-    sweepBtn.disabled = true;
-  } else {
-    runBtn.disabled = false; runBtn.textContent = '▶  Run Sprint';
-    sweepBtn.disabled = false;
-    if (s.verdict === 'ANOMALY')       { badge.className = 'badge badge-anomaly'; badge.textContent = 'ANOMALY FOUND'; }
-    else if (s.verdict === 'NULL')     { badge.className = 'badge badge-null';    badge.textContent = 'NO ANOMALY'; }
-    else                               { badge.className = 'badge badge-idle';    badge.textContent = 'IDLE'; }
-  }
-}
-
-function updateVerdict(s) {
-  const el = document.getElementById('verdict-block');
-  if (s.running) {
-    el.className = 'verdict-block verdict-pivot';
-    el.innerHTML = '⏳ Sprint in progress…';
-    return;
-  }
-  if (!s.verdict && s.exit_code === null) {
-    el.className = 'verdict-block verdict-none';
-    el.innerHTML = 'No sprint has run yet this session.';
-    return;
-  }
-  const started = s.started_at ? new Date(s.started_at).toLocaleString() : '—';
-  if (s.verdict === 'ANOMALY') {
-    el.className = 'verdict-block verdict-anomaly';
-    el.innerHTML = `<strong>★ ANOMALY FOUND</strong><br>Started: ${started}<br>Proceed to secondary work.`;
-  } else if (s.verdict === 'NULL') {
-    el.className = 'verdict-block verdict-null';
-    el.innerHTML = `<strong>No anomaly found in either target.</strong><br>Started: ${started}`;
-  } else if (s.exit_code !== null) {
-    el.className = 'verdict-block verdict-pivot';
-    el.innerHTML = `Exit code: ${s.exit_code} · Started: ${started}`;
-  }
+// ── global badge ──────────────────────────────────────────────────────────────
+function updateGlobalBadge(state) {
+  const b = document.getElementById('global-badge');
+  if (state === 'running') { b.className = 'badge badge-running'; b.textContent = 'RUNNING'; }
+  else if (state === 'done')  { b.className = 'badge badge-done';    b.textContent = 'DONE'; }
+  else if (state === 'error') { b.className = 'badge badge-error';   b.textContent = 'ERROR'; }
+  else                        { b.className = 'badge badge-idle';    b.textContent = 'IDLE'; }
 }
 
 // ── dashboards ────────────────────────────────────────────────────────────────
@@ -836,24 +684,22 @@ async function refreshDashboards() {
   if (!r.ok) return;
   const { files } = await r.json();
   const el = document.getElementById('dash-list');
-  if (!files.length) {
-    el.innerHTML = '<span style="color:var(--muted);font-size:12px;">No reports yet — run a sprint first.</span>';
-    return;
-  }
+  if (!files.length) { el.innerHTML = '<span style="color:var(--muted);font-size:11px;">No reports yet.</span>'; return; }
   el.innerHTML = files.map(f => {
-    const isReport = f.startsWith('report_') || f.startsWith('deep_');
-    const isSweep  = f.startsWith('sweep_');
-    const label    = f.replace(/^(dashboard_|report_|sweep_|deep_)/, '').replace('.html', '');
-    const typeTag  = isReport ? 'report' : isSweep ? 'sweep' : 'dashboard';
-    const icon     = isReport ? '📄' : isSweep ? '🔍' : '📊';
-    return `<a class="dash-link" href="/output/${f}" target="_blank">${icon} ${label}<span class="dash-type">${typeTag}</span></a>`;
+    const isBatch = f.startsWith('batch_');
+    const isDeep  = f.startsWith('deep_');
+    const isSweep = f.startsWith('sweep_');
+    const label   = f.replace(/^(dashboard_|report_|sweep_|deep_|batch_summary_)/, '').replace('.html','');
+    const icon    = isBatch ? '★' : isDeep ? '🔬' : isSweep ? '⟳' : '📊';
+    const type    = isBatch ? 'batch' : isDeep ? 'deep' : isSweep ? 'sweep' : 'sprint';
+    const cls     = isBatch ? 'dash-link dash-batch' : 'dash-link';
+    return `<a class="${cls}" href="/output/${f}" target="_blank">${icon} ${label}<span class="dash-type">${type}</span></a>`;
   }).join('');
 }
 
 // ── log viewer ────────────────────────────────────────────────────────────────
 async function refreshLog() {
-  const r = await api.get('/api/logs?n=150');
-  if (!r.ok) return;
+  const r = await api.get('/api/logs?n=150'); if (!r.ok) return;
   const { lines } = await r.json();
   const pre = document.getElementById('log-pre');
   if (!lines.length) { pre.textContent = '(log is empty)'; return; }
@@ -865,11 +711,91 @@ async function refreshLog() {
   document.getElementById('log-box').scrollTop = 99999;
 }
 
-// ── boot ──────────────────────────────────────────────────────────────────────
-(async () => {
-  const cfg = await api.get('/api/config').then(r => r.json());
-  init(cfg);
-})();
+// ── terminal / SSE ────────────────────────────────────────────────────────────
+function clearTerminal() {
+  const pre = document.getElementById('terminal-pre');
+  pre.innerHTML = ''; pre.style.color = 'var(--text)';
+}
+
+function connectSSE() { streamOutput(); }
+
+async function streamOutput() {
+  clearTerminal();
+  const pre = document.getElementById('terminal-pre');
+  pre.style.color = 'var(--text)';
+  try {
+    const resp = await api.get('/api/run/stream'); if (!resp.ok) return;
+    const reader = resp.body.getReader(); const decoder = new TextDecoder(); let buf = '';
+    while (true) {
+      const { value, done } = await reader.read(); if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const parts = buf.split('\n\n'); buf = parts.pop();
+      for (const part of parts) {
+        if (!part.startsWith('data: ')) continue;
+        const raw = part.slice(6).trim();
+        if (raw === '[DONE]' || raw === '') continue;
+        try { appendTerminalLine(JSON.parse(raw)); } catch { appendTerminalLine(raw); }
+      }
+    }
+  } catch(e) { appendTerminalLine(`[stream error] ${e.message}`); }
+}
+
+function appendTerminalLine(line) {
+  const pre = document.getElementById('terminal-pre');
+  const span = document.createElement('span');
+  span.textContent = line + '\n';
+  if      (line.includes('ANOMALY'))            span.className = 'line-anomaly';
+  else if (line.includes('VERDICT'))            span.className = 'line-verdict';
+  else if (line.includes('==='))                span.className = 'line-section';
+  else if (/error|ERROR/.test(line))            span.className = 'line-error';
+  else if (/warn|WARN|WARNING/.test(line))      span.className = 'line-warn';
+  pre.appendChild(span);
+  document.getElementById('terminal').scrollTop = 99999;
+}
+
+// ── config ────────────────────────────────────────────────────────────────────
+function applyConfig(cfg) {
+  const p = cfg.primary || {}, peers = cfg.peers || {}, piv = cfg.pivot || {}, sprint = cfg.sprint || {};
+  set('cfg-primary-ticker', p.ticker || ''); set('cfg-primary-name', p.name || '');
+  set('cfg-peer0-ticker', (peers[0]||{}).ticker||''); set('cfg-peer1-ticker', (peers[1]||{}).ticker||'');
+  set('cfg-pivot-ticker', piv.ticker || '');
+  if (p.ticker) _updateActivePrimaryDisplay(p.ticker, p.name);
+  const thresh = Math.round((sprint.spike_threshold || 0.4) * 100);
+  document.getElementById('cfg-threshold').value = thresh;
+  document.getElementById('thresh-label').textContent = thresh;
+  const qtr = sprint.lookback_quarters || 8;
+  document.getElementById('cfg-quarters').value = qtr;
+  document.getElementById('quarters-label').textContent = qtr;
+}
+
+function set(id, val) { document.getElementById(id).value = val; }
+function get(id)      { return document.getElementById(id).value.trim(); }
+
+document.getElementById('cfg-threshold').oninput = e => document.getElementById('thresh-label').textContent = e.target.value;
+document.getElementById('cfg-quarters').oninput  = e => document.getElementById('quarters-label').textContent = e.target.value;
+
+function setupConfigSave() {
+  document.getElementById('save-cfg-btn').onclick = async () => {
+    const body = { sprint: { spike_threshold: parseInt(document.getElementById('cfg-threshold').value)/100, lookback_quarters: parseInt(document.getElementById('cfg-quarters').value) } };
+    const r = await api.post('/api/config', body);
+    if (r.ok) { const msg = document.getElementById('save-msg'); msg.classList.add('show'); setTimeout(() => msg.classList.remove('show'), 2000); }
+  };
+}
+
+// ── init ──────────────────────────────────────────────────────────────────────
+async function init(cfg) {
+  applyConfig(cfg);
+  await Promise.all([loadUniverse(cfg), refreshDashboards(), refreshRankings(), refreshLog()]);
+  setupConfigSave();
+  setupTargetPicker();
+  document.getElementById('sweep-btn').onclick    = runFullPipeline;
+  document.getElementById('refresh-dash-btn').onclick = refreshDashboards;
+  document.getElementById('refresh-rank-btn').onclick = refreshRankings;
+  document.getElementById('refresh-log-btn').onclick  = refreshLog;
+  document.getElementById('clear-btn').onclick        = clearTerminal;
+}
+
+(async () => { const cfg = await api.get('/api/config').then(r => r.json()); init(cfg); })();
 </script>
 </body>
 </html>
