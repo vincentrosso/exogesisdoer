@@ -14,6 +14,7 @@ Output:
 """
 
 import argparse
+import json
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -164,11 +165,40 @@ def main():
     if no_data:
         print(f"  No XBRL data: {', '.join(no_data)}")
 
-    # ── hit list report ───────────────────────────────────────────────────────
+    # ── hit list report + ranked JSON ────────────────────────────────────────
     ts          = datetime.now().strftime("%Y%m%d_%H%M")
     report_path = OUTPUT_DIR / f"sweep_{ts}.html"
     _write_sweep_report(hits, no_data, errors, total, thresh, report_path)
     print(f"\n  Sweep report → {report_path}\n")
+
+    # Write ranked JSON for the UI
+    ranked = []
+    if hits:
+        for h in hits:
+            for a in h["anomalies"]:
+                q_num = int(a["quarter"].split("-Q")[1])
+                year  = int(a["quarter"].split("-Q")[0])
+                score = year + (q_num / 10) + (-0.5 if q_num == 2 else 0)
+                ranked.append({
+                    "ticker":  h["ticker"],
+                    "name":    h["name"],
+                    "notes":   h["notes"],
+                    "quarter": a["quarter"],
+                    "qoq_pct": round(a["qoq_pct"], 1) if a["qoq_pct"] != float("inf") else None,
+                    "score":   round(score, 2),
+                    "q2":      q_num == 2,
+                    "priority": not (q_num == 2) and year >= 2025,
+                })
+        ranked.sort(key=lambda x: x["score"], reverse=True)
+
+    sweep_json = {
+        "generated_at": datetime.now().isoformat(),
+        "scanned": total,
+        "hits": len(hits),
+        "ranked": ranked,
+        "report_file": report_path.name,
+    }
+    (OUTPUT_DIR / "sweep_latest.json").write_text(json.dumps(sweep_json, indent=2))
 
 
 def _write_sweep_report(hits, no_data, errors, total, thresh, path: Path):

@@ -30,8 +30,8 @@
   .col-left  { display: flex; flex-direction: column; gap: 14px; }
   .col-right { display: flex; flex-direction: column; gap: 14px; }
 
-  /* right column splits into 2 across for control + dashboards */
-  .right-top { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  /* right column splits into 3 across */
+  .right-top { display: grid; grid-template-columns: 220px 1fr 1fr; gap: 14px; }
 
   /* full-width bottom strip */
   .bottom-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 14px 20px; }
@@ -91,10 +91,26 @@
   .verdict-pivot   { background: rgba(210,153,34,.1); border: 1px solid rgba(210,153,34,.25); color: var(--yellow); }
 
   /* ── dashboards ── */
-  .dash-list { display: flex; flex-direction: column; gap: 6px; max-height: 320px; overflow-y: auto; }
+  .dash-list { display: flex; flex-direction: column; gap: 6px; max-height: 280px; overflow-y: auto; }
   .dash-link { display: flex; align-items: center; gap: 8px; padding: 7px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; color: var(--blue); text-decoration: none; font-size: 12px; transition: border-color .15s; }
   .dash-link:hover { border-color: var(--blue); }
   .dash-link .dash-type { font-size: 10px; color: var(--muted); margin-left: auto; }
+
+  /* ── ranked targets ── */
+  .rank-list { display: flex; flex-direction: column; gap: 5px; max-height: 340px; overflow-y: auto; }
+  .rank-row { display: flex; align-items: center; gap: 8px; padding: 7px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; font-size: 12px; transition: border-color .15s; }
+  .rank-row:hover { border-color: var(--border); }
+  .rank-row.priority { border-left: 3px solid var(--green); }
+  .rank-row.seasonal  { border-left: 3px solid var(--yellow); opacity: .75; }
+  .rank-num  { color: var(--muted); font-size: 10px; min-width: 18px; text-align: right; }
+  .rank-ticker { font-weight: 700; color: var(--text); min-width: 48px; }
+  .rank-quarter { color: var(--muted); font-size: 11px; min-width: 60px; }
+  .rank-pct  { color: var(--red); font-weight: 700; min-width: 58px; text-align: right; font-size: 11px; }
+  .rank-name { color: var(--muted); font-size: 11px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .btn-use   { background: rgba(63,185,80,.15); color: var(--green); border: 1px solid rgba(63,185,80,.3); font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+  .btn-use:hover { background: rgba(63,185,80,.25); }
+  .rank-meta { font-size: 10px; color: var(--muted); padding: 4px 0 2px; }
+  .tag-seasonal { background: rgba(210,153,34,.15); color: var(--yellow); border-radius: 3px; padding: 1px 5px; font-size: 10px; font-weight: 700; }
 
   /* ── terminal ── */
   .terminal { background: #010409; padding: 12px; height: 340px; overflow-y: auto; scroll-behavior: smooth; }
@@ -222,6 +238,20 @@
             <hr class="section-divider">
             <div id="verdict-block" class="verdict-block verdict-none">
               No sprint has run yet this session.
+            </div>
+          </div>
+        </div>
+
+        <!-- Ranked Targets -->
+        <div class="card">
+          <div class="card-header">
+            <span>Sweep Rankings</span>
+            <button class="btn-ghost btn-sm" id="refresh-rank-btn" style="margin-left:auto;">↻</button>
+          </div>
+          <div class="card-body" style="padding:10px">
+            <div id="rank-meta" class="rank-meta"></div>
+            <div id="rank-list" class="rank-list">
+              <span style="color:var(--muted);font-size:12px;">Run ⟳ Sweep Universe to populate rankings.</span>
             </div>
           </div>
         </div>
@@ -416,14 +446,80 @@ function setupTargetPicker() {
   };
 }
 
+// ── sweep rankings ────────────────────────────────────────────────────────────
+async function refreshRankings() {
+  const r = await api.get('/api/sweep/results');
+  if (!r.ok) return;
+  const data = await r.json();
+  const meta = document.getElementById('rank-meta');
+  const list = document.getElementById('rank-list');
+
+  if (!data.generated_at) {
+    list.innerHTML = '<span style="color:var(--muted);font-size:12px;">Run ⟳ Sweep Universe to populate rankings.</span>';
+    meta.textContent = '';
+    return;
+  }
+
+  const when = new Date(data.generated_at).toLocaleDateString();
+  meta.textContent = `${data.hits} hit(s) of ${data.scanned} scanned · ${when}`;
+
+  if (!data.ranked.length) {
+    list.innerHTML = '<span style="color:var(--muted);font-size:12px;">No anomalies found in last sweep.</span>';
+    return;
+  }
+
+  list.innerHTML = data.ranked.map((row, i) => {
+    const pct     = row.qoq_pct != null ? `+${row.qoq_pct}%` : '+∞%';
+    const css     = row.priority ? 'priority' : row.q2 ? 'seasonal' : '';
+    const tag     = row.q2 ? '<span class="tag-seasonal">Q2</span>' : '';
+    return `<div class="rank-row ${css}" title="${row.notes || ''}">
+  <span class="rank-num">${i+1}</span>
+  <span class="rank-ticker">${row.ticker}</span>
+  <span class="rank-quarter">${row.quarter}</span>
+  <span class="rank-pct">${pct}</span>
+  ${tag}
+  <span class="rank-name">${row.name}</span>
+  <button class="btn-use" onclick="setTargetFromRank('${row.ticker}','${row.name.replace(/'/g,"\\'")}')">▶ Use</button>
+</div>`;
+  }).join('');
+}
+
+async function setTargetFromRank(ticker, name) {
+  // Find full company record from universe if available
+  const c = _universe.find(x => x.ticker === ticker) || { ticker, name };
+  const defaultTag = 'PaymentsToAcquirePropertyPlantAndEquipment';
+  const body = {
+    primary: { ticker: c.ticker, name: c.name, type: 'biotech', capex_tag: c.capex_tag || defaultTag },
+  };
+  const r = await api.post('/api/config', body);
+  if (r.ok) {
+    // Sync pickers
+    _setPickerValue('primary-picker', ticker);
+    _updateActivePrimaryDisplay(ticker, name);
+    // Flash confirmation on the row
+    const rows = document.querySelectorAll('.rank-row');
+    rows.forEach(row => {
+      const t = row.querySelector('.rank-ticker');
+      if (t && t.textContent === ticker) {
+        row.style.borderColor = 'var(--green)';
+        row.style.background  = 'rgba(63,185,80,.08)';
+        setTimeout(() => { row.style.borderColor = ''; row.style.background = ''; }, 1500);
+      }
+    });
+  } else {
+    alert('Failed to set target.');
+  }
+}
+
 // ── init ──────────────────────────────────────────────────────────────────────
 async function init(cfg) {
   applyConfig(cfg);
-  await Promise.all([loadUniverse(cfg), refreshDashboards(), refreshLog(), pollStatus()]);
+  await Promise.all([loadUniverse(cfg), refreshDashboards(), refreshRankings(), refreshLog(), pollStatus()]);
   setupConfigSave();
   setupRunButton();
   setupTargetPicker();
   document.getElementById('refresh-dash-btn').onclick = refreshDashboards;
+  document.getElementById('refresh-rank-btn').onclick = refreshRankings;
 }
 
 // ── config ────────────────────────────────────────────────────────────────────

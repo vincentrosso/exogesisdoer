@@ -224,6 +224,15 @@ async def deep_research(body: DeepResearchRequest):
     return {"report_url": f"/output/{filename}"}
 
 
+@app.get("/api/sweep/results")
+async def sweep_results():
+    import json as _json
+    path = OUTPUT_DIR / "sweep_latest.json"
+    if not path.exists():
+        return {"generated_at": None, "scanned": 0, "hits": 0, "ranked": [], "report_file": None}
+    return _json.loads(path.read_text())
+
+
 @app.get("/api/universe")
 async def get_universe():
     data = yaml.safe_load(UNIVERSE_PATH.read_text())
