@@ -108,6 +108,18 @@
   #save-msg { font-size: 11px; color: var(--green); opacity: 0; transition: opacity .4s; }
   #save-msg.show { opacity: 1; }
   .section-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+
+  /* ── target picker ── */
+  select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: var(--mono); font-size: 13px; padding: 7px 10px; outline: none; transition: border-color .15s; appearance: none; cursor: pointer; }
+  select:focus { border-color: var(--blue); }
+  select option { background: var(--surface); }
+  select optgroup { color: var(--muted); font-size: 11px; }
+  .picker-row { display: flex; gap: 6px; align-items: flex-end; margin-top: 8px; }
+  .picker-row select { flex: 1; }
+  .btn-set { background: var(--blue); color: #0d1117; font-size: 11px; font-weight: 700; padding: 7px 12px; border-radius: 4px; border: none; cursor: pointer; white-space: nowrap; }
+  .btn-set:hover { opacity: .85; }
+  .active-target { font-size: 12px; color: var(--blue); background: rgba(88,166,255,.08); border: 1px solid rgba(88,166,255,.2); border-radius: 4px; padding: 6px 10px; margin-top: 8px; }
+  .active-target strong { color: var(--text); }
 </style>
 </head>
 <body>
@@ -137,29 +149,53 @@
     <!-- ── left column ── -->
     <div class="col-left">
 
+      <!-- Target picker card -->
+      <div class="card">
+        <div class="card-header">Target Picker</div>
+        <div class="card-body">
+          <label>Primary target</label>
+          <div class="picker-row">
+            <select id="primary-picker"><option value="">Loading universe…</option></select>
+            <button class="btn-set" id="set-primary-btn">Set primary</button>
+          </div>
+          <div id="active-primary-display" class="active-target" style="display:none"></div>
+
+          <hr class="section-divider">
+          <label>Peer 1</label>
+          <div class="picker-row">
+            <select id="peer0-picker"><option value="">— none —</option></select>
+          </div>
+          <label style="margin-top:8px">Peer 2</label>
+          <div class="picker-row">
+            <select id="peer1-picker"><option value="">— none —</option></select>
+          </div>
+
+          <hr class="section-divider">
+          <label>Pivot target</label>
+          <div class="picker-row">
+            <select id="pivot-picker"><option value="">— none —</option></select>
+          </div>
+
+          <button class="btn-primary btn-sm mt-8" id="save-targets-btn" style="width:100%;margin-top:14px;">Save targets</button>
+          <span id="targets-save-msg" style="font-size:11px;color:var(--green);opacity:0;transition:opacity .4s;display:block;margin-top:6px;text-align:center;"></span>
+        </div>
+      </div>
+
       <!-- Config card -->
       <div class="card">
         <div class="card-header">
-          <span>Configuration</span>
+          <span>Sprint Settings</span>
           <span id="save-msg">saved ✓</span>
         </div>
         <div class="card-body">
-          <label>Primary ticker</label>
-          <input type="text" id="cfg-primary-ticker" placeholder="SRPT">
-          <label>Primary name</label>
-          <input type="text" id="cfg-primary-name" placeholder="Sarepta Therapeutics">
+          <label style="display:none">Primary ticker</label>
+          <input type="hidden" id="cfg-primary-ticker">
+          <label style="display:none">Primary name</label>
+          <input type="hidden" id="cfg-primary-name">
 
-          <hr class="section-divider">
-          <label>Peer 1 ticker</label>
-          <input type="text" id="cfg-peer0-ticker" placeholder="BMRN">
-          <label>Peer 2 ticker</label>
-          <input type="text" id="cfg-peer1-ticker" placeholder="IONS">
-
-          <hr class="section-divider">
-          <label>Pivot ticker</label>
-          <input type="text" id="cfg-pivot-ticker" placeholder="VEEV">
-
-          <hr class="section-divider">
+          <input type="hidden" id="cfg-peer0-ticker">
+          <input type="hidden" id="cfg-peer1-ticker">
+          <input type="hidden" id="cfg-pivot-ticker">
           <label>Spike threshold — <span id="thresh-label">40</span>%</label>
           <div class="range-row">
             <input type="range" id="cfg-threshold" min="10" max="100" step="5" value="40">
@@ -281,13 +317,141 @@ const api = {
   }),
 };
 
+// ── universe / target picker ──────────────────────────────────────────────────
+let _universe = [];
+
+async function loadUniverse(cfg) {
+  const r = await api.get('/api/universe');
+  if (!r.ok) return;
+  const { companies } = await r.json();
+  _universe = companies;
+
+  // Group by first tag-comment in yaml — we'll group by ticker prefix patterns
+  // Simple: just list all alphabetically
+  const grouped = {};
+  for (const c of companies) {
+    const g = c.notes ? _inferGroup(c.ticker) : 'Other';
+    (grouped[g] = grouped[g] || []).push(c);
+  }
+
+  const selectors = ['primary-picker', 'peer0-picker', 'peer1-picker', 'pivot-picker'];
+  for (const selId of selectors) {
+    const sel = document.getElementById(selId);
+    const isMain = selId === 'primary-picker';
+    sel.innerHTML = isMain ? '' : '<option value="">— none —</option>';
+    for (const [grp, list] of Object.entries(grouped)) {
+      const og = document.createElement('optgroup');
+      og.label = grp;
+      for (const c of list) {
+        const opt = document.createElement('option');
+        opt.value = c.ticker;
+        opt.dataset.name = c.name;
+        opt.textContent = `${c.ticker} — ${c.name}`;
+        og.appendChild(opt);
+      }
+      sel.appendChild(og);
+    }
+  }
+
+  // Sync pickers to current config
+  _syncPickerToConfig(cfg);
+}
+
+function _inferGroup(ticker) {
+  const gene = ['SRPT','CRSP','EDIT','NTLA','BEAM','VERV','SGMO','BLUE_'];
+  const rare  = ['BMRN','ALXN','FOLD'];
+  const onc   = ['KRTX_','MRUS_','ROIV','MDGL','SAGE_'];
+  if (['SRPT','CRSP','EDIT','NTLA','BEAM','VERV','SGMO'].includes(ticker)) return 'Gene / Cell Therapy';
+  if (['BMRN','ALXN','FOLD','RARE'].includes(ticker)) return 'Rare Disease';
+  if (['ROIV','MDGL','RETA'].includes(ticker)) return 'Oncology / Specialty';
+  if (['IONS','AKRO','SRRK','ARQT','ARWR','PRAX'].includes(ticker)) return 'RNA / Antisense';
+  return 'Other';
+}
+
+function _syncPickerToConfig(cfg) {
+  const p = cfg.primary || {};
+  const peers = cfg.peers || [];
+  const piv = cfg.pivot || {};
+
+  _setPickerValue('primary-picker', p.ticker);
+  _setPickerValue('peer0-picker', (peers[0] || {}).ticker);
+  _setPickerValue('peer1-picker', (peers[1] || {}).ticker);
+  _setPickerValue('pivot-picker', piv.ticker);
+  _updateActivePrimaryDisplay(p.ticker, p.name);
+}
+
+function _setPickerValue(selId, ticker) {
+  if (!ticker) return;
+  const sel = document.getElementById(selId);
+  for (const opt of sel.options) {
+    if (opt.value === ticker) { sel.value = ticker; return; }
+  }
+  // Ticker not in universe — add a custom option
+  const opt = document.createElement('option');
+  opt.value = ticker; opt.textContent = ticker; opt.selected = true;
+  sel.insertBefore(opt, sel.firstChild);
+}
+
+function _updateActivePrimaryDisplay(ticker, name) {
+  const el = document.getElementById('active-primary-display');
+  if (!ticker) { el.style.display = 'none'; return; }
+  el.style.display = 'block';
+  el.innerHTML = `Active: <strong>${ticker}</strong> — ${name || ''}`;
+}
+
+function setupTargetPicker() {
+  document.getElementById('set-primary-btn').onclick = () => {
+    const sel = document.getElementById('primary-picker');
+    const ticker = sel.value;
+    const name = sel.options[sel.selectedIndex]?.dataset?.name || ticker;
+    set('cfg-primary-ticker', ticker);
+    set('cfg-primary-name', name);
+    _updateActivePrimaryDisplay(ticker, name);
+  };
+
+  document.getElementById('save-targets-btn').onclick = async () => {
+    // Sync hidden inputs from pickers
+    const p0sel = document.getElementById('peer0-picker');
+    const p1sel = document.getElementById('peer1-picker');
+    const pivsel = document.getElementById('pivot-picker');
+    set('cfg-peer0-ticker', p0sel.value);
+    set('cfg-peer1-ticker', p1sel.value);
+    set('cfg-pivot-ticker', pivsel.value);
+
+    const primaryTicker = get('cfg-primary-ticker') ||
+      document.getElementById('primary-picker').value;
+    const primaryName = get('cfg-primary-name') ||
+      (document.getElementById('primary-picker').options[document.getElementById('primary-picker').selectedIndex]?.dataset?.name || primaryTicker);
+
+    const body = {
+      primary: { ticker: primaryTicker, name: primaryName },
+      peers: [
+        { ticker: get('cfg-peer0-ticker') },
+        { ticker: get('cfg-peer1-ticker') },
+      ].filter(p => p.ticker),
+      pivot: { ticker: get('cfg-pivot-ticker') },
+    };
+    const r = await api.post('/api/config', body);
+    if (r.ok) {
+      const msg = document.getElementById('targets-save-msg');
+      msg.textContent = 'saved ✓';
+      msg.style.opacity = 1;
+      setTimeout(() => msg.style.opacity = 0, 2000);
+      set('cfg-primary-ticker', primaryTicker);
+      set('cfg-primary-name', primaryName);
+      _updateActivePrimaryDisplay(primaryTicker, primaryName);
+    }
+  };
+}
+
 // ── init ──────────────────────────────────────────────────────────────────────
 async function init(cfg) {
   applyConfig(cfg);
-  await Promise.all([refreshDashboards(), refreshLog(), pollStatus()]);
+  await Promise.all([loadUniverse(cfg), refreshDashboards(), refreshLog(), pollStatus()]);
   setupConfigSave();
   setupRunButton();
   setupLogRefresh();
+  setupTargetPicker();
 }
 
 // ── config ────────────────────────────────────────────────────────────────────
@@ -302,6 +466,8 @@ function applyConfig(cfg) {
   set('cfg-peer0-ticker',   (peers[0] || {}).ticker || '');
   set('cfg-peer1-ticker',   (peers[1] || {}).ticker || '');
   set('cfg-pivot-ticker',   piv.ticker || '');
+
+  if (p.ticker) _updateActivePrimaryDisplay(p.ticker, p.name);
 
   const thresh = Math.round((sprint.spike_threshold || 0.4) * 100);
   document.getElementById('cfg-threshold').value = thresh;
@@ -322,15 +488,7 @@ document.getElementById('cfg-quarters').oninput = e =>
 
 function setupConfigSave() {
   document.getElementById('save-cfg-btn').onclick = async () => {
-    const p0ticker = get('cfg-peer0-ticker');
-    const p1ticker = get('cfg-peer1-ticker');
     const body = {
-      primary: { ticker: get('cfg-primary-ticker'), name: get('cfg-primary-name') },
-      peers: [
-        { ticker: p0ticker },
-        { ticker: p1ticker },
-      ].filter(p => p.ticker),
-      pivot: { ticker: get('cfg-pivot-ticker') },
       sprint: {
         spike_threshold: parseInt(document.getElementById('cfg-threshold').value) / 100,
         lookback_quarters: parseInt(document.getElementById('cfg-quarters').value),

@@ -28,10 +28,11 @@ from logger import get_logger
 
 log = get_logger(__name__)
 
-BASE_DIR    = Path(__file__).parent.parent
-CONFIG_PATH = BASE_DIR / "config.yaml"
-OUTPUT_DIR  = BASE_DIR / "output"
-STATIC_DIR  = Path(__file__).parent / "static"
+BASE_DIR       = Path(__file__).parent.parent
+CONFIG_PATH    = BASE_DIR / "config.yaml"
+UNIVERSE_PATH  = BASE_DIR / "biotech_universe.yaml"
+OUTPUT_DIR     = BASE_DIR / "output"
+STATIC_DIR     = Path(__file__).parent / "static"
 
 app = FastAPI(title="doer sprint manager", docs_url=None, redoc_url=None)
 
@@ -197,6 +198,12 @@ async def get_logs(n: int = 200, _: Auth = None):
         return {"lines": []}
     lines = log_path.read_text(errors="replace").splitlines()
     return {"lines": lines[-n:]}
+
+
+@app.get("/api/universe")
+async def get_universe(_: Auth):
+    data = yaml.safe_load(UNIVERSE_PATH.read_text())
+    return {"companies": data.get("companies", [])}
 
 
 @app.get("/api/dashboards")
