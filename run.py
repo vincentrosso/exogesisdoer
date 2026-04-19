@@ -67,6 +67,7 @@ def analyse_company(cfg: dict, company: dict, sprint_cfg: dict) -> dict:
         period_ends,
         qfg_cfg=cfg["qfg_regex"],
         window_days=window,
+        cik_override=cik_override,
     )
 
     # Identify anomaly quarters

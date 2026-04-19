@@ -89,7 +89,8 @@ def main():
                 continue
 
             period_ends = capex_df["period_end"].tolist()
-            qfg_flags   = get_qfg_flags(ticker, period_ends, cfg["qfg_regex"], window_days=window)
+            qfg_flags   = get_qfg_flags(ticker, period_ends, cfg["qfg_regex"],
+                                         window_days=window, cik_override=cik_override)
 
             anomalies = []
             for _, row in capex_df.iterrows():
@@ -129,11 +130,34 @@ def main():
     print(f"{'='*65}\n")
 
     if hits:
-        print(f"  {'Ticker':<8} {'Quarter(s)':<20} {'QoQ%':>8}  Name")
-        print(f"  {'-'*60}")
-        for h in sorted(hits, key=lambda x: max(a["qoq_pct"] for a in x["anomalies"]), reverse=True):
+        # Flatten anomalies and score by recency + non-Q2 bonus
+        all_anomalies = []
+        for h in hits:
             for a in h["anomalies"]:
-                print(f"  {h['ticker']:<8} {a['quarter']:<20} {a['qoq_pct']:>+7.1f}%  {h['name']}")
+                q_num = int(a["quarter"].split("-Q")[1])
+                year  = int(a["quarter"].split("-Q")[0])
+                recency_score = year + (q_num / 10)
+                q2_penalty    = -0.5 if q_num == 2 else 0  # Q2 spikes are seasonal, down-weight
+                score = recency_score + q2_penalty
+                all_anomalies.append({**a, "ticker": h["ticker"], "name": h["name"],
+                                      "notes": h["notes"], "score": score, "q2": q_num == 2})
+
+        all_anomalies.sort(key=lambda x: x["score"], reverse=True)
+
+        print(f"\n  {'Ticker':<8} {'Quarter':<12} {'QoQ%':>9}  {'Seasonal?':>10}  Name")
+        print(f"  {'-'*70}")
+        for a in all_anomalies:
+            flag = "  (Q2 seasonal)" if a["q2"] else ""
+            pct  = f"{a['qoq_pct']:>+7.1f}%" if a["qoq_pct"] != float("inf") else "  +inf%"
+            print(f"  {a['ticker']:<8} {a['quarter']:<12} {pct}  {flag}")
+
+        # Highlight highest-conviction (non-Q2, recent)
+        priority = [a for a in all_anomalies if not a["q2"] and int(a["quarter"].split("-Q")[0]) >= 2025]
+        if priority:
+            print(f"\n  ★ PRIORITY TARGETS (2025+, non-Q2):")
+            for a in priority:
+                pct = f"{a['qoq_pct']:>+7.1f}%" if a["qoq_pct"] != float("inf") else "  +inf%"
+                print(f"    {a['ticker']:<8} {a['quarter']}  {pct}  {a['name']}")
 
     if errors:
         print(f"\n  Errors ({len(errors)}): {', '.join(t for t, _ in errors)}")

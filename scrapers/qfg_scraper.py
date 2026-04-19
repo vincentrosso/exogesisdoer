@@ -56,6 +56,7 @@ def get_qfg_flags(
     period_ends: list[datetime],
     qfg_cfg: dict,
     window_days: int = 75,
+    cik_override: str | None = None,
 ) -> dict[datetime, dict]:
     """
     For each period_end in period_ends, scan 8-K filings filed within
@@ -70,7 +71,7 @@ def get_qfg_flags(
       }
     """
     log.info("[%s] Starting QFG scan for %d quarters (window: +%d days)", ticker, len(period_ends), window_days)
-    cik      = get_cik(ticker)
+    cik      = cik_override if cik_override else get_cik(ticker)
     patterns = build_qfg_pattern(qfg_cfg)
     filings  = list_filings(cik, "8-K")
 
