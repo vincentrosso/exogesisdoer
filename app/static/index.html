@@ -253,6 +253,10 @@
             <div id="rank-list" class="rank-list">
               <span style="color:var(--muted);font-size:12px;">Run ⟳ Sweep Universe to populate rankings.</span>
             </div>
+            <div id="rank-actions" style="display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
+              <button id="run-queue-btn" onclick="runCheckedQueue()" style="background:var(--green);color:#fff;border:none;border-radius:5px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer;">▶ Run Checked</button>
+              <span id="queue-status" style="margin-left:10px;font-size:12px;color:var(--muted)"></span>
+            </div>
           </div>
         </div>
 
@@ -469,19 +473,79 @@ async function refreshRankings() {
   }
 
   list.innerHTML = data.ranked.map((row, i) => {
-    const pct     = row.qoq_pct != null ? `+${row.qoq_pct}%` : '+∞%';
-    const css     = row.priority ? 'priority' : row.q2 ? 'seasonal' : '';
-    const tag     = row.q2 ? '<span class="tag-seasonal">Q2</span>' : '';
-    return `<div class="rank-row ${css}" title="${row.notes || ''}">
+    const pct      = row.qoq_pct != null ? `+${row.qoq_pct}%` : '+∞%';
+    const css      = row.priority ? 'priority' : row.q2 ? 'seasonal' : '';
+    const tag      = row.q2 ? '<span class="tag-seasonal">Q2</span>' : '';
+    const checked  = i < 8 ? 'checked' : '';
+    const safeName = row.name.replace(/'/g,"\\'");
+    return `<div class="rank-row ${css}" id="rank-row-${i}" title="${row.notes || ''}">
+  <input type="checkbox" class="rank-cb" data-ticker="${row.ticker}" data-name="${safeName}" data-i="${i}" ${checked} style="margin-right:6px;cursor:pointer;">
   <span class="rank-num">${i+1}</span>
   <span class="rank-ticker">${row.ticker}</span>
   <span class="rank-quarter">${row.quarter}</span>
   <span class="rank-pct">${pct}</span>
   ${tag}
   <span class="rank-name">${row.name}</span>
-  <button class="btn-use" onclick="setTargetFromRank('${row.ticker}','${row.name.replace(/'/g,"\\'")}')">▶ Use</button>
+  <button class="btn-use" onclick="setTargetFromRank('${row.ticker}','${safeName}')">▶ Use</button>
 </div>`;
   }).join('');
+  document.getElementById('rank-actions').style.display = data.ranked.length ? '' : 'none';
+}
+
+async function runCheckedQueue() {
+  const boxes = Array.from(document.querySelectorAll('.rank-cb:checked'));
+  if (!boxes.length) { alert('No tickers checked.'); return; }
+
+  const btn = document.getElementById('run-queue-btn');
+  const status = document.getElementById('queue-status');
+  btn.disabled = true;
+
+  for (let idx = 0; idx < boxes.length; idx++) {
+    const cb     = boxes[idx];
+    const ticker = cb.dataset.ticker;
+    const name   = cb.dataset.name;
+    const rowId  = 'rank-row-' + cb.dataset.i;
+
+    status.textContent = `[${idx+1}/${boxes.length}] Setting target: ${ticker}…`;
+
+    // Set this ticker as primary target
+    const c = _universe.find(x => x.ticker === ticker) || { ticker, name };
+    const defaultTag = 'PaymentsToAcquirePropertyPlantAndEquipment';
+    const cfgResp = await api.post('/api/config', {
+      primary: { ticker: c.ticker, name: c.name, type: 'biotech', capex_tag: c.capex_tag || defaultTag },
+    });
+    if (!cfgResp.ok) { status.textContent = `Failed to set target ${ticker}`; break; }
+
+    _setPickerValue('primary-picker', ticker);
+    _updateActivePrimaryDisplay(ticker, name);
+
+    // Highlight active row
+    document.querySelectorAll('.rank-row').forEach(r => r.style.outline = '');
+    const activeRow = document.getElementById(rowId);
+    if (activeRow) activeRow.style.outline = '2px solid var(--blue)';
+
+    // Start sprint
+    status.textContent = `[${idx+1}/${boxes.length}] Running sprint for ${ticker}…`;
+    expandTerminal();
+    const runResp = await api.post('/api/run', { force_pivot: false });
+    if (!runResp.ok) { status.textContent = `Failed to start sprint for ${ticker}`; break; }
+
+    // Poll until done
+    await new Promise(resolve => {
+      const poll = setInterval(async () => {
+        const s = await api.get('/api/run/status');
+        if (!s.ok) { clearInterval(poll); resolve(); return; }
+        const st = await s.json();
+        if (!st.running) { clearInterval(poll); resolve(); }
+      }, 3000);
+    });
+
+    if (activeRow) activeRow.style.outline = '2px solid var(--green)';
+  }
+
+  status.textContent = `Done — ran ${boxes.length} ticker(s).`;
+  btn.disabled = false;
+  await refreshDashboards();
 }
 
 async function setTargetFromRank(ticker, name) {
