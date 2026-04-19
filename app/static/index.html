@@ -300,6 +300,7 @@ async function loadUniverse(cfg) {
         const opt = document.createElement('option');
         opt.value = c.ticker;
         opt.dataset.name = c.name;
+        opt.dataset.capexTag = c.capex_tag || '';
         opt.textContent = `${c.ticker} — ${c.name}`;
         og.appendChild(opt);
       }
@@ -353,47 +354,60 @@ function _updateActivePrimaryDisplay(ticker, name) {
   el.innerHTML = `Active: <strong>${ticker}</strong> — ${name || ''}`;
 }
 
+function _companyFromPicker(selId) {
+  const sel = document.getElementById(selId);
+  const ticker = sel.value;
+  if (!ticker) return null;
+  const found = _universe.find(c => c.ticker === ticker);
+  return found || { ticker, name: sel.options[sel.selectedIndex]?.dataset?.name || ticker };
+}
+
 function setupTargetPicker() {
+  // "Set primary" just updates the active display label immediately
   document.getElementById('set-primary-btn').onclick = () => {
-    const sel = document.getElementById('primary-picker');
-    const ticker = sel.value;
-    const name = sel.options[sel.selectedIndex]?.dataset?.name || ticker;
-    set('cfg-primary-ticker', ticker);
-    set('cfg-primary-name', name);
-    _updateActivePrimaryDisplay(ticker, name);
+    const c = _companyFromPicker('primary-picker');
+    if (c) _updateActivePrimaryDisplay(c.ticker, c.name);
   };
 
   document.getElementById('save-targets-btn').onclick = async () => {
-    // Sync hidden inputs from pickers
-    const p0sel = document.getElementById('peer0-picker');
-    const p1sel = document.getElementById('peer1-picker');
-    const pivsel = document.getElementById('pivot-picker');
-    set('cfg-peer0-ticker', p0sel.value);
-    set('cfg-peer1-ticker', p1sel.value);
-    set('cfg-pivot-ticker', pivsel.value);
+    const primary = _companyFromPicker('primary-picker');
+    const peer0   = _companyFromPicker('peer0-picker');
+    const peer1   = _companyFromPicker('peer1-picker');
+    const pivot   = _companyFromPicker('pivot-picker');
 
-    const primaryTicker = get('cfg-primary-ticker') ||
-      document.getElementById('primary-picker').value;
-    const primaryName = get('cfg-primary-name') ||
-      (document.getElementById('primary-picker').options[document.getElementById('primary-picker').selectedIndex]?.dataset?.name || primaryTicker);
+    if (!primary) { alert('Select a primary target first.'); return; }
 
+    const defaultTag = 'PaymentsToAcquirePropertyPlantAndEquipment';
     const body = {
-      primary: { ticker: primaryTicker, name: primaryName },
-      peers: [
-        { ticker: get('cfg-peer0-ticker') },
-        { ticker: get('cfg-peer1-ticker') },
-      ].filter(p => p.ticker),
-      pivot: { ticker: get('cfg-pivot-ticker') },
+      primary: {
+        ticker:    primary.ticker,
+        name:      primary.name,
+        type:      'biotech',
+        capex_tag: primary.capex_tag || defaultTag,
+      },
+      peers: [peer0, peer1].filter(Boolean).map(c => ({
+        ticker:    c.ticker,
+        name:      c.name,
+        type:      'biotech',
+        capex_tag: c.capex_tag || defaultTag,
+      })),
+      pivot: pivot ? {
+        ticker:    pivot.ticker,
+        name:      pivot.name,
+        type:      pivot.capex_tag ? 'software' : 'biotech',
+        capex_tag: pivot.capex_tag || defaultTag,
+      } : undefined,
     };
+
     const r = await api.post('/api/config', body);
     if (r.ok) {
       const msg = document.getElementById('targets-save-msg');
       msg.textContent = 'saved ✓';
       msg.style.opacity = 1;
       setTimeout(() => msg.style.opacity = 0, 2000);
-      set('cfg-primary-ticker', primaryTicker);
-      set('cfg-primary-name', primaryName);
-      _updateActivePrimaryDisplay(primaryTicker, primaryName);
+      _updateActivePrimaryDisplay(primary.ticker, primary.name);
+    } else {
+      alert('Save failed — check server logs.');
     }
   };
 }
