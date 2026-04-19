@@ -113,7 +113,19 @@ def generate_deep_report(
 
     out.write_text(html, encoding="utf-8")
     log.info("Deep research report → %s (%d bytes)", out, len(html))
-    return out
+
+    net = buy_value - sell_value
+    findings = {
+        "insider_signal":    "bullish" if net > 500_000 else ("bearish" if net < -500_000 else "neutral"),
+        "net_insider_value": net,
+        "buy_count":         len(buys),
+        "sell_count":        len(sells),
+        "has_cip":           any(pa.get("cip_items") for pa in ppe_analysis),
+        "has_facility":      any(pa.get("facility_descriptions") for pa in ppe_analysis),
+        "has_dollar_amounts":any(pa.get("dollar_amounts") for pa in ppe_analysis),
+        "ppe_quarters":      [pa["quarter"] for pa in ppe_analysis if pa.get("filing_date")],
+    }
+    return out, findings
 
 
 def _insider_section(txns, buys, sells, buy_value, sell_value) -> str:

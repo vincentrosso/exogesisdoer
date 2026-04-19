@@ -392,29 +392,7 @@ def _continue_research_button(ticker: str, company_name: str, anomalies: list[di
         "anomaly_quarters":     quarters,
         "anomaly_period_ends":  period_ends,
     })
-    safe_payload = payload.replace("'", "\\'")
     return f"""<div style="margin-top:40px;padding-top:28px;border-top:2px solid #d4a72c">
-  <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0969da;margin-bottom:10px">Deep Research — Auto-Running</div>
-  <div id="deep-research-status" style="font-size:13px;color:#656d76">Fetching Form 4 filings and 10-Q PP&amp;E footnote…</div>
-</div>
-<script>
-(async function runDeepResearch() {{
-  const status = document.getElementById('deep-research-status');
-  try {{
-    const resp = await fetch('/api/deep-research', {{
-      method: 'POST',
-      headers: {{ 'Content-Type': 'application/json' }},
-      body: JSON.stringify({safe_payload}),
-    }});
-    if (!resp.ok) {{
-      const err = await resp.text();
-      status.textContent = 'Deep research error: ' + err;
-      return;
-    }}
-    const {{ report_url }} = await resp.json();
-    status.innerHTML = '✓ Deep research complete — <a href="' + report_url + '" target="_blank" style="color:#0969da;font-weight:700">Open full report →</a>';
-  }} catch (e) {{
-    status.textContent = 'Deep research failed: ' + e.message;
-  }}
-}})();
-</script>"""
+  <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0969da;margin-bottom:6px">Deep Research</div>
+  <div style="font-size:13px;color:#656d76">Form 4 + 10-Q PP&amp;E analysis runs automatically via the queue runner. Check the batch summary report when the queue finishes.</div>
+</div>"""

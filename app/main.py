@@ -208,7 +208,7 @@ async def deep_research(body: DeepResearchRequest):
 
         ts          = __import__("datetime").datetime.now().strftime("%Y%m%d_%H%M")
         report_path = OUTPUT_DIR / f"deep_{body.ticker}_{ts}.html"
-        generate_deep_report(
+        _, findings = generate_deep_report(
             ticker           = body.ticker,
             company_name     = body.company_name,
             anomaly_quarters = body.anomaly_quarters,
@@ -216,12 +216,12 @@ async def deep_research(body: DeepResearchRequest):
             ppe_analysis     = ppe_analysis,
             output_path      = report_path,
         )
-        return report_path.name
+        return report_path.name, findings
 
-    loop     = asyncio.get_event_loop()
-    filename = await loop.run_in_executor(None, _run)
+    loop               = asyncio.get_event_loop()
+    filename, findings = await loop.run_in_executor(None, _run)
     log.info("Deep research report generated: %s", filename)
-    return {"report_url": f"/output/{filename}"}
+    return {"report_url": f"/output/{filename}", "findings": findings}
 
 
 @app.get("/api/sweep/results")
@@ -239,10 +239,34 @@ async def get_universe():
     return {"companies": data.get("companies", [])}
 
 
+class BatchSummaryRequest(BaseModel):
+    results: list[dict]   # [{ticker, name, quarter, qoq_pct, report_url, deep_report_url, findings}]
+
+
+@app.post("/api/batch-summary")
+async def batch_summary(body: BatchSummaryRequest):
+    import asyncio as _asyncio
+    from datetime import datetime as _dt
+
+    def _run():
+        from report.batch_summary import generate_batch_summary
+        ts   = _dt.now().strftime("%Y%m%d_%H%M")
+        path = OUTPUT_DIR / f"batch_summary_{ts}.html"
+        generate_batch_summary(body.results, path)
+        return path.name
+
+    loop     = _asyncio.get_event_loop()
+    filename = await loop.run_in_executor(None, _run)
+    log.info("Batch summary generated: %s", filename)
+    return {"report_url": f"/output/{filename}"}
+
+
 @app.get("/api/dashboards")
 async def list_dashboards():
     files = sorted(
-        list(OUTPUT_DIR.glob("dashboard_*.html")) + list(OUTPUT_DIR.glob("report_*.html")),
+        list(OUTPUT_DIR.glob("dashboard_*.html")) +
+        list(OUTPUT_DIR.glob("report_*.html")) +
+        list(OUTPUT_DIR.glob("batch_summary_*.html")),
         key=lambda p: p.stat().st_mtime,
         reverse=True,
     )

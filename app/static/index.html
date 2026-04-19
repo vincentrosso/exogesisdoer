@@ -472,6 +472,9 @@ async function refreshRankings() {
     return;
   }
 
+  // Store full ranked data for use by the queue runner
+  window._rankedData = data.ranked;
+
   list.innerHTML = data.ranked.map((row, i) => {
     const pct      = row.qoq_pct != null ? `+${row.qoq_pct}%` : '+∞%';
     const css      = row.priority ? 'priority' : row.q2 ? 'seasonal' : '';
@@ -496,19 +499,29 @@ async function runCheckedQueue() {
   const boxes = Array.from(document.querySelectorAll('.rank-cb:checked'));
   if (!boxes.length) { alert('No tickers checked.'); return; }
 
-  const btn = document.getElementById('run-queue-btn');
+  const btn    = document.getElementById('run-queue-btn');
   const status = document.getElementById('queue-status');
   btn.disabled = true;
 
-  for (let idx = 0; idx < boxes.length; idx++) {
-    const cb     = boxes[idx];
-    const ticker = cb.dataset.ticker;
-    const name   = cb.dataset.name;
-    const rowId  = 'rank-row-' + cb.dataset.i;
+  const batchResults = [];
+  const ranked = window._rankedData || [];
 
-    status.textContent = `[${idx+1}/${boxes.length}] Setting target: ${ticker}…`;
+  // Group checked boxes by ticker so each ticker runs once with all its anomaly quarters
+  const byTicker = {};
+  for (const cb of boxes) {
+    const t = cb.dataset.ticker;
+    if (!byTicker[t]) byTicker[t] = { ticker: t, name: cb.dataset.name, rows: [], rowId: 'rank-row-' + cb.dataset.i };
+    // collect all ranked entries for this ticker
+    byTicker[t].rows = ranked.filter(r => r.ticker === t);
+  }
+  const tickers = Object.values(byTicker);
 
-    // Set this ticker as primary target
+  for (let idx = 0; idx < tickers.length; idx++) {
+    const { ticker, name, rows, rowId } = tickers[idx];
+    const rank = ranked.findIndex(r => r.ticker === ticker) + 1;
+
+    status.textContent = `[${idx+1}/${tickers.length}] Setting target: ${ticker}…`;
+
     const c = _universe.find(x => x.ticker === ticker) || { ticker, name };
     const defaultTag = 'PaymentsToAcquirePropertyPlantAndEquipment';
     const cfgResp = await api.post('/api/config', {
@@ -519,18 +532,18 @@ async function runCheckedQueue() {
     _setPickerValue('primary-picker', ticker);
     _updateActivePrimaryDisplay(ticker, name);
 
-    // Highlight active row
     document.querySelectorAll('.rank-row').forEach(r => r.style.outline = '');
     const activeRow = document.getElementById(rowId);
     if (activeRow) activeRow.style.outline = '2px solid var(--blue)';
 
-    // Start sprint
-    status.textContent = `[${idx+1}/${boxes.length}] Running sprint for ${ticker}…`;
+    // Sprint
+    status.textContent = `[${idx+1}/${tickers.length}] Running sprint for ${ticker}…`;
     expandTerminal();
     const runResp = await api.post('/api/run', { force_pivot: false });
     if (!runResp.ok) { status.textContent = `Failed to start sprint for ${ticker}`; break; }
 
-    // Poll until done
+    // Wait for sprint to finish
+    let sprintReportUrl = null;
     await new Promise(resolve => {
       const poll = setInterval(async () => {
         const s = await api.get('/api/run/status');
@@ -540,10 +553,65 @@ async function runCheckedQueue() {
       }, 3000);
     });
 
+    // Grab latest report for this ticker
+    const dashResp = await api.get('/api/dashboards');
+    if (dashResp.ok) {
+      const { files } = await dashResp.json();
+      const match = files.find(f => f.toLowerCase().includes(ticker.toLowerCase()));
+      if (match) sprintReportUrl = `/output/${match}`;
+    }
+
+    // Deep research
+    status.textContent = `[${idx+1}/${tickers.length}] Deep research for ${ticker}…`;
+    const quarters   = rows.map(r => r.quarter);
+    const periodEnds = rows.map(r => r.period_end).filter(Boolean);
+    let deepReportUrl = null, findings = null;
+
+    if (periodEnds.length) {
+      try {
+        const dr = await api.post('/api/deep-research', {
+          ticker,
+          company_name:       name,
+          anomaly_quarters:   quarters,
+          anomaly_period_ends: periodEnds,
+          cik_override:       rows[0]?.cik || null,
+        });
+        if (dr.ok) {
+          const drData = await dr.json();
+          deepReportUrl = drData.report_url;
+          findings      = drData.findings;
+        }
+      } catch(e) { /* non-fatal */ }
+    }
+
     if (activeRow) activeRow.style.outline = '2px solid var(--green)';
+
+    batchResults.push({
+      rank,
+      ticker,
+      name,
+      quarter:       rows.map(r => r.quarter).join(', '),
+      qoq_pct:       rows[0]?.qoq_pct ?? null,
+      report_url:    sprintReportUrl,
+      deep_report_url: deepReportUrl,
+      findings,
+    });
   }
 
-  status.textContent = `Done — ran ${boxes.length} ticker(s).`;
+  // Generate batch summary
+  status.textContent = 'Generating batch summary…';
+  try {
+    const sr = await api.post('/api/batch-summary', { results: batchResults });
+    if (sr.ok) {
+      const { report_url } = await sr.json();
+      status.innerHTML = `Done — <a href="${report_url}" target="_blank" style="color:var(--green);font-weight:700">Open batch summary →</a>`;
+    } else {
+      status.textContent = `Done — ${tickers.length} ticker(s) run.`;
+    }
+  } catch(e) {
+    status.textContent = `Done — ${tickers.length} ticker(s) run.`;
+  }
+
   btn.disabled = false;
   await refreshDashboards();
 }

@@ -112,6 +112,7 @@ def main():
                     "ticker":    ticker,
                     "name":      name,
                     "notes":     company.get("notes", ""),
+                    "cik":       cik_override,
                     "anomalies": anomalies,
                     "capex_df":  capex_df,
                     "qfg":       qfg_flags,
@@ -180,14 +181,16 @@ def main():
                 year  = int(a["quarter"].split("-Q")[0])
                 score = year + (q_num / 10) + (-0.5 if q_num == 2 else 0)
                 ranked.append({
-                    "ticker":  h["ticker"],
-                    "name":    h["name"],
-                    "notes":   h["notes"],
-                    "quarter": a["quarter"],
-                    "qoq_pct": round(a["qoq_pct"], 1) if a["qoq_pct"] != float("inf") else None,
-                    "score":   round(score, 2),
-                    "q2":      q_num == 2,
-                    "priority": not (q_num == 2) and year >= 2025,
+                    "ticker":     h["ticker"],
+                    "name":       h["name"],
+                    "notes":      h["notes"],
+                    "quarter":    a["quarter"],
+                    "period_end": a["period_end"].strftime("%Y-%m-%d"),
+                    "qoq_pct":    round(a["qoq_pct"], 1) if a["qoq_pct"] != float("inf") else None,
+                    "score":      round(score, 2),
+                    "q2":         q_num == 2,
+                    "priority":   not (q_num == 2) and year >= 2025,
+                    "cik":        h.get("cik"),
                 })
         ranked.sort(key=lambda x: x["score"], reverse=True)
 
