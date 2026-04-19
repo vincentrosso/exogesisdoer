@@ -181,6 +181,49 @@ async def get_logs(n: int = 200):
     return {"lines": lines[-n:]}
 
 
+class DeepResearchRequest(BaseModel):
+    ticker: str
+    company_name: str
+    anomaly_quarters: list[str]        # e.g. ["2025-Q4", "2025-Q2"]
+    anomaly_period_ends: list[str]     # ISO dates e.g. ["2025-12-31"]
+    cik_override: str | None = None
+
+
+@app.post("/api/deep-research")
+async def deep_research(body: DeepResearchRequest):
+    import asyncio
+    from datetime import datetime as _dt
+
+    period_ends = [_dt.strptime(d, "%Y-%m-%d") for d in body.anomaly_period_ends]
+
+    def _run():
+        from scrapers.form4_scraper  import get_insider_transactions
+        from scrapers.tenq_scraper   import get_ppe_analysis
+        from report.deep_research    import generate_deep_report
+
+        insider_txns = get_insider_transactions(
+            body.ticker, period_ends, cik_override=body.cik_override)
+        ppe_analysis = get_ppe_analysis(
+            body.ticker, period_ends, cik_override=body.cik_override)
+
+        ts          = __import__("datetime").datetime.now().strftime("%Y%m%d_%H%M")
+        report_path = OUTPUT_DIR / f"deep_{body.ticker}_{ts}.html"
+        generate_deep_report(
+            ticker           = body.ticker,
+            company_name     = body.company_name,
+            anomaly_quarters = body.anomaly_quarters,
+            insider_txns     = insider_txns,
+            ppe_analysis     = ppe_analysis,
+            output_path      = report_path,
+        )
+        return report_path.name
+
+    loop     = asyncio.get_event_loop()
+    filename = await loop.run_in_executor(None, _run)
+    log.info("Deep research report generated: %s", filename)
+    return {"report_url": f"/output/{filename}"}
+
+
 @app.get("/api/universe")
 async def get_universe():
     data = yaml.safe_load(UNIVERSE_PATH.read_text())
